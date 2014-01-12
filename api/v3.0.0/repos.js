@@ -19,20 +19,7 @@ var repos = module.exports = {
 };
 
 (function() {
-    /** section: github
-     *  repos#getAll(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - type (String): Optional. Possible values: `all`, `owner`, `public`, `private`, `member`. Default: `all`. Validation rule: ` ^(all|owner|public|private|member)$ `.
-     *  - sort (String): Optional. Possible values: `created`, `updated`, `pushed`, `full_name`. Default: `full_name`. Validation rule: ` ^(created|updated|pushed|full_name)$ `.
-     *  - direction (String): Optional. Validation rule: ` ^(asc|desc)$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
-     **/
-    this.getAll = function(msg, block, callback) {
+    this.processRequest = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err)
@@ -61,6 +48,21 @@ var repos = module.exports = {
                 callback(null, ret);
         });
     };
+
+    /** section: github
+     *  repos#getAll(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - type (String): Optional. Possible values: `all`, `owner`, `public`, `private`, `member`. Default: `all`. Validation rule: ` ^(all|owner|public|private|member)$ `.
+     *  - sort (String): Optional. Possible values: `created`, `updated`, `pushed`, `full_name`. Default: `full_name`. Validation rule: ` ^(created|updated|pushed|full_name)$ `.
+     *  - direction (String): Optional. Validation rule: ` ^(asc|desc)$ `.
+     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     **/
+    this.getAll = this.processRequest;
 
     /** section: github
      *  repos#getFromUser(msg, callback) -> null
@@ -76,35 +78,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromUser = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromUser = this.processRequest;
 
     /** section: github
      *  repos#getFromOrg(msg, callback) -> null
@@ -118,35 +92,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromOrg = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromOrg = this.processRequest;
 
     /** section: github
      *  repos#create(msg, callback) -> null
@@ -165,35 +111,7 @@ var repos = module.exports = {
      *  - auto_init (Boolean): Optional. Optional boolean - true to create an initial commit with empty README. Default is false 
      *  - gitignore_template (String): Optional. Optional string - Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided. 
      **/
-    this.create = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.create = this.processRequest;
 
     /** section: github
      *  repos#createFromOrg(msg, callback) -> null
@@ -214,35 +132,7 @@ var repos = module.exports = {
      *  - gitignore_template (String): Optional. Optional string - Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided. 
      *  - team_id (Number): Optional. Optional number - The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.createFromOrg = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.createFromOrg = this.processRequest;
 
     /** section: github
      *  repos#get(msg, callback) -> null
@@ -254,35 +144,7 @@ var repos = module.exports = {
      *  - user (String): Required. 
      *  - repo (String): Required. 
      **/
-    this.get = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.get = this.processRequest;
 
     /** section: github
      *  repos#update(msg, callback) -> null
@@ -301,35 +163,7 @@ var repos = module.exports = {
      *  - has_wiki (Boolean): Optional. Optional boolean - true to enable the wiki for this repository, false to disable it. Default is true. 
      *  - has_downloads (Boolean): Optional. Optional boolean - true to enable downloads for this repository, false to disable them. Default is true. 
      **/
-    this.update = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.update = this.processRequest;
 
     /** section: github
      *  repos#delete(msg, callback) -> null
@@ -341,35 +175,7 @@ var repos = module.exports = {
      *  - user (String): Required. 
      *  - repo (String): Required. 
      **/
-    this.delete = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.delete = this.processRequest;
 
     /** section: github
      *  repos#merge(msg, callback) -> null
@@ -384,35 +190,7 @@ var repos = module.exports = {
      *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented. 
      *  - commit_message (String): Optional. Optional string - Commit message to use for the merge commit. If omitted, a default message will be used. 
      **/
-    this.merge = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.merge = this.processRequest;
 
     /** section: github
      *  repos#getContributors(msg, callback) -> null
@@ -427,35 +205,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getContributors = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getContributors = this.processRequest;
 
     /** section: github
      *  repos#getLanguages(msg, callback) -> null
@@ -469,35 +219,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getLanguages = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getLanguages = this.processRequest;
 
     /** section: github
      *  repos#getTeams(msg, callback) -> null
@@ -511,35 +233,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getTeams = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getTeams = this.processRequest;
 
     /** section: github
      *  repos#getTags(msg, callback) -> null
@@ -553,35 +247,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getTags = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getTags = this.processRequest;
 
     /** section: github
      *  repos#getBranches(msg, callback) -> null
@@ -595,35 +261,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getBranches = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getBranches = this.processRequest;
 
     /** section: github
      *  repos#getBranch(msg, callback) -> null
@@ -638,35 +276,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getBranch = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getBranch = this.processRequest;
 
     /** section: github
      *  repos#getCollaborators(msg, callback) -> null
@@ -680,35 +290,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getCollaborators = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getCollaborators = this.processRequest;
 
     /** section: github
      *  repos#getCollaborator(msg, callback) -> null
@@ -721,35 +303,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - collabuser (String): Required. 
      **/
-    this.getCollaborator = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getCollaborator = this.processRequest;
 
     /** section: github
      *  repos#addCollaborator(msg, callback) -> null
@@ -762,35 +316,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - collabuser (String): Required. 
      **/
-    this.addCollaborator = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.addCollaborator = this.processRequest;
 
     /** section: github
      *  repos#removeCollaborator(msg, callback) -> null
@@ -803,35 +329,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - collabuser (String): Required. 
      **/
-    this.removeCollaborator = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.removeCollaborator = this.processRequest;
 
     /** section: github
      *  repos#getCommits(msg, callback) -> null
@@ -848,35 +346,7 @@ var repos = module.exports = {
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
      **/
-    this.getCommits = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getCommits = this.processRequest;
 
     /** section: github
      *  repos#getCommit(msg, callback) -> null
@@ -889,35 +359,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - sha (String): Required. 
      **/
-    this.getCommit = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getCommit = this.processRequest;
 
     /** section: github
      *  repos#getAllCommitComments(msg, callback) -> null
@@ -931,35 +373,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getAllCommitComments = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getAllCommitComments = this.processRequest;
 
     /** section: github
      *  repos#getCommitComments(msg, callback) -> null
@@ -974,35 +388,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getCommitComments = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getCommitComments = this.processRequest;
 
     /** section: github
      *  repos#createCommitComment(msg, callback) -> null
@@ -1020,35 +406,7 @@ var repos = module.exports = {
      *  - position (Number): Optional. Optional number - Line index in the diff to comment on. 
      *  - line (Number): Optional. Optional number - Line number in the file to comment on. Defaults to 1. 
      **/
-    this.createCommitComment = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.createCommitComment = this.processRequest;
 
     /** section: github
      *  repos#getCommitComment(msg, callback) -> null
@@ -1061,35 +419,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.getCommitComment = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getCommitComment = this.processRequest;
 
     /** section: github
      *  repos#updateCommitComment(msg, callback) -> null
@@ -1103,35 +433,7 @@ var repos = module.exports = {
      *  - id (String): Required. 
      *  - body (String): Required. 
      **/
-    this.updateCommitComment = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.updateCommitComment = this.processRequest;
 
     /** section: github
      *  repos#compareCommits(msg, callback) -> null
@@ -1145,35 +447,7 @@ var repos = module.exports = {
      *  - base (String): Required. Required string - The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo. 
      *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented. 
      **/
-    this.compareCommits = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.compareCommits = this.processRequest;
 
     /** section: github
      *  repos#deleteCommitComment(msg, callback) -> null
@@ -1186,35 +460,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.deleteCommitComment = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.deleteCommitComment = this.processRequest;
 
     /** section: github
      *  repos#getReadme(msg, callback) -> null
@@ -1227,35 +473,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - ref (String): Optional. The String name of the Commit/Branch/Tag. Defaults to master. 
      **/
-    this.getReadme = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getReadme = this.processRequest;
 
     /** section: github
      *  repos#getContent(msg, callback) -> null
@@ -1269,35 +487,7 @@ var repos = module.exports = {
      *  - path (String): Optional. The content path. 
      *  - ref (String): Optional. The String name of the Commit/Branch/Tag. Defaults to master. 
      **/
-    this.getContent = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getContent = this.processRequest;
 
     /** section: github
      *  repos#getArchiveLink(msg, callback) -> null
@@ -1310,35 +500,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - archive_format (String): Required. Either tarball or zipball Validation rule: ` ^(tarball|zipball)$ `.
      **/
-    this.getArchiveLink = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getArchiveLink = this.processRequest;
 
     /** section: github
      *  repos#getDownloads(msg, callback) -> null
@@ -1352,35 +514,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getDownloads = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getDownloads = this.processRequest;
 
     /** section: github
      *  repos#getDownload(msg, callback) -> null
@@ -1393,35 +527,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.getDownload = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getDownload = this.processRequest;
 
     /** section: github
      *  repos#deleteDownload(msg, callback) -> null
@@ -1434,35 +540,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.deleteDownload = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.deleteDownload = this.processRequest;
 
     /** section: github
      *  repos#getForks(msg, callback) -> null
@@ -1477,35 +555,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getForks = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getForks = this.processRequest;
 
     /** section: github
      *  repos#fork(msg, callback) -> null
@@ -1518,35 +568,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - org (String): Optional. Optional String - Organization login. The repository will be forked into this organization. 
      **/
-    this.fork = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.fork = this.processRequest;
 
     /** section: github
      *  repos#getKeys(msg, callback) -> null
@@ -1560,35 +582,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getKeys = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getKeys = this.processRequest;
 
     /** section: github
      *  repos#getKey(msg, callback) -> null
@@ -1601,35 +595,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.getKey = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getKey = this.processRequest;
 
     /** section: github
      *  repos#createKey(msg, callback) -> null
@@ -1643,35 +609,7 @@ var repos = module.exports = {
      *  - title (String): Required. 
      *  - key (String): Required. 
      **/
-    this.createKey = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.createKey = this.processRequest;
 
     /** section: github
      *  repos#updateKey(msg, callback) -> null
@@ -1686,35 +624,7 @@ var repos = module.exports = {
      *  - title (String): Required. 
      *  - key (String): Required. 
      **/
-    this.updateKey = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.updateKey = this.processRequest;
 
     /** section: github
      *  repos#deleteKey(msg, callback) -> null
@@ -1727,35 +637,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.deleteKey = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.deleteKey = this.processRequest;
 
     /** section: github
      *  repos#getWatchers(msg, callback) -> null
@@ -1769,35 +651,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getWatchers = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getWatchers = this.processRequest;
 
     /** section: github
      *  repos#getWatched(msg, callback) -> null
@@ -1809,35 +663,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getWatched = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getWatched = this.processRequest;
 
     /** section: github
      *  repos#getWatchedFromUser(msg, callback) -> null
@@ -1850,35 +676,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getWatchedFromUser = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getWatchedFromUser = this.processRequest;
 
     /** section: github
      *  repos#getWatching(msg, callback) -> null
@@ -1892,35 +690,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getWatching = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getWatching = this.processRequest;
 
     /** section: github
      *  repos#watch(msg, callback) -> null
@@ -1932,35 +702,7 @@ var repos = module.exports = {
      *  - user (String): Required. 
      *  - repo (String): Required. 
      **/
-    this.watch = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.watch = this.processRequest;
 
     /** section: github
      *  repos#unWatch(msg, callback) -> null
@@ -1972,35 +714,7 @@ var repos = module.exports = {
      *  - user (String): Required. 
      *  - repo (String): Required. 
      **/
-    this.unWatch = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.unWatch = this.processRequest;
 
     /** section: github
      *  repos#getHooks(msg, callback) -> null
@@ -2014,35 +728,7 @@ var repos = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getHooks = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getHooks = this.processRequest;
 
     /** section: github
      *  repos#getHook(msg, callback) -> null
@@ -2055,35 +741,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.getHook = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getHook = this.processRequest;
 
     /** section: github
      *  repos#createHook(msg, callback) -> null
@@ -2099,35 +757,7 @@ var repos = module.exports = {
      *  - events (Array): Optional. Optional array - Determines what events the hook is triggered for. Default: `['push']`. 
      *  - active (Boolean): Optional. Optional boolean - Determines whether the hook is actually triggered on pushes. 
      **/
-    this.createHook = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.createHook = this.processRequest;
 
     /** section: github
      *  repos#updateHook(msg, callback) -> null
@@ -2146,35 +776,7 @@ var repos = module.exports = {
      *  - remove_events (Array): Optional. Optional array - Determines a list of events to be removed from the list of events that the Hook triggers for. 
      *  - active (Boolean): Optional. Optional boolean - Determines whether the hook is actually triggered on pushes. 
      **/
-    this.updateHook = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.updateHook = this.processRequest;
 
     /** section: github
      *  repos#testHook(msg, callback) -> null
@@ -2187,35 +789,7 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.testHook = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.testHook = this.processRequest;
 
     /** section: github
      *  repos#deleteHook(msg, callback) -> null
@@ -2228,34 +802,155 @@ var repos = module.exports = {
      *  - repo (String): Required. 
      *  - id (String): Required. 
      **/
-    this.deleteHook = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
+    this.deleteHook = this.processRequest;
 
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    /** section: github
+     *  repos#getAllReleases(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     **/
+    this.getAllReleases = this.processRequest;
+
+    /** section: github
+     *  repos#getRelease(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - id (String): Required. 
+     **/
+    this.getRelease = this.processRequest;
+
+    /** section: github
+     *  repos#createRelease(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - tag_name (String): Required. 
+     *  - target_commitish (String): Optional. 
+     *  - name (String): Required. 
+     *  - body (String): Required. 
+     *  - draft (Boolean): Optional. 
+     *  - prerelease (Boolean): Optional. 
+     **/
+    this.createRelease = this.processRequest;
+
+    /** section: github
+     *  repos#updateRelease(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - id (String): Required. 
+     *  - tag_name (String): Optional. 
+     *  - target_commitish (String): Optional. 
+     *  - name (String): Optional. 
+     *  - body (String): Optional. 
+     *  - draft (Boolean): Optional. 
+     *  - prerelease (Boolean): Optional. 
+     **/
+    this.updateRelease = this.processRequest;
+
+    /** section: github
+     *  repos#deleteRelease(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - id (String): Required. 
+     **/
+    this.deleteRelease = this.processRequest;
+
+    /** section: github
+     *  repos#listReleaseAssets(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - id (String): Required. 
+     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     **/
+    this.listReleaseAssets = this.processRequest;
+
+    /** section: github
+     *  repos#uploadReleaseAsset(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - id (String): Required. 
+     *  - content-type (String): Required. 
+     *  - name (String): Required. 
+     *  - content (Binary): Required. 
+     **/
+    this.uploadReleaseAsset = this.processRequest;
+
+    /** section: github
+     *  repos#getReleaseAsset(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - id (String): Required. 
+     **/
+    this.getReleaseAsset = this.processRequest;
+
+    /** section: github
+     *  repos#editReleaseAsset(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - id (String): Required. 
+     *  - name (String): Required. 
+     *  - label (String): Optional. 
+     **/
+    this.editReleaseAsset = this.processRequest;
+
+    /** section: github
+     *  repos#deleteReleaseAsset(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     *  - repo (String): Required. 
+     *  - id (String): Required. 
+     **/
+    this.deleteReleaseAsset = this.processRequest;
 
 }).call(repos.repos);

@@ -19,6 +19,36 @@ var search = module.exports = {
 };
 
 (function() {
+    this.processRequest = function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err)
+                return self.sendError(err, null, msg, callback);
+
+            var ret;
+            try {
+                ret = res.data && JSON.parse(res.data);
+            }
+            catch (ex) {
+                if (callback)
+                    callback(new error.InternalServerError(ex.message), res);
+                return;
+            }
+            
+            if (!ret)
+                ret = {};
+            if (!ret.meta)
+                ret.meta = {};
+            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
+                if (res.headers[header])
+                    ret.meta[header] = res.headers[header];
+            });
+            
+            if (callback)
+                callback(null, ret);
+        });
+    };
+
     /** section: github
      *  search#issues(msg, callback) -> null
      *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
@@ -31,35 +61,7 @@ var search = module.exports = {
      *  - state (String): Required. open or closed Validation rule: ` ^(open|closed)$ `.
      *  - keyword (String): Required. Search term 
      **/
-    this.issues = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.issues = this.processRequest;
 
     /** section: github
      *  search#repos(msg, callback) -> null
@@ -72,35 +74,7 @@ var search = module.exports = {
      *  - language (String): Optional. Filter results by language, see https://github.com/languages 
      *  - start_page (Number): Optional. Page number to fetch Validation rule: ` ^[0-9]+$ `.
      **/
-    this.repos = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.repos = this.processRequest;
 
     /** section: github
      *  search#users(msg, callback) -> null
@@ -111,35 +85,7 @@ var search = module.exports = {
      * 
      *  - keyword (String): Required. Keyword search parameters 
      **/
-    this.users = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.users = this.processRequest;
 
     /** section: github
      *  search#email(msg, callback) -> null
@@ -150,34 +96,6 @@ var search = module.exports = {
      * 
      *  - email (String): Required. Email address 
      **/
-    this.email = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.email = this.processRequest;
 
 }).call(search.search);

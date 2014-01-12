@@ -19,6 +19,7 @@ var Util = require("./util");
 var IndexTpl = Fs.readFileSync(__dirname + "/templates/index.js.tpl", "utf8");
 var SectionTpl = Fs.readFileSync(__dirname + "/templates/section.js.tpl", "utf8");
 var HandlerTpl = Fs.readFileSync(__dirname + "/templates/handler.js.tpl", "utf8");
+var ProcessRequestTpl = Fs.readFileSync(__dirname + "/templates/process_request.js.tpl", "utf8");
 var AfterRequestTpl = Fs.readFileSync(__dirname + "/templates/after_request.js.tpl", "utf8");
 var TestSectionTpl = Fs.readFileSync(__dirname + "/templates/test_section.js.tpl", "utf8");
 var TestHandlerTpl = Fs.readFileSync(__dirname + "/templates/test_handler.js.tpl", "utf8");
@@ -119,7 +120,7 @@ var main = module.exports = function(versions) {
                 if (block.url && block.params) {
                     // we ended up at an API definition part!
                     var parts = messageType.split("/");
-                    var section = Util.toCamelCase(parts[1].toLowerCase());
+                    var section = Util.toCamelCase(parts[1]);
                     if (!block.method) {
                         throw new Error("No HTTP method specified for " + messageType +
                             "in section " + section);
@@ -130,18 +131,21 @@ var main = module.exports = function(versions) {
                     var comment = createComment(block.params, section, funcName, "    ");
 
                     // add the handler to the sections
-                    if (!sections[section])
+                    if (!sections[section]) {
                         sections[section] = [];
-
-                    var afterRequest = "";
-                    if (headers && headers.length) {
-                        afterRequest = AfterRequestTpl.replace("<%headers%>", "\"" +
-                            headers.join("\", \"") + "\"");
+                        var afterRequest = "";
+                        if (headers && headers.length) {
+                            afterRequest = AfterRequestTpl.replace("<%headers%>", "\"" +
+                                headers.join("\", \"") + "\"");
+                        }
+                        sections[section].push(ProcessRequestTpl
+                            .replace("<%afterRequest%>", afterRequest)
+                        );
                     }
+
                     sections[section].push(HandlerTpl
                         .replace("<%funcName%>", funcName)
                         .replace("<%comment%>", comment)
-                        .replace("<%afterRequest%>", afterRequest)
                     );
 
                     // add test to the testSections
@@ -192,7 +196,7 @@ var main = module.exports = function(versions) {
                 .replace(/<%sectionName%>/g, section)
                 .replace("<%testBody%>", def.join("\n\n"));
             var path = dir + "/" + section + "Test.js";
-            if (Path.existsSync(path) && Math.abs(Fs.readFileSync(path, "utf8").length - body.length) >= 20) {
+            if (Fs.existsSync(path) && Math.abs(Fs.readFileSync(path, "utf8").length - body.length) >= 20) {
                 Util.log("Moving old test file to '" + path + ".bak' to preserve tests " +
                     "that were already implemented. \nPlease be sure te check this file " +
                     "and move all implemented tests back into the newly generated test!", "error");

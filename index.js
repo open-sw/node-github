@@ -242,7 +242,8 @@ var Client = module.exports = function(config) {
                 else
                     def = paramsStruct[paramName];
 
-                value = trim(msg[paramName]);
+                value = (def.type && def.type.toLowerCase() == "binary") ? msg[paramName] : trim(msg[paramName]);
+
                 if (typeof value != "boolean" && !value) {
                     // we don't need to validation for undefined parameter values
                     // that are not required.
@@ -307,7 +308,7 @@ var Client = module.exports = function(config) {
                     // we ended up at an API definition part!
                     var endPoint = messageType.replace(/^[\/]+/g, "");
                     var parts = messageType.split("/");
-                    var section = Util.toCamelCase(parts[1].toLowerCase());
+                    var section = Util.toCamelCase(parts[1]);
                     parts.splice(0, 2);
                     var funcName = Util.toCamelCase(parts.join("-"));
 
@@ -555,7 +556,7 @@ var Client = module.exports = function(config) {
                 return;
 
             var isUrlParam = url.indexOf(":" + paramName) !== -1;
-            var valFormat = isUrlParam || format != "json" ? "query" : format;
+            var valFormat = isUrlParam || (format != "json" && format != "binary") ? "query" : format;
             var val;
             if (valFormat != "json" && typeof msg[paramName] == "object") {
                 try {
@@ -567,8 +568,10 @@ var Client = module.exports = function(config) {
                         + (ex.message || ex), "error");
                 }
             }
+            else if (valFormat == "json" || (valFormat == "binary" && paramName == "body"))
+                val = msg[paramName];
             else
-                val = valFormat == "json" ? msg[paramName] : encodeURIComponent(msg[paramName]);
+                val = encodeURIComponent(msg[paramName]);
 
             if (isUrlParam) {
                 url = url.replace(":" + paramName, val);
@@ -576,7 +579,14 @@ var Client = module.exports = function(config) {
             else {
                 if (format == "json")
                     ret.query[paramName] = val;
-                else
+                else if (format == "binary") {
+                    if (paramName == "content-type")
+                        ret.query.contentType = val;
+                    else if (paramName == "body")
+                        ret.query.body = val;
+                    else
+                        ret.query.push(paramName + "=" + val);
+                } else
                     ret.query.push(paramName + "=" + val);
             }
         });
@@ -598,18 +608,19 @@ var Client = module.exports = function(config) {
     this.httpSend = function(msg, block, callback) {
         var method = block.method.toLowerCase();
         var hasBody = ("head|get|delete".indexOf(method) === -1);
-        var format = hasBody && this.constants.requestFormat
+        var format = block.format || (hasBody && this.constants.requestFormat
             ? this.constants.requestFormat
-            : "query";
+            : "query");
         var obj = getQueryAndUrl(msg, block, format);
         var query = obj.query;
         var url = this.config.url ? this.config.url + obj.url : obj.url;
 
-        var path = (!hasBody && query.length)
+        var path = ((format == "binary" || !hasBody) && query.length)
             ? url + "?" + query.join("&")
             : url;
         var protocol = this.config.protocol || this.constants.protocol || "http";
-        var host = this.config.host || this.constants.host;
+        var host = block.host || this.config.host || this.constants.host;
+
         var port = this.config.port || this.constants.port || (protocol == "https" ? 443 : 80);
         if (this.config.proxy) {
             host = this.config.proxy.host;
@@ -624,7 +635,9 @@ var Client = module.exports = function(config) {
         if (hasBody) {
             if (format == "json")
                 query = JSON.stringify(query);
-            else
+            else if (format == "binary") {
+
+            } else
                 query = query.join("&");
             headers["content-length"] = query.length;
             headers["content-type"] = format == "json"

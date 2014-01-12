@@ -19,16 +19,7 @@ var user = module.exports = {
 };
 
 (function() {
-    /** section: github
-     *  user#getFrom(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     **/
-    this.getFrom = function(msg, block, callback) {
+    this.processRequest = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err)
@@ -57,6 +48,17 @@ var user = module.exports = {
                 callback(null, ret);
         });
     };
+
+    /** section: github
+     *  user#getFrom(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - user (String): Required. 
+     **/
+    this.getFrom = this.processRequest;
 
     /** section: github
      *  user#get(msg, callback) -> null
@@ -67,35 +69,7 @@ var user = module.exports = {
      * 
      *  No params, simply pass an empty Object literal `{}`
      **/
-    this.get = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.get = this.processRequest;
 
     /** section: github
      *  user#update(msg, callback) -> null
@@ -112,35 +86,7 @@ var user = module.exports = {
      *  - hireable (Boolean): Optional. 
      *  - bio (String): Optional. 
      **/
-    this.update = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.update = this.processRequest;
 
     /** section: github
      *  user#getOrgs(msg, callback) -> null
@@ -152,35 +98,7 @@ var user = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getOrgs = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getOrgs = this.processRequest;
 
     /** section: github
      *  user#getEmails(msg, callback) -> null
@@ -192,35 +110,7 @@ var user = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getEmails = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getEmails = this.processRequest;
 
     /** section: github
      *  user#addEmails(msg, callback) -> null
@@ -231,35 +121,7 @@ var user = module.exports = {
      * 
      *  No params, simply pass an empty Object literal `{}`
      **/
-    this.addEmails = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.addEmails = this.processRequest;
 
     /** section: github
      *  user#deleteEmails(msg, callback) -> null
@@ -270,35 +132,7 @@ var user = module.exports = {
      * 
      *  No params, simply pass an empty Object literal `{}`
      **/
-    this.deleteEmails = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.deleteEmails = this.processRequest;
 
     /** section: github
      *  user#getFollowers(msg, callback) -> null
@@ -311,35 +145,7 @@ var user = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFollowers = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFollowers = this.processRequest;
 
     /** section: github
      *  user#getFollowingFromUser(msg, callback) -> null
@@ -352,35 +158,7 @@ var user = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFollowingFromUser = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFollowingFromUser = this.processRequest;
 
     /** section: github
      *  user#getFollowing(msg, callback) -> null
@@ -392,35 +170,7 @@ var user = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFollowing = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFollowing = this.processRequest;
 
     /** section: github
      *  user#getFollowUser(msg, callback) -> null
@@ -433,35 +183,7 @@ var user = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFollowUser = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFollowUser = this.processRequest;
 
     /** section: github
      *  user#followUser(msg, callback) -> null
@@ -472,35 +194,7 @@ var user = module.exports = {
      * 
      *  - user (String): Required. 
      **/
-    this.followUser = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.followUser = this.processRequest;
 
     /** section: github
      *  user#unFollowUser(msg, callback) -> null
@@ -511,35 +205,7 @@ var user = module.exports = {
      * 
      *  - user (String): Required. 
      **/
-    this.unFollowUser = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.unFollowUser = this.processRequest;
 
     /** section: github
      *  user#getKeys(msg, callback) -> null
@@ -551,35 +217,7 @@ var user = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getKeys = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getKeys = this.processRequest;
 
     /** section: github
      *  user#getKey(msg, callback) -> null
@@ -590,35 +228,7 @@ var user = module.exports = {
      * 
      *  - id (String): Required. 
      **/
-    this.getKey = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getKey = this.processRequest;
 
     /** section: github
      *  user#createKey(msg, callback) -> null
@@ -630,35 +240,7 @@ var user = module.exports = {
      *  - title (String): Required. 
      *  - key (String): Required. 
      **/
-    this.createKey = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.createKey = this.processRequest;
 
     /** section: github
      *  user#updateKey(msg, callback) -> null
@@ -671,35 +253,7 @@ var user = module.exports = {
      *  - title (String): Required. 
      *  - key (String): Required. 
      **/
-    this.updateKey = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.updateKey = this.processRequest;
 
     /** section: github
      *  user#deleteKey(msg, callback) -> null
@@ -710,34 +264,6 @@ var user = module.exports = {
      * 
      *  - id (String): Required. 
      **/
-    this.deleteKey = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.deleteKey = this.processRequest;
 
 }).call(user.user);

@@ -19,17 +19,7 @@ var gists = module.exports = {
 };
 
 (function() {
-    /** section: github
-     *  gists#getAll(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
-     **/
-    this.getAll = function(msg, block, callback) {
+    this.processRequest = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err)
@@ -58,6 +48,18 @@ var gists = module.exports = {
                 callback(null, ret);
         });
     };
+
+    /** section: github
+     *  gists#getAll(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     **/
+    this.getAll = this.processRequest;
 
     /** section: github
      *  gists#getFromUser(msg, callback) -> null
@@ -70,35 +72,7 @@ var gists = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromUser = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromUser = this.processRequest;
 
     /** section: github
      *  gists#create(msg, callback) -> null
@@ -111,35 +85,7 @@ var gists = module.exports = {
      *  - public (Boolean): Required. 
      *  - files (Json): Required. Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content' 
      **/
-    this.create = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.create = this.processRequest;
 
     /** section: github
      *  gists#edit(msg, callback) -> null
@@ -152,35 +98,7 @@ var gists = module.exports = {
      *  - description (String): Optional. 
      *  - files (Json): Required. Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content' 
      **/
-    this.edit = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.edit = this.processRequest;
 
     /** section: github
      *  gists#public(msg, callback) -> null
@@ -191,35 +109,7 @@ var gists = module.exports = {
      * 
      *  No params, simply pass an empty Object literal `{}`
      **/
-    this.public = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.public = this.processRequest;
 
     /** section: github
      *  gists#starred(msg, callback) -> null
@@ -230,35 +120,7 @@ var gists = module.exports = {
      * 
      *  No params, simply pass an empty Object literal `{}`
      **/
-    this.starred = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.starred = this.processRequest;
 
     /** section: github
      *  gists#get(msg, callback) -> null
@@ -269,35 +131,7 @@ var gists = module.exports = {
      * 
      *  - id (String): Required. 
      **/
-    this.get = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.get = this.processRequest;
 
     /** section: github
      *  gists#star(msg, callback) -> null
@@ -308,35 +142,7 @@ var gists = module.exports = {
      * 
      *  - id (String): Required. 
      **/
-    this.star = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.star = this.processRequest;
 
     /** section: github
      *  gists#deleteStar(msg, callback) -> null
@@ -347,35 +153,7 @@ var gists = module.exports = {
      * 
      *  - id (String): Required. 
      **/
-    this.deleteStar = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.deleteStar = this.processRequest;
 
     /** section: github
      *  gists#checkStar(msg, callback) -> null
@@ -386,35 +164,7 @@ var gists = module.exports = {
      * 
      *  - id (String): Required. 
      **/
-    this.checkStar = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.checkStar = this.processRequest;
 
     /** section: github
      *  gists#fork(msg, callback) -> null
@@ -425,35 +175,7 @@ var gists = module.exports = {
      * 
      *  - id (String): Required. 
      **/
-    this.fork = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.fork = this.processRequest;
 
     /** section: github
      *  gists#delete(msg, callback) -> null
@@ -464,34 +186,6 @@ var gists = module.exports = {
      * 
      *  - id (String): Required. 
      **/
-    this.delete = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.delete = this.processRequest;
 
 }).call(gists.gists);

@@ -19,17 +19,7 @@ var events = module.exports = {
 };
 
 (function() {
-    /** section: github
-     *  events#get(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
-     **/
-    this.get = function(msg, block, callback) {
+    this.processRequest = function(msg, block, callback) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err)
@@ -58,6 +48,18 @@ var events = module.exports = {
                 callback(null, ret);
         });
     };
+
+    /** section: github
+     *  events#get(msg, callback) -> null
+     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+     * 
+     *  ##### Params on the `msg` object:
+     * 
+     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     **/
+    this.get = this.processRequest;
 
     /** section: github
      *  events#getFromRepo(msg, callback) -> null
@@ -71,35 +73,7 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromRepo = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromRepo = this.processRequest;
 
     /** section: github
      *  events#getFromRepoIssues(msg, callback) -> null
@@ -113,35 +87,7 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromRepoIssues = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromRepoIssues = this.processRequest;
 
     /** section: github
      *  events#getFromRepoNetwork(msg, callback) -> null
@@ -155,35 +101,7 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromRepoNetwork = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromRepoNetwork = this.processRequest;
 
     /** section: github
      *  events#getFromOrg(msg, callback) -> null
@@ -196,35 +114,7 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromOrg = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromOrg = this.processRequest;
 
     /** section: github
      *  events#getReceived(msg, callback) -> null
@@ -237,35 +127,7 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getReceived = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getReceived = this.processRequest;
 
     /** section: github
      *  events#getReceivedPublic(msg, callback) -> null
@@ -278,35 +140,7 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getReceivedPublic = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getReceivedPublic = this.processRequest;
 
     /** section: github
      *  events#getFromUser(msg, callback) -> null
@@ -319,35 +153,7 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromUser = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromUser = this.processRequest;
 
     /** section: github
      *  events#getFromUserPublic(msg, callback) -> null
@@ -360,35 +166,7 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromUserPublic = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromUserPublic = this.processRequest;
 
     /** section: github
      *  events#getFromUserOrg(msg, callback) -> null
@@ -402,34 +180,6 @@ var events = module.exports = {
      *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
      *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
      **/
-    this.getFromUserOrg = function(msg, block, callback) {
-        var self = this;
-        this.client.httpSend(msg, block, function(err, res) {
-            if (err)
-                return self.sendError(err, null, msg, callback);
-
-            var ret;
-            try {
-                ret = res.data && JSON.parse(res.data);
-            }
-            catch (ex) {
-                if (callback)
-                    callback(new error.InternalServerError(ex.message), res);
-                return;
-            }
-            
-            if (!ret)
-                ret = {};
-            if (!ret.meta)
-                ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.meta[header] = res.headers[header];
-            });
-            
-            if (callback)
-                callback(null, ret);
-        });
-    };
+    this.getFromUserOrg = this.processRequest;
 
 }).call(events.events);
