@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module user
+ */
 var user = module.exports = {
     user: {}
 };
@@ -49,220 +52,199 @@ var user = module.exports = {
         });
     };
 
-    /** section: github
-     *  user#getFrom(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
+    /** 
+     * @name module:user#getFrom
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFrom = this.processRequest;
 
-    /** section: github
-     *  user#get(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  No params, simply pass an empty Object literal `{}`
+    /** 
+     * @name module:user#get
+     * @function
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.get = this.processRequest;
 
-    /** section: github
-     *  user#update(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - name (String): Optional. 
-     *  - email (String): Optional. 
-     *  - blog (String): Optional. 
-     *  - company (String): Optional. 
-     *  - location (String): Optional. 
-     *  - hireable (Boolean): Optional. 
-     *  - bio (String): Optional. 
+    /** 
+     * @name module:user#update
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} [msg.name]
+     * @param {String} [msg.email]
+     * @param {String} [msg.blog]
+     * @param {String} [msg.company]
+     * @param {String} [msg.location]
+     * @param {Boolean} [msg.hireable]
+     * @param {String} [msg.bio]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.update = this.processRequest;
 
-    /** section: github
-     *  user#getOrgs(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:user#getOrgs
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getOrgs = this.processRequest;
 
-    /** section: github
-     *  user#getEmails(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:user#getEmails
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getEmails = this.processRequest;
 
-    /** section: github
-     *  user#addEmails(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  No params, simply pass an empty Object literal `{}`
+    /** 
+     * @name module:user#addEmails
+     * @function
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.addEmails = this.processRequest;
 
-    /** section: github
-     *  user#deleteEmails(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  No params, simply pass an empty Object literal `{}`
+    /** 
+     * @name module:user#deleteEmails
+     * @function
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteEmails = this.processRequest;
 
-    /** section: github
-     *  user#getFollowers(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:user#getFollowers
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFollowers = this.processRequest;
 
-    /** section: github
-     *  user#getFollowingFromUser(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:user#getFollowingFromUser
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFollowingFromUser = this.processRequest;
 
-    /** section: github
-     *  user#getFollowing(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:user#getFollowing
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFollowing = this.processRequest;
 
-    /** section: github
-     *  user#getFollowUser(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:user#getFollowUser
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFollowUser = this.processRequest;
 
-    /** section: github
-     *  user#followUser(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
+    /** 
+     * @name module:user#followUser
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.followUser = this.processRequest;
 
-    /** section: github
-     *  user#unFollowUser(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
+    /** 
+     * @name module:user#unFollowUser
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.unFollowUser = this.processRequest;
 
-    /** section: github
-     *  user#getKeys(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:user#getKeys
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getKeys = this.processRequest;
 
-    /** section: github
-     *  user#getKey(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:user#getKey
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getKey = this.processRequest;
 
-    /** section: github
-     *  user#createKey(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - title (String): Required. 
-     *  - key (String): Required. 
+    /** 
+     * @name module:user#createKey
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.title
+     * @param {String} msg.key
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createKey = this.processRequest;
 
-    /** section: github
-     *  user#updateKey(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
-     *  - title (String): Required. 
-     *  - key (String): Required. 
+    /** 
+     * @name module:user#updateKey
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.title
+     * @param {String} msg.key
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.updateKey = this.processRequest;
 
-    /** section: github
-     *  user#deleteKey(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:user#deleteKey
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteKey = this.processRequest;
 

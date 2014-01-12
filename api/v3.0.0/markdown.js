@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module markdown
+ */
 var markdown = module.exports = {
     markdown: {}
 };
@@ -49,16 +52,15 @@ var markdown = module.exports = {
         });
     };
 
-    /** section: github
-     *  markdown#render(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - text (String): Required. The Markdown text to render 
-     *  - mode (String): Optional. The rendering mode, `markdown` to render a document as plain Markdown, just like README files are rendered. `gfm` to render a document as user-content, e.g. like user comments or issues are rendered. In GFM mode, hard line breaks are always taken into account, and issue and user mentions are linked accordingly. Validation rule: ` ^(markdown|gfm)$ `.
-     *  - context (String): Optional. The repository context, only taken into account when rendering as `gfm` 
+    /** 
+     * @name module:markdown#render
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.text The Markdown text to render
+     * @param {String} [msg.mode] The rendering mode, `markdown` to render a document as plain Markdown, just like README files are rendered. `gfm` to render a document as user-content, e.g. like user comments or issues are rendered. In GFM mode, hard line breaks are always taken into account, and issue and user mentions are linked accordingly. Validation rule: ` ^(markdown|gfm)$ `.
+     * @param {String} [msg.context] The repository context, only taken into account when rendering as `gfm`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.render = this.processRequest;
 

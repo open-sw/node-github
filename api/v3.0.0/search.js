@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module search
+ */
 var search = module.exports = {
     search: {}
 };
@@ -49,52 +52,48 @@ var search = module.exports = {
         });
     };
 
-    /** section: github
-     *  search#issues(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - state (String): Required. open or closed Validation rule: ` ^(open|closed)$ `.
-     *  - keyword (String): Required. Search term 
+    /** 
+     * @name module:search#issues
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.state open or closed Validation rule: ` ^(open|closed)$ `.
+     * @param {String} msg.keyword Search term
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.issues = this.processRequest;
 
-    /** section: github
-     *  search#repos(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - keyword (String): Required. Search term 
-     *  - language (String): Optional. Filter results by language, see https://github.com/languages 
-     *  - start_page (Number): Optional. Page number to fetch Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:search#repos
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.keyword Search term
+     * @param {String} [msg.language] Filter results by language, see https://github.com/languages
+     * @param {Number} [msg.start_page] Page number to fetch Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.repos = this.processRequest;
 
-    /** section: github
-     *  search#users(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - keyword (String): Required. Keyword search parameters 
+    /** 
+     * @name module:search#users
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.keyword Keyword search parameters
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.users = this.processRequest;
 
-    /** section: github
-     *  search#email(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - email (String): Required. Email address 
+    /** 
+     * @name module:search#email
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.email Email address
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.email = this.processRequest;
 

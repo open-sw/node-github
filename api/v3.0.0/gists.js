@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module gists
+ */
 var gists = module.exports = {
     gists: {}
 };
@@ -49,142 +52,128 @@ var gists = module.exports = {
         });
     };
 
-    /** section: github
-     *  gists#getAll(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:gists#getAll
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getAll = this.processRequest;
 
-    /** section: github
-     *  gists#getFromUser(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:gists#getFromUser
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFromUser = this.processRequest;
 
-    /** section: github
-     *  gists#create(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - description (String): Optional. 
-     *  - public (Boolean): Required. 
-     *  - files (Json): Required. Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content' 
+    /** 
+     * @name module:gists#create
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} [msg.description]
+     * @param {Boolean} msg.public
+     * @param {Json} msg.files Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.create = this.processRequest;
 
-    /** section: github
-     *  gists#edit(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
-     *  - description (String): Optional. 
-     *  - files (Json): Required. Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content' 
+    /** 
+     * @name module:gists#edit
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} [msg.description]
+     * @param {Json} msg.files Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.edit = this.processRequest;
 
-    /** section: github
-     *  gists#public(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  No params, simply pass an empty Object literal `{}`
+    /** 
+     * @name module:gists#public
+     * @function
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.public = this.processRequest;
 
-    /** section: github
-     *  gists#starred(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  No params, simply pass an empty Object literal `{}`
+    /** 
+     * @name module:gists#starred
+     * @function
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.starred = this.processRequest;
 
-    /** section: github
-     *  gists#get(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:gists#get
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.get = this.processRequest;
 
-    /** section: github
-     *  gists#star(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:gists#star
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.star = this.processRequest;
 
-    /** section: github
-     *  gists#deleteStar(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:gists#deleteStar
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteStar = this.processRequest;
 
-    /** section: github
-     *  gists#checkStar(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:gists#checkStar
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.checkStar = this.processRequest;
 
-    /** section: github
-     *  gists#fork(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:gists#fork
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.fork = this.processRequest;
 
-    /** section: github
-     *  gists#delete(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:gists#delete
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.delete = this.processRequest;
 

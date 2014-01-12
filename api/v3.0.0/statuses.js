@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module statuses
+ */
 var statuses = module.exports = {
     statuses: {}
 };
@@ -49,32 +52,30 @@ var statuses = module.exports = {
         });
     };
 
-    /** section: github
-     *  statuses#get(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - sha (String): Required. 
+    /** 
+     * @name module:statuses#get
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.get = this.processRequest;
 
-    /** section: github
-     *  statuses#create(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - sha (String): Required. 
-     *  - state (String): Required. State of the status - can be one of pending, success, error, or failure. Validation rule: ` ^(pending|success|error|failure)$ `.
-     *  - target_url (String): Optional. Target url to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the ‘source’ of the Status. 
-     *  - description (String): Optional. Short description of the status. 
+    /** 
+     * @name module:statuses#create
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {String} msg.state State of the status - can be one of pending, success, error, or failure. Validation rule: ` ^(pending|success|error|failure)$ `.
+     * @param {String} [msg.target_url] Target url to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the ‘source’ of the Status.
+     * @param {String} [msg.description] Short description of the status.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.create = this.processRequest;
 

@@ -30,7 +30,6 @@ var proto = {
         if (callback)
             callback(err);
     }
-<%handler%>
 };
 
 ["gists", "gitdata", "issues", "authorization", "orgs", "statuses", "pullRequests", "repos", "user", "events", "search", "markdown"].forEach(function(api) {

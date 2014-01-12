@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module issues
+ */
 var issues = module.exports = {
     issues: {}
 };
@@ -49,344 +52,321 @@ var issues = module.exports = {
         });
     };
 
-    /** section: github
-     *  issues#getAll(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - filter (String): Optional. Validation rule: ` ^(assigned|created|mentioned|subscribed)$ `.
-     *  - state (String): Optional. Validation rule: ` ^(open|closed)$ `.
-     *  - labels (String): Optional. String list of comma separated Label names. Example: bug,ui,@high 
-     *  - sort (String): Optional. Validation rule: ` ^(created|updated|comments)$ `.
-     *  - direction (String): Optional. Validation rule: ` ^(asc|desc)$ `.
-     *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#getAll
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} [msg.filter] Validation rule: ` ^(assigned|created|mentioned|subscribed)$ `.
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.labels] String list of comma separated Label names. Example: bug,ui,@high
+     * @param {String} [msg.sort] Validation rule: ` ^(created|updated|comments)$ `.
+     * @param {String} [msg.direction] Validation rule: ` ^(asc|desc)$ `.
+     * @param {Date} [msg.since] string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getAll = this.processRequest;
 
-    /** section: github
-     *  issues#repoIssues(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - milestone (String): Optional. Validation rule: ` ^([0-9]+|none|\*)$ `.
-     *  - state (String): Optional. open or closed Validation rule: ` ^(open|closed)$ `.
-     *  - assignee (String): Optional. String User login, `none` for Issues with no assigned User. `*` for Issues with any assigned User. 
-     *  - mentioned (String): Optional. String User login. 
-     *  - labels (String): Optional. String list of comma separated Label names. Example: bug,ui,@high 
-     *  - sort (String): Optional. Validation rule: ` ^(created|updated|comments)$ `.
-     *  - direction (String): Optional. Validation rule: ` ^(asc|desc)$ `.
-     *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#repoIssues
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.milestone] Validation rule: ` ^([0-9]+|none|\*)$ `.
+     * @param {String} [msg.state] open or closed Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.assignee] String User login, `none` for Issues with no assigned User. `*` for Issues with any assigned User.
+     * @param {String} [msg.mentioned] String User login.
+     * @param {String} [msg.labels] String list of comma separated Label names. Example: bug,ui,@high
+     * @param {String} [msg.sort] Validation rule: ` ^(created|updated|comments)$ `.
+     * @param {String} [msg.direction] Validation rule: ` ^(asc|desc)$ `.
+     * @param {Date} [msg.since] string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.repoIssues = this.processRequest;
 
-    /** section: github
-     *  issues#getRepoIssue(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#getRepoIssue
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getRepoIssue = this.processRequest;
 
-    /** section: github
-     *  issues#create(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - title (String): Required. 
-     *  - body (String): Optional. 
-     *  - assignee (String): Optional. Optional string - Login for the user that this issue should be assigned to. 
-     *  - milestone (Number): Optional. Optional number - Milestone to associate this issue with. Validation rule: ` ^[0-9]+$ `.
-     *  - labels (Json): Required. Optional array of strings - Labels to associate with this issue. 
+    /** 
+     * @name module:issues#create
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.title
+     * @param {String} [msg.body]
+     * @param {String} [msg.assignee] Login for the user that this issue should be assigned to.
+     * @param {Number} [msg.milestone] Milestone to associate this issue with. Validation rule: ` ^[0-9]+$ `.
+     * @param {Json} msg.labels Labels to associate with this issue.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.create = this.processRequest;
 
-    /** section: github
-     *  issues#edit(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - title (String): Required. 
-     *  - body (String): Optional. 
-     *  - assignee (String): Optional. Optional string - Login for the user that this issue should be assigned to. 
-     *  - milestone (Number): Optional. Optional number - Milestone to associate this issue with. Validation rule: ` ^[0-9]+$ `.
-     *  - labels (Json): Required. Optional array of strings - Labels to associate with this issue. 
-     *  - state (String): Optional. open or closed Validation rule: ` ^(open|closed)$ `.
+    /** 
+     * @name module:issues#edit
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.title
+     * @param {String} [msg.body]
+     * @param {String} [msg.assignee] Login for the user that this issue should be assigned to.
+     * @param {Number} [msg.milestone] Milestone to associate this issue with. Validation rule: ` ^[0-9]+$ `.
+     * @param {Json} msg.labels array of strings - Labels to associate with this issue.
+     * @param {String} [msg.state] open or closed Validation rule: ` ^(open|closed)$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.edit = this.processRequest;
 
-    /** section: github
-     *  issues#getComments(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#getComments
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getComments = this.processRequest;
 
-    /** section: github
-     *  issues#getComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:issues#getComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getComment = this.processRequest;
 
-    /** section: github
-     *  issues#createComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - body (String): Required. 
+    /** 
+     * @name module:issues#createComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.body
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createComment = this.processRequest;
 
-    /** section: github
-     *  issues#editComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
-     *  - body (String): Required. 
+    /** 
+     * @name module:issues#editComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.body
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.editComment = this.processRequest;
 
-    /** section: github
-     *  issues#deleteComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:issues#deleteComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteComment = this.processRequest;
 
-    /** section: github
-     *  issues#getEvents(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#getEvents
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getEvents = this.processRequest;
 
-    /** section: github
-     *  issues#getRepoEvents(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#getRepoEvents
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getRepoEvents = this.processRequest;
 
-    /** section: github
-     *  issues#getEvent(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:issues#getEvent
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getEvent = this.processRequest;
 
-    /** section: github
-     *  issues#getLabels(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
+    /** 
+     * @name module:issues#getLabels
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getLabels = this.processRequest;
 
-    /** section: github
-     *  issues#getLabel(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - name (String): Required. 
+    /** 
+     * @name module:issues#getLabel
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getLabel = this.processRequest;
 
-    /** section: github
-     *  issues#createLabel(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - name (String): Required. 
-     *  - color (String): Required. Required string - 6 character hex code, without a leading #. 
+    /** 
+     * @name module:issues#createLabel
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {String} msg.color 6 character hex code, without a leading #.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createLabel = this.processRequest;
 
-    /** section: github
-     *  issues#updateLabel(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - name (String): Required. 
-     *  - color (String): Required. Required string - 6 character hex code, without a leading #. 
+    /** 
+     * @name module:issues#updateLabel
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {String} msg.color 6 character hex code, without a leading #.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.updateLabel = this.processRequest;
 
-    /** section: github
-     *  issues#deleteLabel(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - name (String): Required. 
+    /** 
+     * @name module:issues#deleteLabel
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteLabel = this.processRequest;
 
-    /** section: github
-     *  issues#getAllMilestones(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - state (String): Optional. Validation rule: ` ^(open|closed)$ `.
-     *  - sort (String): Optional. due_date, completeness, default: due_date Validation rule: ` ^(due_date|completeness)$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#getAllMilestones
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.sort] due_date, completeness, default: due_date Validation rule: ` ^(due_date|completeness)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getAllMilestones = this.processRequest;
 
-    /** section: github
-     *  issues#getMilestone(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#getMilestone
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getMilestone = this.processRequest;
 
-    /** section: github
-     *  issues#createMilestone(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - title (String): Required. 
-     *  - state (String): Optional. Validation rule: ` ^(open|closed)$ `.
-     *  - description (String): Optional. 
-     *  - due_on (Date): Optional. Optional string - ISO 8601 time. 
+    /** 
+     * @name module:issues#createMilestone
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.title
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.description]
+     * @param {Date} [msg.due_on] ISO 8601 time.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createMilestone = this.processRequest;
 
-    /** section: github
-     *  issues#updateMilestone(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - title (String): Required. 
-     *  - state (String): Optional. Validation rule: ` ^(open|closed)$ `.
-     *  - description (String): Optional. 
-     *  - due_on (Date): Optional. Optional string - ISO 8601 time. 
+    /** 
+     * @name module:issues#updateMilestone
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.title
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.description]
+     * @param {Date} [msg.due_on] ISO 8601 time.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.updateMilestone = this.processRequest;
 
-    /** section: github
-     *  issues#deleteMilestone(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:issues#deleteMilestone
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteMilestone = this.processRequest;
 

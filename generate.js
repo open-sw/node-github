@@ -42,17 +42,15 @@ var main = module.exports = function(versions) {
         function createComment(paramsStruct, section, funcName, indent) {
             var params = Object.keys(paramsStruct);
             var comment = [
-                indent + "/** section: github",
-                indent + " *  " + section + "#" + funcName + "(msg, callback) -> null",
-                indent + " *      - msg (Object): Object that contains the parameters and their values to be sent to the server.",
-                indent + " *      - callback (Function): function to call when the request is finished " +
-                    "with an error as first argument and result data as second argument.",
-                indent + " * ",
-                indent + " *  ##### Params on the `msg` object:",
-                indent + " * "
+                indent + "/** ",
+                indent + " * @name module:" + section + "#" + funcName,
+                indent + " * @function",
+                indent + " * @returns null"
             ];
             if (!params.length)
-                comment.push(indent + " *  No params, simply pass an empty Object literal `{}`");
+                comment.push(indent + " * @param {Object} msg No params, simply pass an empty Object literal `{}`");
+            else
+                comment.push(indent + " * @param {Object} msg Object that contains the parameters and their values to be sent to the server.");
             var paramName, def, line;
             for (var i = 0, l = params.length; i < l; ++i) {
                 paramName = params[i];
@@ -69,15 +67,17 @@ var main = module.exports = function(versions) {
                 else
                     def = paramsStruct[paramName];
 
-                line = indent + " *  - " + paramName + " (" + (def.type || "mixed") + "): " +
-                    (def.required ? "Required. " : "Optional. ");
+                line = indent + " * @param {" + (def.type || "...") + "} " + (def.required ? "msg." + paramName : "[msg." + paramName+"]");
                 if (def.description)
-                    line += def.description + " ";
+                    line +=  " " + def.description;
                 if (def.validation)
-                    line += "Validation rule: ` " + def.validation + " `.";
+                    line += " Validation rule: ` " + def.validation + " `.";
 
                 comment.push(line);
             }
+
+            comment.push(indent + " * @param {Function} callback Function to call when the request is finished " +
+                "with an error as first argument and result data as second argument.");
 
             return comment.join("\n") + "\n" + indent + " **/";
         }

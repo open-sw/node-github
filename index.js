@@ -1,12 +1,14 @@
 "use strict";
 
+/**
+ * @module github
+ */
+
 var error = require("./error");
 var Util = require("./util");
 var Url = require("url");
 
-/** section: github
- * class Client
- *
+/**
  *  Copyright 2012 Cloud9 IDE, Inc.
  *
  *  This product includes software developed by
@@ -14,12 +16,12 @@ var Url = require("url");
  *
  *  Author: Mike de Boer <mike@c9.io>
  *
- *  [[Client]] can load any version of the [[github]] client API, with the
+ *  Client can load any version of the github client API, with the
  *  requirement that a valid routes.json definition file is present in the
  *  `api/[VERSION]` directory and that the routes found in this file are
  *  implemented as well.
  *
- *  Upon instantiation of the [[Client]] class, the routes.json file is loaded
+ *  Upon instantiation of the Client class, the routes.json file is loaded
  *  from the API version specified in the configuration and, parsed and from it
  *  the routes for HTTP requests are extracted. For each HTTP endpoint to the
  *  HTTP server, a method is generated which accepts a Javascript Object
@@ -27,14 +29,13 @@ var Url = require("url");
  *  returns from the server or when the parameters could not be validated.
  *
  *  When an HTTP endpoint is processed and a method is generated as described
- *  above, [[Client]] also sets up parameter validation with the rules as
+ *  above, Client also sets up parameter validation with the rules as
  *  defined in the routes.json. A full example that illustrates how this works
  *  is shown below:
  *
- *  ##### Example
- *
  *  First, we look at a listing of a sample routes.json routes definition file:
  *
+ *  ```
  *      {
  *          "defines": {
  *              "constants": {
@@ -118,6 +119,7 @@ var Url = require("url");
  *              }
  *          }
  *       }
+ *  ```
  *
  *  You probably noticed that the definition is quite verbose and the decision
  *  for its design was made to be verbose whilst still allowing for basic variable
@@ -126,7 +128,7 @@ var Url = require("url");
  *  There are two sections; 'defines' and 'gists' in this example.
  *
  *  The `defines` section contains a list of `constants` that will be used by the
- *  [[Client]] to make requests to the right URL that hosts the API.
+ *  {@link module:github.Client} to make requests to the right URL that hosts the API.
  *  The `gists` section defines the endpoints for calls to the API server, for
  *  gists specifically in this example, but the other API sections are defined in
  *  the exact same way.
@@ -134,8 +136,9 @@ var Url = require("url");
  *  to make an HTTP request to the server.
  *  there is one endpoint defined: .
  *  In this example, the endpoint `gists/get-from-user` will be exposed as a member
- *  on the [[Client]] object and may be invoked with
+ *  on the {@link module:github.Client} object and may be invoked with
  *
+ *  ```
  *      client.getFromUser({
  *          "user": "bob"
  *      }, function(err, ret) {
@@ -150,6 +153,7 @@ var Url = require("url");
  *      }, function(err, ret) {
  *          // do something with the result here.
  *      });
+ *  ```
  *
  *  All the parameters as specified in the Object that is passed to the function
  *  as first argument, will be validated according to the rules in the `params`
@@ -166,13 +170,17 @@ var Url = require("url");
  *  Implementation Notes: the `method` is NOT case sensitive, whereas `url` is.
  *  The `url` parameter also supports denoting parameters inside it as follows:
  *
+ *  ```
  *      "get-from-user": {
  *          "url": ":user/gists",
  *          "method": "GET"
  *          ...
  *      }
+ *  ```
+ * @name module:github.Client
+ * @class
  **/
-var Client = module.exports = function(config) {
+var Client = module.exports = function Client(config) {
     this.config = config;
     this.debug = Util.isTrue(config.debug);
 
@@ -185,11 +193,9 @@ var Client = module.exports = function(config) {
 
 (function() {
     /**
-     *  Client#setupRoutes() -> null
-     *
      *  Configures the routes as defined in a routes.json file of an API version
      *
-     *  [[Client#setupRoutes]] is invoked by the constructor, takes the
+     *  setupRoutes is invoked by the constructor, takes the
      *  contents of the JSON document that contains the definitions of all the
      *  available API routes and iterates over them.
      *
@@ -199,7 +205,7 @@ var Client = module.exports = function(config) {
      *  Then the availability of an implementation by the API is checked; if it's
      *  not present, this means that a portion of the API as defined in the routes.json
      *  file is not implemented properly, thus an exception is thrown.
-     *  After this check, a method is attached to the [[Client]] instance
+     *  After this check, a method is attached to the Client instance
      *  and becomes available for use. Inside this method, the parameter validation
      *  and typecasting is done, according to the definition of the parameters in
      *  the `params` block, upon invocation.
@@ -210,6 +216,10 @@ var Client = module.exports = function(config) {
      *
      *  Note: Query escaping for usage with SQL products is something that can be
      *  implemented additionally by adding an additional parameter type.
+     *
+     *  @name module:github.Client#setupRoutes
+     *  @function
+     *  @returns null
      **/
     this.setupRoutes = function() {
         var self = this;
@@ -363,16 +373,9 @@ var Client = module.exports = function(config) {
     };
 
     /**
-     *  Client#authenticate(options) -> null
-     *      - options (Object): Object containing the authentication type and credentials
-     *          - type (String): One of the following: `basic` or `oauth`
-     *          - username (String): Github username
-     *          - password (String): Password to your account
-     *          - token (String): OAuth2 token
-     *
      *  Set an authentication method to have access to protected resources.
      *
-     *  ##### Example
+     *  @example
      *
      *      // basic
      *      github.authenticate({
@@ -386,6 +389,15 @@ var Client = module.exports = function(config) {
      *          type: "oauth",
      *          token: "e5a4a27487c26e571892846366de023349321a73"
      *      });
+     *
+     *  @name module:github.Client#authenticate
+     *  @function
+     *  @returns null
+     *  @param {Object} options Object containing the authentication type and credentials
+     *  @param {String} options.type One of the following: `basic` or `oauth`
+     *  @param {String} options.username Github username
+     *  @param {String} options.password Password to your account
+     *  @param {String} options.token OAuth2 token
      **/
     this.authenticate = function(options) {
         if (!options) {
@@ -419,40 +431,48 @@ var Client = module.exports = function(config) {
     }
 
     /**
-     *  Client#hasNextPage(link) -> null
-     *      - link (mixed): response of a request or the contents of the Link header
-     *
      *  Check if a request result contains a link to the next page
+     *
+     *  @name module:github.Client#hasNextPage
+     *  @function
+     *  @returns null
+     *  @param {*} link response of a request or the contents of the Link header
      **/
     this.hasNextPage = function(link) {
         return getPageLinks(link).next;
     };
 
     /**
-     *  Client#hasPreviousPage(link) -> null
-     *      - link (mixed): response of a request or the contents of the Link header
-     *
      *  Check if a request result contains a link to the previous page
+     *
+     *  @name module:github.Client#hasPreviousPage
+     *  @function
+     *  @returns null
+     *  @param {*} link () response of a request or the contents of the Link header
      **/
     this.hasPreviousPage = function(link) {
         return getPageLinks(link).prev;
     };
 
     /**
-     *  Client#hasLastPage(link) -> null
-     *      - link (mixed): response of a request or the contents of the Link header
-     *
      *  Check if a request result contains a link to the last page
+     *
+     *  @name module:github.Client#hasLastPage
+     *  @function
+     *  @returns null
+     *  @param {*} link response of a request or the contents of the Link header
      **/
     this.hasLastPage = function(link) {
         return getPageLinks(link).last;
     };
 
     /**
-     *  Client#hasFirstPage(link) -> null
-     *      - link (mixed): response of a request or the contents of the Link header
-     *
      *  Check if a request result contains a link to the first page
+     *
+     *  @name module:github.Client#hasFirstPage
+     *  @function
+     *  @returns null
+     *  @param {*} link response of a request or the contents of the Link header
      **/
     this.hasFirstPage = function(link) {
         return getPageLinks(link).first;
@@ -499,44 +519,52 @@ var Client = module.exports = function(config) {
     }
 
     /**
-     *  Client#getNextPage(link, callback) -> null
-     *      - link (mixed): response of a request or the contents of the Link header
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     *
      *  Get the next page, based on the contents of the `Link` header
+     *
+     *  @name module:github.Client#getNextPage
+     *  @function
+     *  @returns null
+     *  @param {*} link response of a request or the contents of the Link header
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getNextPage = function(link, callback) {
         getPage.call(this, link, "next", callback);
     };
 
     /**
-     *  Client#getPreviousPage(link, callback) -> null
-     *      - link (mixed): response of a request or the contents of the Link header
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     *
      *  Get the previous page, based on the contents of the `Link` header
+     *
+     *  @name module:github.Client#getPreviousPage
+     *  @function
+     *  @returns null
+     *  @param {*} link response of a request or the contents of the Link header
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getPreviousPage = function(link, callback) {
         getPage.call(this, link, "prev", callback);
     };
 
     /**
-     *  Client#getLastPage(link, callback) -> null
-     *      - link (mixed): response of a request or the contents of the Link header
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     *
      *  Get the last page, based on the contents of the `Link` header
+     *
+     *  @name module:github.Client#getLastPage
+     *  @function
+     *  @returns null
+     *  @param {*} link response of a request or the contents of the Link header
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getLastPage = function(link, callback) {
         getPage.call(this, link, "last", callback);
     };
 
     /**
-     *  Client#getFirstPage(link, callback) -> null
-     *      - link (mixed): response of a request or the contents of the Link header
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     *
      *  Get the first page, based on the contents of the `Link` header
+     *
+     *  @name module:github.Client#getFirstPage
+     *  @function
+     *  @returns null
+     *  @param {*} link response of a request or the contents of the Link header
+     *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFirstPage = function(link, callback) {
         getPage.call(this, link, "first", callback);
@@ -595,15 +623,17 @@ var Client = module.exports = function(config) {
     }
 
     /**
-     *  Client#httpSend(msg, block, callback) -> null
-     *      - msg (Object): parameters to send as the request body
-     *      - block (Object): parameter definition from the `routes.json` file that
+     *  Send an HTTP request to the server and pass the result to a callback.
+     *
+     *  @name module:github.Client#httpSend
+     *  @function
+     *  @returns null
+     *  @param {Object} msg parameters to send as the request body
+     *  @param {Object} block parameter definition from the `routes.json` file that
      *          contains validation rules
-     *      - callback (Function): function to be called when the request returns.
+     *  @param {Function} callback function to be called when the request returns.
      *          If the the request returns with an error, the error is passed to
      *          the callback as its first argument (NodeJS-style).
-     *
-     *  Send an HTTP request to the server and pass the result to a callback.
      **/
     this.httpSend = function(msg, block, callback) {
         var method = block.method.toLowerCase();

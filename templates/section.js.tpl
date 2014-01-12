@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module <%sectionName%>
+ */
 var <%sectionName%> = module.exports = {
     <%sectionName%>: {}
 };

@@ -1,0 +1,16 @@
+{
+	"tags": {
+		"allowUnknownTags": true
+	},
+	"source": {
+		"include": [ "index.js", "api/v3.0.0/" ]
+	},
+	"plugins": [ "plugins/markdown" ],
+	"markdown": {
+		"parser": "gfm"
+	},
+	"opts": {
+		"destination": "doc/v3.0.0",
+		"private": true
+	}
+}

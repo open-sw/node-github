@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module pullRequests
+ */
 var pullRequests = module.exports = {
     pullRequests: {}
 };
@@ -49,224 +52,209 @@ var pullRequests = module.exports = {
         });
     };
 
-    /** section: github
-     *  pullRequests#getAll(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - state (String): Optional. Validation rule: ` ^(open|closed)$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:pullRequests#getAll
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getAll = this.processRequest;
 
-    /** section: github
-     *  pullRequests#get(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:pullRequests#get
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.get = this.processRequest;
 
-    /** section: github
-     *  pullRequests#create(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - title (String): Required. 
-     *  - body (String): Optional. 
-     *  - base (String): Required. Required string - The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo. 
-     *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented. 
+    /** 
+     * @name module:pullRequests#create
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.title
+     * @param {String} [msg.body]
+     * @param {String} msg.base The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo.
+     * @param {String} msg.head The branch (or git ref) where your changes are implemented.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.create = this.processRequest;
 
-    /** section: github
-     *  pullRequests#createFromIssue(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - issue (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - base (String): Required. Required string - The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo. 
-     *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented. 
+    /** 
+     * @name module:pullRequests#createFromIssue
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.issue Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.base The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo.
+     * @param {String} msg.head The branch (or git ref) where your changes are implemented.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createFromIssue = this.processRequest;
 
-    /** section: github
-     *  pullRequests#update(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - state (String): Optional. Validation rule: ` ^(open|closed)$ `.
-     *  - title (String): Required. 
-     *  - body (String): Optional. 
+    /** 
+     * @name module:pullRequests#update
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} msg.title
+     * @param {String} [msg.body]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.update = this.processRequest;
 
-    /** section: github
-     *  pullRequests#getCommits(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:pullRequests#getCommits
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getCommits = this.processRequest;
 
-    /** section: github
-     *  pullRequests#getFiles(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:pullRequests#getFiles
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFiles = this.processRequest;
 
-    /** section: github
-     *  pullRequests#getMerged(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:pullRequests#getMerged
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getMerged = this.processRequest;
 
-    /** section: github
-     *  pullRequests#merge(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - commit_message (String): Optional. Optional string - The message that will be used for the merge commit 
+    /** 
+     * @name module:pullRequests#merge
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} [msg.commit_message] The message that will be used for the merge commit
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.merge = this.processRequest;
 
-    /** section: github
-     *  pullRequests#getComments(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:pullRequests#getComments
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getComments = this.processRequest;
 
-    /** section: github
-     *  pullRequests#getComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:pullRequests#getComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getComment = this.processRequest;
 
-    /** section: github
-     *  pullRequests#createComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - body (String): Required. 
-     *  - commit_id (String): Required. Required string - Sha of the commit to comment on. 
-     *  - path (String): Required. Required string - Relative path of the file to comment on. 
-     *  - position (Number): Required. Required number - Column index in the diff to comment on. 
+    /** 
+     * @name module:pullRequests#createComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.body
+     * @param {String} msg.commit_id Sha of the commit to comment on.
+     * @param {String} msg.path Relative path of the file to comment on.
+     * @param {Number} msg.position Column index in the diff to comment on.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createComment = this.processRequest;
 
-    /** section: github
-     *  pullRequests#createCommentReply(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - body (String): Required. 
-     *  - in_reply_to (Number): Required. 
+    /** 
+     * @name module:pullRequests#createCommentReply
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.body
+     * @param {Number} msg.in_reply_to
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createCommentReply = this.processRequest;
 
-    /** section: github
-     *  pullRequests#updateComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
-     *  - body (String): Required. 
+    /** 
+     * @name module:pullRequests#updateComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.body
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.updateComment = this.processRequest;
 
-    /** section: github
-     *  pullRequests#deleteComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:pullRequests#deleteComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteComment = this.processRequest;
 

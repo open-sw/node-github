@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module repos
+ */
 var repos = module.exports = {
     repos: {}
 };
@@ -49,907 +52,844 @@ var repos = module.exports = {
         });
     };
 
-    /** section: github
-     *  repos#getAll(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - type (String): Optional. Possible values: `all`, `owner`, `public`, `private`, `member`. Default: `all`. Validation rule: ` ^(all|owner|public|private|member)$ `.
-     *  - sort (String): Optional. Possible values: `created`, `updated`, `pushed`, `full_name`. Default: `full_name`. Validation rule: ` ^(created|updated|pushed|full_name)$ `.
-     *  - direction (String): Optional. Validation rule: ` ^(asc|desc)$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getAll
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} [msg.type] Possible values: `all`, `owner`, `public`, `private`, `member`. Default: `all`. Validation rule: ` ^(all|owner|public|private|member)$ `.
+     * @param {String} [msg.sort] Possible values: `created`, `updated`, `pushed`, `full_name`. Default: `full_name`. Validation rule: ` ^(created|updated|pushed|full_name)$ `.
+     * @param {String} [msg.direction] Validation rule: ` ^(asc|desc)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getAll = this.processRequest;
 
-    /** section: github
-     *  repos#getFromUser(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - type (String): Optional. Possible values: `all`, `owner`, `member`. Default: `public`. Validation rule: ` ^(all|owner|member)$ `.
-     *  - sort (String): Optional. Possible values: `created`, `updated`, `pushed`, `full_name`. Default: `full_name`. Validation rule: ` ^(created|updated|pushed|full_name)$ `.
-     *  - direction (String): Optional. Validation rule: ` ^(asc|desc)$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getFromUser
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} [msg.type] Possible values: `all`, `owner`, `member`. Default: `public`. Validation rule: ` ^(all|owner|member)$ `.
+     * @param {String} [msg.sort] Possible values: `created`, `updated`, `pushed`, `full_name`. Default: `full_name`. Validation rule: ` ^(created|updated|pushed|full_name)$ `.
+     * @param {String} [msg.direction] Validation rule: ` ^(asc|desc)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFromUser = this.processRequest;
 
-    /** section: github
-     *  repos#getFromOrg(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - org (String): Required. 
-     *  - type (String): Optional. Possible values: `all`, `public`, `member`. Default: `all`. Validation rule: ` ^(all|public|member)$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getFromOrg
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} [msg.type] Possible values: `all`, `public`, `member`. Default: `all`. Validation rule: ` ^(all|public|member)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getFromOrg = this.processRequest;
 
-    /** section: github
-     *  repos#create(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - name (String): Required. 
-     *  - description (String): Optional. 
-     *  - homepage (String): Optional. 
-     *  - private (Boolean): Optional. Optional boolean - true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false. 
-     *  - has_issues (Boolean): Optional. Optional boolean - true to enable issues for this repository, false to disable them. Default is true. 
-     *  - has_wiki (Boolean): Optional. Optional boolean - true to enable the wiki for this repository, false to disable it. Default is true. 
-     *  - has_downloads (Boolean): Optional. Optional boolean - true to enable downloads for this repository, false to disable them. Default is true. 
-     *  - auto_init (Boolean): Optional. Optional boolean - true to create an initial commit with empty README. Default is false 
-     *  - gitignore_template (String): Optional. Optional string - Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided. 
+    /** 
+     * @name module:repos#create
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.name
+     * @param {String} [msg.description]
+     * @param {String} [msg.homepage]
+     * @param {Boolean} [msg.private] true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.
+     * @param {Boolean} [msg.has_issues] true to enable issues for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.has_wiki] true to enable the wiki for this repository, false to disable it. Default is true.
+     * @param {Boolean} [msg.has_downloads] true to enable downloads for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.auto_init] true to create an initial commit with empty README. Default is false
+     * @param {String} [msg.gitignore_template] Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.create = this.processRequest;
 
-    /** section: github
-     *  repos#createFromOrg(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - org (String): Required. 
-     *  - name (String): Required. 
-     *  - description (String): Optional. 
-     *  - homepage (String): Optional. 
-     *  - private (Boolean): Optional. Optional boolean - true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false. 
-     *  - has_issues (Boolean): Optional. Optional boolean - true to enable issues for this repository, false to disable them. Default is true. 
-     *  - has_wiki (Boolean): Optional. Optional boolean - true to enable the wiki for this repository, false to disable it. Default is true. 
-     *  - has_downloads (Boolean): Optional. Optional boolean - true to enable downloads for this repository, false to disable them. Default is true. 
-     *  - auto_init (Boolean): Optional. Optional boolean - true to create an initial commit with empty README. Default is false 
-     *  - gitignore_template (String): Optional. Optional string - Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided. 
-     *  - team_id (Number): Optional. Optional number - The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#createFromOrg
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} msg.name
+     * @param {String} [msg.description]
+     * @param {String} [msg.homepage]
+     * @param {Boolean} [msg.private] true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.
+     * @param {Boolean} [msg.has_issues] true to enable issues for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.has_wiki] true to enable the wiki for this repository, false to disable it. Default is true.
+     * @param {Boolean} [msg.has_downloads] true to enable downloads for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.auto_init] true to create an initial commit with empty README. Default is false
+     * @param {String} [msg.gitignore_template] Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided.
+     * @param {Number} [msg.team_id] The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createFromOrg = this.processRequest;
 
-    /** section: github
-     *  repos#get(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
+    /** 
+     * @name module:repos#get
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.get = this.processRequest;
 
-    /** section: github
-     *  repos#update(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - name (String): Required. 
-     *  - description (String): Optional. 
-     *  - homepage (String): Optional. 
-     *  - private (Boolean): Optional. Optional boolean - true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false. 
-     *  - has_issues (Boolean): Optional. Optional boolean - true to enable issues for this repository, false to disable them. Default is true. 
-     *  - has_wiki (Boolean): Optional. Optional boolean - true to enable the wiki for this repository, false to disable it. Default is true. 
-     *  - has_downloads (Boolean): Optional. Optional boolean - true to enable downloads for this repository, false to disable them. Default is true. 
+    /** 
+     * @name module:repos#update
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {String} [msg.description]
+     * @param {String} [msg.homepage]
+     * @param {Boolean} [msg.private] true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.
+     * @param {Boolean} [msg.has_issues] true to enable issues for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.has_wiki] true to enable the wiki for this repository, false to disable it. Default is true.
+     * @param {Boolean} [msg.has_downloads] true to enable downloads for this repository, false to disable them. Default is true.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.update = this.processRequest;
 
-    /** section: github
-     *  repos#delete(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
+    /** 
+     * @name module:repos#delete
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.delete = this.processRequest;
 
-    /** section: github
-     *  repos#merge(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - base (String): Required. Required string - The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo. 
-     *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented. 
-     *  - commit_message (String): Optional. Optional string - Commit message to use for the merge commit. If omitted, a default message will be used. 
+    /** 
+     * @name module:repos#merge
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.base The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo.
+     * @param {String} msg.head The branch (or git ref) where your changes are implemented.
+     * @param {String} [msg.commit_message] Commit message to use for the merge commit. If omitted, a default message will be used.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.merge = this.processRequest;
 
-    /** section: github
-     *  repos#getContributors(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - anon (Boolean): Optional. Optional flag. Set to 1 or true to include anonymous contributors in results. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getContributors
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Boolean} [msg.anon] Set to 1 or true to include anonymous contributors in results.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getContributors = this.processRequest;
 
-    /** section: github
-     *  repos#getLanguages(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getLanguages
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getLanguages = this.processRequest;
 
-    /** section: github
-     *  repos#getTeams(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getTeams
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getTeams = this.processRequest;
 
-    /** section: github
-     *  repos#getTags(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getTags
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getTags = this.processRequest;
 
-    /** section: github
-     *  repos#getBranches(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getBranches
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getBranches = this.processRequest;
 
-    /** section: github
-     *  repos#getBranch(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - branch (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getBranch
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.branch
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getBranch = this.processRequest;
 
-    /** section: github
-     *  repos#getCollaborators(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getCollaborators
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getCollaborators = this.processRequest;
 
-    /** section: github
-     *  repos#getCollaborator(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - collabuser (String): Required. 
+    /** 
+     * @name module:repos#getCollaborator
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.collabuser
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getCollaborator = this.processRequest;
 
-    /** section: github
-     *  repos#addCollaborator(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - collabuser (String): Required. 
+    /** 
+     * @name module:repos#addCollaborator
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.collabuser
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.addCollaborator = this.processRequest;
 
-    /** section: github
-     *  repos#removeCollaborator(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - collabuser (String): Required. 
+    /** 
+     * @name module:repos#removeCollaborator
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.collabuser
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.removeCollaborator = this.processRequest;
 
-    /** section: github
-     *  repos#getCommits(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - sha (String): Optional. Optional string - Sha or branch to start listing commits from. 
-     *  - path (String): Optional. Optional string - Only commits containing this file path will be returned. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
-     *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ 
+    /** 
+     * @name module:repos#getCommits
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.sha] Sha or branch to start listing commits from.
+     * @param {String} [msg.path] Only commits containing this file path will be returned.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Date} [msg.since] string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getCommits = this.processRequest;
 
-    /** section: github
-     *  repos#getCommit(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - sha (String): Required. 
+    /** 
+     * @name module:repos#getCommit
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getCommit = this.processRequest;
 
-    /** section: github
-     *  repos#getAllCommitComments(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getAllCommitComments
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getAllCommitComments = this.processRequest;
 
-    /** section: github
-     *  repos#getCommitComments(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - sha (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getCommitComments
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getCommitComments = this.processRequest;
 
-    /** section: github
-     *  repos#createCommitComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - sha (String): Required. 
-     *  - body (String): Required. 
-     *  - commit_id (String): Required. Required string - Sha of the commit to comment on. 
-     *  - path (String): Optional. Optional string - Relative path of the file to comment on. 
-     *  - position (Number): Optional. Optional number - Line index in the diff to comment on. 
-     *  - line (Number): Optional. Optional number - Line number in the file to comment on. Defaults to 1. 
+    /** 
+     * @name module:repos#createCommitComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {String} msg.body
+     * @param {String} msg.commit_id Sha of the commit to comment on.
+     * @param {String} [msg.path] Relative path of the file to comment on.
+     * @param {Number} [msg.position] Line index in the diff to comment on.
+     * @param {Number} [msg.line] Line number in the file to comment on. Defaults to 1.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createCommitComment = this.processRequest;
 
-    /** section: github
-     *  repos#getCommitComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#getCommitComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getCommitComment = this.processRequest;
 
-    /** section: github
-     *  repos#updateCommitComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
-     *  - body (String): Required. 
+    /** 
+     * @name module:repos#updateCommitComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.body
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.updateCommitComment = this.processRequest;
 
-    /** section: github
-     *  repos#compareCommits(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - base (String): Required. Required string - The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo. 
-     *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented. 
+    /** 
+     * @name module:repos#compareCommits
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.base The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo.
+     * @param {String} msg.head The branch (or git ref) where your changes are implemented.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.compareCommits = this.processRequest;
 
-    /** section: github
-     *  repos#deleteCommitComment(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#deleteCommitComment
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteCommitComment = this.processRequest;
 
-    /** section: github
-     *  repos#getReadme(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - ref (String): Optional. The String name of the Commit/Branch/Tag. Defaults to master. 
+    /** 
+     * @name module:repos#getReadme
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.ref] The String name of the Commit/Branch/Tag. Defaults to master.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getReadme = this.processRequest;
 
-    /** section: github
-     *  repos#getContent(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - path (String): Optional. The content path. 
-     *  - ref (String): Optional. The String name of the Commit/Branch/Tag. Defaults to master. 
+    /** 
+     * @name module:repos#getContent
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.path] The content path.
+     * @param {String} [msg.ref] The String name of the Commit/Branch/Tag. Defaults to master.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getContent = this.processRequest;
 
-    /** section: github
-     *  repos#getArchiveLink(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - archive_format (String): Required. Either tarball or zipball Validation rule: ` ^(tarball|zipball)$ `.
+    /** 
+     * @name module:repos#getArchiveLink
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.archive_format Either tarball or zipball Validation rule: ` ^(tarball|zipball)$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getArchiveLink = this.processRequest;
 
-    /** section: github
-     *  repos#getDownloads(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getDownloads
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getDownloads = this.processRequest;
 
-    /** section: github
-     *  repos#getDownload(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#getDownload
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getDownload = this.processRequest;
 
-    /** section: github
-     *  repos#deleteDownload(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#deleteDownload
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteDownload = this.processRequest;
 
-    /** section: github
-     *  repos#getForks(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - sort (String): Optional. Possible values: `newest`, `oldest`, `watchers`, default: `newest`. Validation rule: ` ^(newest|oldest|watchers)$ `.
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getForks
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.sort] Possible values: `newest`, `oldest`, `watchers`, default: `newest`. Validation rule: ` ^(newest|oldest|watchers)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getForks = this.processRequest;
 
-    /** section: github
-     *  repos#fork(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - org (String): Optional. Optional String - Organization login. The repository will be forked into this organization. 
+    /** 
+     * @name module:repos#fork
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.org] Organization login. The repository will be forked into this organization.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.fork = this.processRequest;
 
-    /** section: github
-     *  repos#getKeys(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getKeys
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getKeys = this.processRequest;
 
-    /** section: github
-     *  repos#getKey(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#getKey
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getKey = this.processRequest;
 
-    /** section: github
-     *  repos#createKey(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - title (String): Required. 
-     *  - key (String): Required. 
+    /** 
+     * @name module:repos#createKey
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.title
+     * @param {String} msg.key
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createKey = this.processRequest;
 
-    /** section: github
-     *  repos#updateKey(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
-     *  - title (String): Required. 
-     *  - key (String): Required. 
+    /** 
+     * @name module:repos#updateKey
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.title
+     * @param {String} msg.key
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.updateKey = this.processRequest;
 
-    /** section: github
-     *  repos#deleteKey(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#deleteKey
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteKey = this.processRequest;
 
-    /** section: github
-     *  repos#getWatchers(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getWatchers
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getWatchers = this.processRequest;
 
-    /** section: github
-     *  repos#getWatched(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getWatched
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getWatched = this.processRequest;
 
-    /** section: github
-     *  repos#getWatchedFromUser(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getWatchedFromUser
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getWatchedFromUser = this.processRequest;
 
-    /** section: github
-     *  repos#getWatching(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getWatching
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getWatching = this.processRequest;
 
-    /** section: github
-     *  repos#watch(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
+    /** 
+     * @name module:repos#watch
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.watch = this.processRequest;
 
-    /** section: github
-     *  repos#unWatch(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
+    /** 
+     * @name module:repos#unWatch
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.unWatch = this.processRequest;
 
-    /** section: github
-     *  repos#getHooks(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getHooks
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getHooks = this.processRequest;
 
-    /** section: github
-     *  repos#getHook(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#getHook
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getHook = this.processRequest;
 
-    /** section: github
-     *  repos#createHook(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - name (String): Required. 
-     *  - config (Json): Required. Required hash - A Hash containing key/value pairs to provide settings for this hook. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically. 
-     *  - events (Array): Optional. Optional array - Determines what events the hook is triggered for. Default: `['push']`. 
-     *  - active (Boolean): Optional. Optional boolean - Determines whether the hook is actually triggered on pushes. 
+    /** 
+     * @name module:repos#createHook
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {Json} msg.config Required hash - A Hash containing key/value pairs to provide settings for this hook. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically.
+     * @param {Array} [msg.events] Determines what events the hook is triggered for. Default: `['push']`.
+     * @param {Boolean} [msg.active] Determines whether the hook is actually triggered on pushes.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createHook = this.processRequest;
 
-    /** section: github
-     *  repos#updateHook(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
-     *  - name (String): Required. 
-     *  - config (Json): Required. Required hash - A Hash containing key/value pairs to provide settings for this hook. Modifying this will replace the entire config object. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically. 
-     *  - events (Array): Optional. Optional array - Determines what events the hook is triggered for. This replaces the entire array of events. Default: `['push']`. 
-     *  - add_events (Array): Optional. Optional array - Determines a list of events to be added to the list of events that the Hook triggers for. 
-     *  - remove_events (Array): Optional. Optional array - Determines a list of events to be removed from the list of events that the Hook triggers for. 
-     *  - active (Boolean): Optional. Optional boolean - Determines whether the hook is actually triggered on pushes. 
+    /** 
+     * @name module:repos#updateHook
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.name
+     * @param {Json} msg.config A Hash containing key/value pairs to provide settings for this hook. Modifying this will replace the entire config object. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically.
+     * @param {Array} [msg.events] Determines what events the hook is triggered for. This replaces the entire array of events. Default: `['push']`.
+     * @param {Array} [msg.add_events] Determines a list of events to be added to the list of events that the Hook triggers for.
+     * @param {Array} [msg.remove_events] Determines a list of events to be removed from the list of events that the Hook triggers for.
+     * @param {Boolean} [msg.active] Determines whether the hook is actually triggered on pushes.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.updateHook = this.processRequest;
 
-    /** section: github
-     *  repos#testHook(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#testHook
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.testHook = this.processRequest;
 
-    /** section: github
-     *  repos#deleteHook(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#deleteHook
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteHook = this.processRequest;
 
-    /** section: github
-     *  repos#getAllReleases(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#getAllReleases
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getAllReleases = this.processRequest;
 
-    /** section: github
-     *  repos#getRelease(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#getRelease
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getRelease = this.processRequest;
 
-    /** section: github
-     *  repos#createRelease(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - tag_name (String): Required. 
-     *  - target_commitish (String): Optional. 
-     *  - name (String): Required. 
-     *  - body (String): Required. 
-     *  - draft (Boolean): Optional. 
-     *  - prerelease (Boolean): Optional. 
+    /** 
+     * @name module:repos#createRelease
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.tag_name
+     * @param {String} [msg.target_commitish]
+     * @param {String} msg.name
+     * @param {String} msg.body
+     * @param {Boolean} [msg.draft]
+     * @param {Boolean} [msg.prerelease]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.createRelease = this.processRequest;
 
-    /** section: github
-     *  repos#updateRelease(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
-     *  - tag_name (String): Optional. 
-     *  - target_commitish (String): Optional. 
-     *  - name (String): Optional. 
-     *  - body (String): Optional. 
-     *  - draft (Boolean): Optional. 
-     *  - prerelease (Boolean): Optional. 
+    /** 
+     * @name module:repos#updateRelease
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} [msg.tag_name]
+     * @param {String} [msg.target_commitish]
+     * @param {String} [msg.name]
+     * @param {String} [msg.body]
+     * @param {Boolean} [msg.draft]
+     * @param {Boolean} [msg.prerelease]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.updateRelease = this.processRequest;
 
-    /** section: github
-     *  repos#deleteRelease(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#deleteRelease
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteRelease = this.processRequest;
 
-    /** section: github
-     *  repos#listReleaseAssets(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:repos#listReleaseAssets
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.listReleaseAssets = this.processRequest;
 
-    /** section: github
-     *  repos#uploadReleaseAsset(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
-     *  - content-type (String): Required. 
-     *  - name (String): Required. 
-     *  - content (Binary): Required. 
+    /** 
+     * @name module:repos#uploadReleaseAsset
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.content-type
+     * @param {String} msg.name
+     * @param {Binary} msg.content
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.uploadReleaseAsset = this.processRequest;
 
-    /** section: github
-     *  repos#getReleaseAsset(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#getReleaseAsset
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getReleaseAsset = this.processRequest;
 
-    /** section: github
-     *  repos#editReleaseAsset(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
-     *  - name (String): Required. 
-     *  - label (String): Optional. 
+    /** 
+     * @name module:repos#editReleaseAsset
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.name
+     * @param {String} [msg.label]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.editReleaseAsset = this.processRequest;
 
-    /** section: github
-     *  repos#deleteReleaseAsset(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - user (String): Required. 
-     *  - repo (String): Required. 
-     *  - id (String): Required. 
+    /** 
+     * @name module:repos#deleteReleaseAsset
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.deleteReleaseAsset = this.processRequest;
 

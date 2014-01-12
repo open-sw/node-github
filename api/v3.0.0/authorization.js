@@ -14,6 +14,9 @@
 var error = require("./../../error");
 var Util = require("./../../util");
 
+/**
+ * @module authorization
+ */
 var authorization = module.exports = {
     authorization: {}
 };
@@ -49,66 +52,61 @@ var authorization = module.exports = {
         });
     };
 
-    /** section: github
-     *  authorization#getAll(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
-     *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+    /** 
+     * @name module:authorization#getAll
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.getAll = this.processRequest;
 
-    /** section: github
-     *  authorization#get(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:authorization#get
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.get = this.processRequest;
 
-    /** section: github
-     *  authorization#create(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - scopes (Array): Optional. Optional array - A list of scopes that this authorization is in. 
-     *  - note (String): Optional. Optional string - A note to remind you what the OAuth token is for. 
-     *  - note_url (String): Optional. Optional string - A URL to remind you what app the OAuth token is for. 
+    /** 
+     * @name module:authorization#create
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Array} [msg.scopes] A list of scopes that this authorization is in.
+     * @param {String} [msg.note] A note to remind you what the OAuth token is for.
+     * @param {String} [msg.note_url] A URL to remind you what app the OAuth token is for.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.create = this.processRequest;
 
-    /** section: github
-     *  authorization#update(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
-     *  - scopes (Array): Optional. Optional array - A list of scopes that this authorization is in. 
-     *  - add_scopes (Array): Optional. Optional array - A list of scopes to add to this authorization. 
-     *  - remove_scopes (Array): Optional. Optional array - A list of scopes to remove from this authorization. 
-     *  - note (String): Optional. Optional string - A note to remind you what the OAuth token is for. 
-     *  - note_url (String): Optional. Optional string - A URL to remind you what app the OAuth token is for. 
+    /** 
+     * @name module:authorization#update
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Array} [msg.scopes] A list of scopes that this authorization is in.
+     * @param {Array} [msg.add_scopes] A list of scopes to add to this authorization.
+     * @param {Array} [msg.remove_scopes] A list of scopes to remove from this authorization.
+     * @param {String} [msg.note] A note to remind you what the OAuth token is for.
+     * @param {String} [msg.note_url] A URL to remind you what app the OAuth token is for.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.update = this.processRequest;
 
-    /** section: github
-     *  authorization#delete(msg, callback) -> null
-     *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
-     *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
-     * 
-     *  ##### Params on the `msg` object:
-     * 
-     *  - id (String): Required. 
+    /** 
+     * @name module:authorization#delete
+     * @function
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
      **/
     this.delete = this.processRequest;
 
