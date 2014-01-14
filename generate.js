@@ -17,10 +17,6 @@ var Path = require("path");
 var Util = require("./util");
 
 var IndexTpl = Fs.readFileSync(__dirname + "/templates/index.js.tpl", "utf8");
-var SectionTpl = Fs.readFileSync(__dirname + "/templates/section.js.tpl", "utf8");
-var HandlerTpl = Fs.readFileSync(__dirname + "/templates/handler.js.tpl", "utf8");
-var ProcessRequestTpl = Fs.readFileSync(__dirname + "/templates/process_request.js.tpl", "utf8");
-var AfterRequestTpl = Fs.readFileSync(__dirname + "/templates/after_request.js.tpl", "utf8");
 var TestSectionTpl = Fs.readFileSync(__dirname + "/templates/test_section.js.tpl", "utf8");
 var TestHandlerTpl = Fs.readFileSync(__dirname + "/templates/test_handler.js.tpl", "utf8");
 
@@ -38,13 +34,14 @@ var main = module.exports = function(versions) {
             headers = headers.map(function(header) { return header.toLowerCase(); });
         var sections = {};
         var testSections = {};
+        var apidocs = "";
 
         function createComment(paramsStruct, section, funcName, indent) {
             var params = Object.keys(paramsStruct);
             var comment = [
                 indent + "/** ",
                 indent + " * @name module:" + section + "#" + funcName,
-                indent + " * @function",
+                indent + " * @method",
                 indent + " * @returns null"
             ];
             if (!params.length)
@@ -79,7 +76,7 @@ var main = module.exports = function(versions) {
             comment.push(indent + " * @param {Function} callback Function to call when the request is finished " +
                 "with an error as first argument and result data as second argument.");
 
-            return comment.join("\n") + "\n" + indent + " **/";
+            return comment.join("\n") + "\n" + indent + " **/\n";
         }
 
         function getParams(paramsStruct, indent) {
@@ -126,27 +123,15 @@ var main = module.exports = function(versions) {
                             "in section " + section);
                     }
 
-                    parts.splice(0, 2);
-                    var funcName = Util.toCamelCase(parts.join("-"));
-                    var comment = createComment(block.params, section, funcName, "    ");
-
                     // add the handler to the sections
                     if (!sections[section]) {
                         sections[section] = [];
-                        var afterRequest = "";
-                        if (headers && headers.length) {
-                            afterRequest = AfterRequestTpl.replace("<%headers%>", "\"" +
-                                headers.join("\", \"") + "\"");
-                        }
-                        sections[section].push(ProcessRequestTpl
-                            .replace("<%afterRequest%>", afterRequest)
-                        );
+                        apidocs += "/**\n * @module " + section + "\n **/\n";
                     }
 
-                    sections[section].push(HandlerTpl
-                        .replace("<%funcName%>", funcName)
-                        .replace("<%comment%>", comment)
-                    );
+                    parts.splice(0, 2);
+                    var funcName = Util.toCamelCase(parts.join("-"));
+                    apidocs += createComment(block.params, section, funcName, "    ");
 
                     // add test to the testSections
                     if (!testSections[section])
@@ -167,6 +152,8 @@ var main = module.exports = function(versions) {
         Util.log("Converting routes to functions");
         prepareApi(routes);
 
+        Fs.writeFileSync(dir + "/apidocs.jsdoc", apidocs);
+
         Util.log("Writing files to version dir");
         var sectionNames = Object.keys(sections);
 
@@ -175,19 +162,13 @@ var main = module.exports = function(versions) {
             IndexTpl
                 .replace("<%name%>", defines.constants.name)
                 .replace("<%description%>", defines.constants.description)
+                .replace("<%headers%>", headers && headers.length ? "\"" + headers.join("\", \"") + "\"" : "")
                 .replace("<%scripts%>", "\"" + sectionNames.join("\", \"") + "\""),
             "utf8");
 
+        if (false) {
         Object.keys(sections).forEach(function(section) {
-            var def = sections[section];
-            Util.log("Writing '" + section + ".js' file for version " + version);
-            Fs.writeFileSync(dir + "/" + section + ".js", SectionTpl
-                .replace(/<%sectionName%>/g, section)
-                .replace("<%sectionBody%>", def.join("\n")),
-                "utf8"
-            );
-
-            def = testSections[section];
+            var def = testSections[section];
             // test if previous tests already contained implementations by checking
             // if the difference in character count between the current test file
             // and the newly generated one is more than twenty characters.
@@ -206,6 +187,7 @@ var main = module.exports = function(versions) {
             Util.log("Writing test file for " + section + ", version " + version);
             Fs.writeFileSync(path, body, "utf8");
         });
+        }
     });
 };
 

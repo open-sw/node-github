@@ -3,7 +3,7 @@
 		"allowUnknownTags": true
 	},
 	"source": {
-		"include": [ "index.js", "api/v3.0.0/" ]
+		"include": [ "index.js", "api/v3.0.0/apidocs.jsdoc" ]
 	},
 	"plugins": [ "plugins/markdown" ],
 	"markdown": {

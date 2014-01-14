@@ -35,7 +35,7 @@ var Url = require("url");
  *
  *  First, we look at a listing of a sample routes.json routes definition file:
  *
- *  ```
+ *  ```json
  *      {
  *          "defines": {
  *              "constants": {
@@ -138,7 +138,7 @@ var Url = require("url");
  *  In this example, the endpoint `gists/get-from-user` will be exposed as a member
  *  on the {@link module:github.Client} object and may be invoked with
  *
- *  ```
+ *  ```javascript
  *      client.getFromUser({
  *          "user": "bob"
  *      }, function(err, ret) {
@@ -170,7 +170,7 @@ var Url = require("url");
  *  Implementation Notes: the `method` is NOT case sensitive, whereas `url` is.
  *  The `url` parameter also supports denoting parameters inside it as follows:
  *
- *  ```
+ *  ```json
  *      "get-from-user": {
  *          "url": ":user/gists",
  *          "method": "GET"
@@ -218,7 +218,7 @@ var Client = module.exports = function Client(config) {
      *  implemented additionally by adding an additional parameter type.
      *
      *  @name module:github.Client#setupRoutes
-     *  @function
+     *  @method
      *  @returns null
      **/
     this.setupRoutes = function() {
@@ -328,14 +328,6 @@ var Client = module.exports = function Client(config) {
                             JSON.stringify(block));
                     }
 
-                    if (!api[section][funcName]) {
-                        if (self.debug)
-                            Util.log("Tried to call " + funcName);
-                        throw new Error("Unsupported route, not implemented in version " +
-                            self.version + " for route '" + endPoint + "' and block: " +
-                            JSON.stringify(block));
-                    }
-
                     if (!self[section]) {
                         self[section] = {};
                         // add a utility function 'getFooApi()', which returns the
@@ -352,14 +344,13 @@ var Client = module.exports = function Client(config) {
                         catch (ex) {
                             // when the message was sent to the client, we can
                             // reply with the error directly.
-                            api.sendError(ex, block, msg, callback);
+                            api.sendError(ex, msg, block, callback);
                             if (self.debug)
                                 Util.log(ex.message, "fatal");
                             // on error, there's no need to continue.
                             return;
                         }
-
-                        api[section][funcName].call(api, msg, block, callback);
+                        api.handler(msg, block, callback);
                     };
                 }
                 else {
@@ -391,7 +382,7 @@ var Client = module.exports = function Client(config) {
      *      });
      *
      *  @name module:github.Client#authenticate
-     *  @function
+     *  @method
      *  @returns null
      *  @param {Object} options Object containing the authentication type and credentials
      *  @param {String} options.type One of the following: `basic` or `oauth`
@@ -434,7 +425,7 @@ var Client = module.exports = function Client(config) {
      *  Check if a request result contains a link to the next page
      *
      *  @name module:github.Client#hasNextPage
-     *  @function
+     *  @method
      *  @returns null
      *  @param {*} link response of a request or the contents of the Link header
      **/
@@ -446,9 +437,9 @@ var Client = module.exports = function Client(config) {
      *  Check if a request result contains a link to the previous page
      *
      *  @name module:github.Client#hasPreviousPage
-     *  @function
+     *  @method
      *  @returns null
-     *  @param {*} link () response of a request or the contents of the Link header
+     *  @param {*} link response of a request or the contents of the Link header
      **/
     this.hasPreviousPage = function(link) {
         return getPageLinks(link).prev;
@@ -458,7 +449,7 @@ var Client = module.exports = function Client(config) {
      *  Check if a request result contains a link to the last page
      *
      *  @name module:github.Client#hasLastPage
-     *  @function
+     *  @method
      *  @returns null
      *  @param {*} link response of a request or the contents of the Link header
      **/
@@ -470,7 +461,7 @@ var Client = module.exports = function Client(config) {
      *  Check if a request result contains a link to the first page
      *
      *  @name module:github.Client#hasFirstPage
-     *  @function
+     *  @method
      *  @returns null
      *  @param {*} link response of a request or the contents of the Link header
      **/
@@ -492,7 +483,7 @@ var Client = module.exports = function Client(config) {
         };
         this.httpSend(parsedUrl.query, block, function(err, res) {
             if (err)
-                return api.sendError(err, null, parsedUrl.query, callback);
+                return api.sendError(err, parsedUrl.query, null, callback);
 
             var ret;
             try {
@@ -522,7 +513,7 @@ var Client = module.exports = function Client(config) {
      *  Get the next page, based on the contents of the `Link` header
      *
      *  @name module:github.Client#getNextPage
-     *  @function
+     *  @method
      *  @returns null
      *  @param {*} link response of a request or the contents of the Link header
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
@@ -535,7 +526,7 @@ var Client = module.exports = function Client(config) {
      *  Get the previous page, based on the contents of the `Link` header
      *
      *  @name module:github.Client#getPreviousPage
-     *  @function
+     *  @method
      *  @returns null
      *  @param {*} link response of a request or the contents of the Link header
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
@@ -548,7 +539,7 @@ var Client = module.exports = function Client(config) {
      *  Get the last page, based on the contents of the `Link` header
      *
      *  @name module:github.Client#getLastPage
-     *  @function
+     *  @method
      *  @returns null
      *  @param {*} link response of a request or the contents of the Link header
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
@@ -561,7 +552,7 @@ var Client = module.exports = function Client(config) {
      *  Get the first page, based on the contents of the `Link` header
      *
      *  @name module:github.Client#getFirstPage
-     *  @function
+     *  @method
      *  @returns null
      *  @param {*} link response of a request or the contents of the Link header
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
@@ -610,8 +601,8 @@ var Client = module.exports = function Client(config) {
                 else if (format == "binary") {
                     if (paramName == "content-type")
                         ret.query.contentType = val;
-                    else if (paramName == "body")
-                        ret.query.body = val;
+                    else if (paramName == "content")
+                        ret.query.content = val;
                     else
                         ret.query.push(paramName + "=" + val);
                 } else
@@ -626,7 +617,7 @@ var Client = module.exports = function Client(config) {
      *  Send an HTTP request to the server and pass the result to a callback.
      *
      *  @name module:github.Client#httpSend
-     *  @function
+     *  @method
      *  @returns null
      *  @param {Object} msg parameters to send as the request body
      *  @param {Object} block parameter definition from the `routes.json` file that
@@ -663,16 +654,22 @@ var Client = module.exports = function Client(config) {
             "content-length": "0"
         };
         if (hasBody) {
-            if (format == "json")
+            var contentLength = 0;
+            var contentType = 0;
+            if (format == "json") {
                 query = JSON.stringify(query);
-            else if (format == "binary") {
-
-            } else
+                contentLength = query.length;
+                contentType = "application/json";
+            } else if (format == "binary") {
+                contentLength = query.content.length;
+                contentType = query.contentType;
+            } else {
                 query = query.join("&");
-            headers["content-length"] = query.length;
-            headers["content-type"] = format == "json"
-                ? "application/json"
-                : "application/x-www-form-urlencoded";
+                contentLength = query.length;
+                contentType = "application/x-www-form-urlencoded"
+            }
+            headers["content-length"] = contentLength;
+            headers["content-type"] = contentType;
         }
         if (this.auth) {
             var basic;
@@ -738,7 +735,11 @@ var Client = module.exports = function Client(config) {
         });
 
         // write data to request body
-        if (hasBody && query.length) {
+        if (format == "binary") {
+            if (query.content.length) {
+                req.write(query.content);
+            }
+        } else if (hasBody && query.length) {
             if (self.debug)
                 console.log("REQUEST BODY: " + query + "\n");
             req.write(query + "\n");

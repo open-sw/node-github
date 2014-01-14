@@ -23,17 +23,43 @@ var GithubHandler = module.exports = function(client) {
 };
 
 var proto = {
-    sendError: function(err, block, msg, callback) {
+    sendError: function(err, msg, block, callback) {
         Util.log(err, block, msg.user, "error");
         if (typeof err == "string")
             err = new error.InternalServerError(err);
         if (callback)
             callback(err);
+    },
+    handler: function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err)
+                return self.sendError(err, msg, null, callback);
+
+            var ret;
+            try {
+                ret = res.data && JSON.parse(res.data);
+            }
+            catch (ex) {
+                if (callback)
+                    callback(new error.InternalServerError(ex.message), res);
+                return;
+            }
+
+            ret.headers = {};
+            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
+                if (res.headers[header])
+                    ret.headers[header] = res.headers[header];
+            });
+
+            if (callback)
+                callback(null, ret);
+        });
     }
 };
 
-["gists", "gitdata", "issues", "authorization", "orgs", "statuses", "pullRequests", "repos", "user", "events", "search", "markdown"].forEach(function(api) {
-    Util.extend(proto, require("./" + api));
+["gists", "gitdata", "issues", "authorization", "orgs", "statuses", "pullRequests", "repos", "user", "events", "search", "markdown"].forEach(function(section) {
+    proto[section] = {};
 });
 
 GithubHandler.prototype = proto;

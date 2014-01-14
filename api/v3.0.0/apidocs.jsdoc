@@ -1,0 +1,2046 @@
+/**
+ * @module gists
+ **/
+    /** 
+     * @name module:gists#getAll
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#getFromUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#create
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} [msg.description]
+     * @param {Boolean} msg.public
+     * @param {Json} msg.files Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#edit
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} [msg.description]
+     * @param {Json} msg.files Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#public
+     * @method
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#starred
+     * @method
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#get
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#star
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#deleteStar
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#checkStar
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#fork
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gists#delete
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module gitdata
+ **/
+    /** 
+     * @name module:gitdata#getBlob
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#createBlob
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.content
+     * @param {String} msg.encoding
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#getCommit
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#createCommit
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.message String of the commit message
+     * @param {String} msg.tree String of the SHA of the tree object this commit points to
+     * @param {Array} msg.parents Array of the SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided, for a merge commit, an array of more than one should be provided.
+     * @param {Json} [msg.author]
+     * @param {Json} [msg.committer]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#getReference
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.ref String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#getAllReferences
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#createReference
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.ref String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
+     * @param {String} msg.sha
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#updateReference
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.ref String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
+     * @param {String} msg.sha
+     * @param {Boolean} msg.force Boolean indicating whether to force the update or to make sure the update is a fast-forward update. The default is false, so leaving this out or setting it to false will make sure you’re not overwriting work.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#deleteReference
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.ref String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#getTag
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#createTag
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.tag String of the tag
+     * @param {String} msg.message String of the tag message
+     * @param {String} msg.object String of the SHA of the git object this is tagging
+     * @param {String} msg.type String of the type of the object we’re tagging. Normally this is a commit but it can also be a tree or a blob.
+     * @param {Json} msg.tagger JSON object that contains the following keys: `name` - String of the name of the author of the tag, `email` - String of the email of the author of the tag, `date` - Timestamp of when this object was tagged
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#getTree
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Boolean} [msg.recursive]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:gitdata#createTree
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Json} msg.tree Array of Hash objects (of path, mode, type and sha) specifying a tree structure
+     * @param {String} [msg.base_tree] String of the SHA1 of the tree you want to update with new data
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module issues
+ **/
+    /** 
+     * @name module:issues#getAll
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} [msg.filter] Validation rule: ` ^(assigned|created|mentioned|subscribed)$ `.
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.labels] String list of comma separated Label names. Example: bug,ui,@high
+     * @param {String} [msg.sort] Validation rule: ` ^(created|updated|comments)$ `.
+     * @param {String} [msg.direction] Validation rule: ` ^(asc|desc)$ `.
+     * @param {Date} [msg.since] string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#repoIssues
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.milestone] Validation rule: ` ^([0-9]+|none|\*)$ `.
+     * @param {String} [msg.state] open or closed Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.assignee] String User login, `none` for Issues with no assigned User. `*` for Issues with any assigned User.
+     * @param {String} [msg.mentioned] String User login.
+     * @param {String} [msg.labels] String list of comma separated Label names. Example: bug,ui,@high
+     * @param {String} [msg.sort] Validation rule: ` ^(created|updated|comments)$ `.
+     * @param {String} [msg.direction] Validation rule: ` ^(asc|desc)$ `.
+     * @param {Date} [msg.since] string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getRepoIssue
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#create
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.title
+     * @param {String} [msg.body]
+     * @param {String} [msg.assignee] Login for the user that this issue should be assigned to.
+     * @param {Number} [msg.milestone] Milestone to associate this issue with. Validation rule: ` ^[0-9]+$ `.
+     * @param {Json} msg.labels Labels to associate with this issue.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#edit
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.title
+     * @param {String} [msg.body]
+     * @param {String} [msg.assignee] Login for the user that this issue should be assigned to.
+     * @param {Number} [msg.milestone] Milestone to associate this issue with. Validation rule: ` ^[0-9]+$ `.
+     * @param {Json} msg.labels array of strings - Labels to associate with this issue.
+     * @param {String} [msg.state] open or closed Validation rule: ` ^(open|closed)$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getComments
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#createComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.body
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#editComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.body
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#deleteComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getEvents
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getRepoEvents
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getEvent
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getLabels
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getLabel
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#createLabel
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {String} msg.color 6 character hex code, without a leading #.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#updateLabel
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {String} msg.color 6 character hex code, without a leading #.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#deleteLabel
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getAllMilestones
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.sort] due_date, completeness, default: due_date Validation rule: ` ^(due_date|completeness)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#getMilestone
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#createMilestone
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.title
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.description]
+     * @param {Date} [msg.due_on] ISO 8601 time.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#updateMilestone
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.title
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} [msg.description]
+     * @param {Date} [msg.due_on] ISO 8601 time.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:issues#deleteMilestone
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module authorization
+ **/
+    /** 
+     * @name module:authorization#getAll
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:authorization#get
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:authorization#create
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Array} [msg.scopes] A list of scopes that this authorization is in.
+     * @param {String} [msg.note] A note to remind you what the OAuth token is for.
+     * @param {String} [msg.note_url] A URL to remind you what app the OAuth token is for.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:authorization#update
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Array} [msg.scopes] A list of scopes that this authorization is in.
+     * @param {Array} [msg.add_scopes] A list of scopes to add to this authorization.
+     * @param {Array} [msg.remove_scopes] A list of scopes to remove from this authorization.
+     * @param {String} [msg.note] A note to remind you what the OAuth token is for.
+     * @param {String} [msg.note_url] A URL to remind you what app the OAuth token is for.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:authorization#delete
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module orgs
+ **/
+    /** 
+     * @name module:orgs#getFromUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#get
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#update
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} [msg.billing_email] Billing email address. This address is not publicized.
+     * @param {String} [msg.company]
+     * @param {String} [msg.email] Publicly visible email address.
+     * @param {String} [msg.location]
+     * @param {String} [msg.name]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getMembers
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getMember
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#removeMember
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getPublicMembers
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getPublicMember
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#publicizeMembership
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#concealMembership
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getTeams
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getTeam
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#createTeam
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} msg.name
+     * @param {Array} [msg.repo_names] array of strings
+     * @param {String} [msg.permission] `pull` - team members can pull, but not push or administer this repositories (Default), `push` - team members can pull and push, but not administer this repositores, `admin` - team members can pull, push and administer these repositories. Validation rule: ` ^(pull|push|admin)$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#updateTeam
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.name
+     * @param {String} [msg.permission] `pull` - team members can pull, but not push or administer this repositories (Default), `push` - team members can pull and push, but not administer this repositores, `admin` - team members can pull, push and administer these repositories. Validation rule: ` ^(pull|push|admin)$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#deleteTeam
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getTeamMembers
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getTeamMember
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#addTeamMember
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#deleteTeamMember
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getTeamRepos
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#getTeamRepo
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#addTeamRepo
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:orgs#deleteTeamRepo
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module statuses
+ **/
+    /** 
+     * @name module:statuses#get
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:statuses#create
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {String} msg.state State of the status - can be one of pending, success, error, or failure. Validation rule: ` ^(pending|success|error|failure)$ `.
+     * @param {String} [msg.target_url] Target url to associate with this status. This URL will be linked from the GitHub UI to allow users to easily see the ‘source’ of the Status.
+     * @param {String} [msg.description] Short description of the status.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module pullRequests
+ **/
+    /** 
+     * @name module:pullRequests#getAll
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#get
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#create
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.title
+     * @param {String} [msg.body]
+     * @param {String} msg.base The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo.
+     * @param {String} msg.head The branch (or git ref) where your changes are implemented.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#createFromIssue
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.issue Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.base The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo.
+     * @param {String} msg.head The branch (or git ref) where your changes are implemented.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#update
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} [msg.state] Validation rule: ` ^(open|closed)$ `.
+     * @param {String} msg.title
+     * @param {String} [msg.body]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#getCommits
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#getFiles
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#getMerged
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#merge
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} [msg.commit_message] The message that will be used for the merge commit
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#getComments
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#getComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#createComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.body
+     * @param {String} msg.commit_id Sha of the commit to comment on.
+     * @param {String} msg.path Relative path of the file to comment on.
+     * @param {Number} msg.position Column index in the diff to comment on.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#createCommentReply
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.body
+     * @param {Number} msg.in_reply_to
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#updateComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {String} msg.body
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:pullRequests#deleteComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} msg.number Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module repos
+ **/
+    /** 
+     * @name module:repos#getAll
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} [msg.type] Possible values: `all`, `owner`, `public`, `private`, `member`. Default: `all`. Validation rule: ` ^(all|owner|public|private|member)$ `.
+     * @param {String} [msg.sort] Possible values: `created`, `updated`, `pushed`, `full_name`. Default: `full_name`. Validation rule: ` ^(created|updated|pushed|full_name)$ `.
+     * @param {String} [msg.direction] Validation rule: ` ^(asc|desc)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getFromUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} [msg.type] Possible values: `all`, `owner`, `member`. Default: `public`. Validation rule: ` ^(all|owner|member)$ `.
+     * @param {String} [msg.sort] Possible values: `created`, `updated`, `pushed`, `full_name`. Default: `full_name`. Validation rule: ` ^(created|updated|pushed|full_name)$ `.
+     * @param {String} [msg.direction] Validation rule: ` ^(asc|desc)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getFromOrg
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} [msg.type] Possible values: `all`, `public`, `member`. Default: `all`. Validation rule: ` ^(all|public|member)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#create
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.name
+     * @param {String} [msg.description]
+     * @param {String} [msg.homepage]
+     * @param {Boolean} [msg.private] true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.
+     * @param {Boolean} [msg.has_issues] true to enable issues for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.has_wiki] true to enable the wiki for this repository, false to disable it. Default is true.
+     * @param {Boolean} [msg.has_downloads] true to enable downloads for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.auto_init] true to create an initial commit with empty README. Default is false
+     * @param {String} [msg.gitignore_template] Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#createFromOrg
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {String} msg.name
+     * @param {String} [msg.description]
+     * @param {String} [msg.homepage]
+     * @param {Boolean} [msg.private] true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.
+     * @param {Boolean} [msg.has_issues] true to enable issues for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.has_wiki] true to enable the wiki for this repository, false to disable it. Default is true.
+     * @param {Boolean} [msg.has_downloads] true to enable downloads for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.auto_init] true to create an initial commit with empty README. Default is false
+     * @param {String} [msg.gitignore_template] Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided.
+     * @param {Number} [msg.team_id] The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#get
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#update
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {String} [msg.description]
+     * @param {String} [msg.homepage]
+     * @param {Boolean} [msg.private] true to create a private repository, false to create a public one. Creating private repositories requires a paid GitHub account. Default is false.
+     * @param {Boolean} [msg.has_issues] true to enable issues for this repository, false to disable them. Default is true.
+     * @param {Boolean} [msg.has_wiki] true to enable the wiki for this repository, false to disable it. Default is true.
+     * @param {Boolean} [msg.has_downloads] true to enable downloads for this repository, false to disable them. Default is true.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#delete
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#merge
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.base The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo.
+     * @param {String} msg.head The branch (or git ref) where your changes are implemented.
+     * @param {String} [msg.commit_message] Commit message to use for the merge commit. If omitted, a default message will be used.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getContributors
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Boolean} [msg.anon] Set to 1 or true to include anonymous contributors in results.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getLanguages
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getTeams
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getTags
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getBranches
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getBranch
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.branch
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getCollaborators
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getCollaborator
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.collabuser
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#addCollaborator
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.collabuser
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#removeCollaborator
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.collabuser
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getCommits
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.sha] Sha or branch to start listing commits from.
+     * @param {String} [msg.path] Only commits containing this file path will be returned.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Date} [msg.since] string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getCommit
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getAllCommitComments
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getCommitComments
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#createCommitComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.sha
+     * @param {String} msg.body
+     * @param {String} msg.commit_id Sha of the commit to comment on.
+     * @param {String} [msg.path] Relative path of the file to comment on.
+     * @param {Number} [msg.position] Line index in the diff to comment on.
+     * @param {Number} [msg.line] Line number in the file to comment on. Defaults to 1.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getCommitComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#updateCommitComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.body
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#compareCommits
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.base The branch (or git ref) you want your changes pulled into. This should be an existing branch on the current repository. You cannot submit a pull request to one repo that requests a merge to a base of another repo.
+     * @param {String} msg.head The branch (or git ref) where your changes are implemented.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#deleteCommitComment
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getReadme
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.ref] The String name of the Commit/Branch/Tag. Defaults to master.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getContent
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.path] The content path.
+     * @param {String} [msg.ref] The String name of the Commit/Branch/Tag. Defaults to master.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getArchiveLink
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.archive_format Either tarball or zipball Validation rule: ` ^(tarball|zipball)$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getDownloads
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getDownload
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#deleteDownload
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getForks
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.sort] Possible values: `newest`, `oldest`, `watchers`, default: `newest`. Validation rule: ` ^(newest|oldest|watchers)$ `.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#fork
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} [msg.org] Organization login. The repository will be forked into this organization.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getKeys
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getKey
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#createKey
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.title
+     * @param {String} msg.key
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#updateKey
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.title
+     * @param {String} msg.key
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#deleteKey
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getWatchers
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getWatched
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getWatchedFromUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getWatching
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#watch
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#unWatch
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getHooks
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getHook
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#createHook
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.name
+     * @param {Json} msg.config Required hash - A Hash containing key/value pairs to provide settings for this hook. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically.
+     * @param {Array} [msg.events] Determines what events the hook is triggered for. Default: `['push']`.
+     * @param {Boolean} [msg.active] Determines whether the hook is actually triggered on pushes.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#updateHook
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.name
+     * @param {Json} msg.config A Hash containing key/value pairs to provide settings for this hook. Modifying this will replace the entire config object. These settings vary between the services and are defined in the github-services repo. Booleans are stored internally as `1` for true, and `0` for false. Any JSON true/false values will be converted automatically.
+     * @param {Array} [msg.events] Determines what events the hook is triggered for. This replaces the entire array of events. Default: `['push']`.
+     * @param {Array} [msg.add_events] Determines a list of events to be added to the list of events that the Hook triggers for.
+     * @param {Array} [msg.remove_events] Determines a list of events to be removed from the list of events that the Hook triggers for.
+     * @param {Boolean} [msg.active] Determines whether the hook is actually triggered on pushes.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#testHook
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#deleteHook
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getAllReleases
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getRelease
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#createRelease
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.tag_name
+     * @param {String} [msg.target_commitish]
+     * @param {String} msg.name
+     * @param {String} msg.body
+     * @param {Boolean} [msg.draft]
+     * @param {Boolean} [msg.prerelease]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#updateRelease
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} [msg.tag_name]
+     * @param {String} [msg.target_commitish]
+     * @param {String} [msg.name]
+     * @param {String} [msg.body]
+     * @param {Boolean} [msg.draft]
+     * @param {Boolean} [msg.prerelease]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#deleteRelease
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#listReleaseAssets
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#uploadReleaseAsset
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.content-type
+     * @param {String} msg.name
+     * @param {Binary} msg.content
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#getReleaseAsset
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#editReleaseAsset
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {String} msg.name
+     * @param {String} [msg.label]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:repos#deleteReleaseAsset
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module user
+ **/
+    /** 
+     * @name module:user#getFrom
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#get
+     * @method
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#update
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} [msg.name]
+     * @param {String} [msg.email]
+     * @param {String} [msg.blog]
+     * @param {String} [msg.company]
+     * @param {String} [msg.location]
+     * @param {Boolean} [msg.hireable]
+     * @param {String} [msg.bio]
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#getOrgs
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#getEmails
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#addEmails
+     * @method
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#deleteEmails
+     * @method
+     * @returns null
+     * @param {Object} msg No params, simply pass an empty Object literal `{}`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#getFollowers
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#getFollowingFromUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#getFollowing
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#getFollowUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#followUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#unFollowUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#getKeys
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#getKey
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#createKey
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.title
+     * @param {String} msg.key
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#updateKey
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {String} msg.title
+     * @param {String} msg.key
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:user#deleteKey
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.id
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module events
+ **/
+    /** 
+     * @name module:events#get
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getFromRepo
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getFromRepoIssues
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getFromRepoNetwork
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getFromOrg
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.org
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getReceived
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getReceivedPublic
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getFromUser
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getFromUserPublic
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:events#getFromUserOrg
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.org
+     * @param {Number} [msg.page] Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+     * @param {Number} [msg.per_page] A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module search
+ **/
+    /** 
+     * @name module:search#issues
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.user
+     * @param {String} msg.repo
+     * @param {String} msg.state open or closed Validation rule: ` ^(open|closed)$ `.
+     * @param {String} msg.keyword Search term
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:search#repos
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.keyword Search term
+     * @param {String} [msg.language] Filter results by language, see https://github.com/languages
+     * @param {Number} [msg.start_page] Page number to fetch Validation rule: ` ^[0-9]+$ `.
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:search#users
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.keyword Keyword search parameters
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+    /** 
+     * @name module:search#email
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.email Email address
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
+/**
+ * @module markdown
+ **/
+    /** 
+     * @name module:markdown#render
+     * @method
+     * @returns null
+     * @param {Object} msg Object that contains the parameters and their values to be sent to the server.
+     * @param {String} msg.text The Markdown text to render
+     * @param {String} [msg.mode] The rendering mode, `markdown` to render a document as plain Markdown, just like README files are rendered. `gfm` to render a document as user-content, e.g. like user comments or issues are rendered. In GFM mode, hard line breaks are always taken into account, and issue and user mentions are linked accordingly. Validation rule: ` ^(markdown|gfm)$ `.
+     * @param {String} [msg.context] The repository context, only taken into account when rendering as `gfm`
+     * @param {Function} callback Function to call when the request is finished with an error as first argument and result data as second argument.
+     **/
