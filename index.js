@@ -35,7 +35,7 @@ var Url = require("url");
  *
  *  First, we look at a listing of a sample routes.json routes definition file:
  *
- *  ```json
+ *  ```js
  *      {
  *          "defines": {
  *              "constants": {
@@ -138,7 +138,7 @@ var Url = require("url");
  *  In this example, the endpoint `gists/get-from-user` will be exposed as a member
  *  on the {@link module:github.Client} object and may be invoked with
  *
- *  ```javascript
+ *  ```js
  *      client.getFromUser({
  *          "user": "bob"
  *      }, function(err, ret) {
@@ -170,7 +170,7 @@ var Url = require("url");
  *  Implementation Notes: the `method` is NOT case sensitive, whereas `url` is.
  *  The `url` parameter also supports denoting parameters inside it as follows:
  *
- *  ```json
+ *  ```js
  *      "get-from-user": {
  *          "url": ":user/gists",
  *          "method": "GET"
@@ -178,7 +178,7 @@ var Url = require("url");
  *      }
  *  ```
  * @name module:github.Client
- * @class
+ * @constructor
  **/
 var Client = module.exports = function Client(config) {
     this.config = config;
@@ -321,12 +321,6 @@ var Client = module.exports = function Client(config) {
                     var section = Util.toCamelCase(parts[1]);
                     parts.splice(0, 2);
                     var funcName = Util.toCamelCase(parts.join("-"));
-
-                    if (!api[section]) {
-                        throw new Error("Unsupported route section, not implemented in version " +
-                            self.version + " for route '" + endPoint + "' and block: " +
-                            JSON.stringify(block));
-                    }
 
                     if (!self[section]) {
                         self[section] = {};
@@ -575,22 +569,23 @@ var Client = module.exports = function Client(config) {
                 return;
 
             var isUrlParam = url.indexOf(":" + paramName) !== -1;
-            var valFormat = isUrlParam || (format != "json" && format != "binary") ? "query" : format;
             var val;
-            if (valFormat != "json" && typeof msg[paramName] == "object") {
-                try {
-                    msg[paramName] = JSON.stringify(msg[paramName]);
-                    val = encodeURIComponent(msg[paramName]);
-                }
-                catch (ex) {
-                    return Util.log("httpSend: Error while converting object to JSON: "
-                        + (ex.message || ex), "error");
-                }
-            }
-            else if (valFormat == "json" || (valFormat == "binary" && paramName == "body"))
+
+            if (format == "json" || (format == "binary" && paramName == "content")) {
                 val = msg[paramName];
-            else
+            } else {
+                if (typeof msg[paramName] == "object") {
+                    try {
+                        msg[paramName] = JSON.stringify(msg[paramName]);
+                    }
+                    catch (ex) {
+                        return Util.log("httpSend: Error while converting object to JSON: "
+                            + (ex.message || ex), "error");
+                    }
+                }
+
                 val = encodeURIComponent(msg[paramName]);
+            }
 
             if (isUrlParam) {
                 url = url.replace(":" + paramName, val);
@@ -599,13 +594,14 @@ var Client = module.exports = function Client(config) {
                 if (format == "json")
                     ret.query[paramName] = val;
                 else if (format == "binary") {
-                    if (paramName == "content-type")
-                        ret.query.contentType = val;
+                    if (paramName == "content_type")
+                        ret.query.content_type = val;
                     else if (paramName == "content")
                         ret.query.content = val;
                     else
                         ret.query.push(paramName + "=" + val);
-                } else
+                }
+                else
                     ret.query.push(paramName + "=" + val);
             }
         });
@@ -662,7 +658,7 @@ var Client = module.exports = function Client(config) {
                 contentType = "application/json";
             } else if (format == "binary") {
                 contentLength = query.content.length;
-                contentType = query.contentType;
+                contentType = query.content_type;
             } else {
                 query = query.join("&");
                 contentLength = query.length;

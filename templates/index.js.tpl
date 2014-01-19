@@ -17,12 +17,16 @@ var Fs = require("fs");
 var Util = require("./../../util");
 var error = require("./../../error");
 
+/**
+ * @module api
+ * @constructor
+ **/
 var GithubHandler = module.exports = function(client) {
     this.client = client;
     this.routes = JSON.parse(Fs.readFileSync(__dirname + "/routes.json", "utf8"));
 };
 
-var proto = {
+GithubHandler.prototype = {
     sendError: function(err, msg, block, callback) {
         Util.log(err, block, msg.user, "error");
         if (typeof err == "string")
@@ -57,9 +61,3 @@ var proto = {
         });
     }
 };
-
-[<%scripts%>].forEach(function(section) {
-    proto[section] = {};
-});
-
-GithubHandler.prototype = proto;

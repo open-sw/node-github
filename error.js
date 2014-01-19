@@ -10,6 +10,7 @@
  **/
 
 var Util = require("util");
+var ourUtil = require("./util");
 
 exports.HttpError = function(message, code) {
     Error.call(this, message);
@@ -105,13 +106,7 @@ for (var status in statusCodes) {
     
     Util.inherits(error, exports.HttpError);
     
-    var className = toCamelCase(defaultMsg);
+    var className = ourUtil.toCamelCase(defaultMsg, true);
     exports[className] = error;
     exports[status] = error;
-}
-
-function toCamelCase(str) {
-    return str.toLowerCase().replace(/(?:(^.)|(\s+.))/g, function(match) {
-        return match.charAt(match.length-1).toUpperCase();
-    });
 }

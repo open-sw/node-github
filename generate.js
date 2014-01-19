@@ -36,18 +36,17 @@ var main = module.exports = function(versions) {
         var testSections = {};
         var apidocs = "";
 
-        function createComment(paramsStruct, section, funcName, indent) {
+        function createComment(paramsStruct, section, funcName) {
             var params = Object.keys(paramsStruct);
             var comment = [
-                indent + "/** ",
-                indent + " * @name module:" + section + "#" + funcName,
-                indent + " * @method",
-                indent + " * @returns null"
+                "/** ",
+                " * @method module:" + section + "#" + funcName,
+                " * @returns null"
             ];
             if (!params.length)
-                comment.push(indent + " * @param {Object} msg No params, simply pass an empty Object literal `{}`");
+                comment.push(" * @param {Object} msg No params, simply pass an empty Object literal `{}`");
             else
-                comment.push(indent + " * @param {Object} msg Object that contains the parameters and their values to be sent to the server.");
+                comment.push(" * @param {Object} msg Object that contains the parameters and their values to be sent to the server.");
             var paramName, def, line;
             for (var i = 0, l = params.length; i < l; ++i) {
                 paramName = params[i];
@@ -64,7 +63,7 @@ var main = module.exports = function(versions) {
                 else
                     def = paramsStruct[paramName];
 
-                line = indent + " * @param {" + (def.type || "...") + "} " + (def.required ? "msg." + paramName : "[msg." + paramName+"]");
+                line = " * @param {" + (def.type || "...") + "} " + (def.required ? "msg." + paramName : "[msg." + paramName+"]");
                 if (def.description)
                     line +=  " " + def.description;
                 if (def.validation)
@@ -73,10 +72,10 @@ var main = module.exports = function(versions) {
                 comment.push(line);
             }
 
-            comment.push(indent + " * @param {Function} callback Function to call when the request is finished " +
+            comment.push(" * @param {Function} callback Function to call when the request is finished " +
                 "with an error as first argument and result data as second argument.");
 
-            return comment.join("\n") + "\n" + indent + " **/\n";
+            return comment.join("\n") + "\n **/\n";
         }
 
         function getParams(paramsStruct, indent) {
@@ -126,12 +125,12 @@ var main = module.exports = function(versions) {
                     // add the handler to the sections
                     if (!sections[section]) {
                         sections[section] = [];
-                        apidocs += "/**\n * @module " + section + "\n **/\n";
+                        //apidocs += "/**\n * @module " + section + "\n **/\n";
                     }
 
                     parts.splice(0, 2);
                     var funcName = Util.toCamelCase(parts.join("-"));
-                    apidocs += createComment(block.params, section, funcName, "    ");
+                    apidocs += createComment(block.params, section, funcName);
 
                     // add test to the testSections
                     if (!testSections[section])
@@ -152,10 +151,27 @@ var main = module.exports = function(versions) {
         Util.log("Converting routes to functions");
         prepareApi(routes);
 
-        Fs.writeFileSync(dir + "/apidocs.jsdoc", apidocs);
-
         Util.log("Writing files to version dir");
         var sectionNames = Object.keys(sections);
+
+        var sectionComments = "";
+
+        sectionNames.forEach(
+            function (section) {
+                var comment = [
+                    "/**",
+                    " * @module " + section,
+                    " **/",
+                    "/**",
+                    " * @name module:github.Client#" + section,
+                    " * @type {module:" + section + "}",
+                    " **/"
+                ];
+                sectionComments += comment.join("\n") + "\n";
+            }
+        );
+
+        Fs.writeFileSync(dir + "/apidocs.jsdoc", sectionComments + apidocs);
 
         Util.log("Writing index.js file for version " + version);
         Fs.writeFileSync(dir + "/index.js",
