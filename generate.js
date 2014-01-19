@@ -16,7 +16,6 @@ var Path = require("path");
 
 var Util = require("./util");
 
-var IndexTpl = Fs.readFileSync(__dirname + "/templates/index.js.tpl", "utf8");
 var TestSectionTpl = Fs.readFileSync(__dirname + "/templates/test_section.js.tpl", "utf8");
 var TestHandlerTpl = Fs.readFileSync(__dirname + "/templates/test_handler.js.tpl", "utf8");
 
@@ -28,10 +27,6 @@ var main = module.exports = function(versions) {
         var routes = JSON.parse(Fs.readFileSync(dir + "/routes.json", "utf8"));
         var defines = routes.defines;
         delete routes.defines;
-        var headers = defines["response-headers"];
-        // cast header names to lowercase.
-        if (headers && headers.length)
-            headers = headers.map(function(header) { return header.toLowerCase(); });
         var sections = {};
         var testSections = {};
         var apidocs = "";
@@ -172,15 +167,6 @@ var main = module.exports = function(versions) {
         );
 
         Fs.writeFileSync(dir + "/apidocs.jsdoc", sectionComments + apidocs);
-
-        Util.log("Writing index.js file for version " + version);
-        Fs.writeFileSync(dir + "/index.js",
-            IndexTpl
-                .replace("<%name%>", defines.constants.name)
-                .replace("<%description%>", defines.constants.description)
-                .replace("<%headers%>", headers && headers.length ? "\"" + headers.join("\", \"") + "\"" : "")
-                .replace("<%scripts%>", "\"" + sectionNames.join("\", \"") + "\""),
-            "utf8");
 
         if (false) {
         Object.keys(sections).forEach(function(section) {

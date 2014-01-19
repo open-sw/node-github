@@ -229,6 +229,11 @@ var Client = module.exports = function Client(config) {
         this.constants = defines.constants;
         delete routes.defines;
 
+        var headers = this.constants["responseHeaders"];
+        // cast header names to lowercase.
+        if (headers && headers.length)
+            this.constants["responseHeaders"] = headers.map(function(header) { return header.toLowerCase(); });
+
         function trim(s) {
             if (typeof s != "string")
                 return s;
@@ -571,7 +576,7 @@ var Client = module.exports = function Client(config) {
             var isUrlParam = url.indexOf(":" + paramName) !== -1;
             var val;
 
-            if (format == "json" || (format == "binary" && paramName == "content")) {
+            if (format == "json" || (format == "binary" && (paramName == "content" || paramName == "content_type"))) {
                 val = msg[paramName];
             } else {
                 if (typeof msg[paramName] == "object") {

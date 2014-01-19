@@ -50,10 +50,15 @@ GithubHandler.prototype = {
                 return;
             }
 
-            ret.headers = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "x-oauth-scopes", "link"].forEach(function(header) {
-                if (res.headers[header])
-                    ret.headers[header] = res.headers[header];
+            if (!ret) {
+                ret = {};
+            }
+
+            ret.meta = {};
+            self.client.constants.responseHeaders.forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
             });
 
             if (callback)

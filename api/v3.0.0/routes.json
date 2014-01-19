@@ -7,14 +7,14 @@
             "host": "api.github.com",
             "port": 443,
             "dateFormat": "YYYY-MM-DDTHH:MM:SSZ",
-            "requestFormat": "json"
-        },
-        "response-headers": [
+            "requestFormat": "json",
+            "responseHeaders": [
             "X-RateLimit-Limit",
             "X-RateLimit-Remaining",
             "X-Oauth-Scopes",
             "Link"
-        ],
+        ]
+        },
         "params": {
             "files": {
                 "type": "Json",
