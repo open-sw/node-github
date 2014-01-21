@@ -2,6 +2,7 @@
     "name" : "github2",
     "version" : "2.0.0",
     "description" : "NodeJS wrapper for the GitHub API",
+    "keywords": "github",
     "author": "Robert Nelson <robertn@the-nelsons.org>",
     "contributors": [
     	{ "name": "ajax.org B.V. <info@ajax.org>" },
