@@ -18,10 +18,6 @@ var Path = require("path");
 
 var Util = require("./util");
 
-var IndexTpl = Fs.readFileSync(__dirname + "/templates/index.js.tpl", "utf8");
-var SectionTpl = Fs.readFileSync(__dirname + "/templates/section.js.tpl", "utf8");
-var HandlerTpl = Fs.readFileSync(__dirname + "/templates/handler.js.tpl", "utf8");
-var AfterRequestTpl = Fs.readFileSync(__dirname + "/templates/after_request.js.tpl", "utf8");
 var TestSectionTpl = Fs.readFileSync(__dirname + "/templates/test_section.js.tpl", "utf8");
 var TestHandlerTpl = Fs.readFileSync(__dirname + "/templates/test_handler.js.tpl", "utf8");
 
@@ -33,27 +29,21 @@ var main = module.exports = function(versions) {
         var routes = JSON.parse(Fs.readFileSync(dir + "/routes.json", "utf8"));
         var defines = routes.defines;
         delete routes.defines;
-        var headers = defines["response-headers"];
-        // cast header names to lowercase.
-        if (headers && headers.length)
-            headers = headers.map(function(header) { return header.toLowerCase(); });
         var sections = {};
         var testSections = {};
+        var apidocs = "";
 
-        function createComment(paramsStruct, section, funcName, indent) {
+        function createComment(paramsStruct, section, funcName) {
             var params = Object.keys(paramsStruct);
             var comment = [
-                indent + "/** section: github",
-                indent + " *  " + section + "#" + funcName + "(msg, callback) -> null",
-                indent + " *      - msg (Object): Object that contains the parameters and their values to be sent to the server.",
-                indent + " *      - callback (Function): function to call when the request is finished " +
-                    "with an error as first argument and result data as second argument.",
-                indent + " * ",
-                indent + " *  ##### Params on the `msg` object:",
-                indent + " * "
+                "/** ",
+                " * @method module:" + section + "#" + funcName,
+                " * @returns null"
             ];
             if (!params.length)
-                comment.push(indent + " *  No params, simply pass an empty Object literal `{}`");
+                comment.push(" * @param {Object} msg No params, simply pass an empty Object literal `{}`");
+            else
+                comment.push(" * @param {Object} msg Object that contains the parameters and their values to be sent to the server.");
             var paramName, def, line;
             for (var i = 0, l = params.length; i < l; ++i) {
                 paramName = params[i];
@@ -70,17 +60,19 @@ var main = module.exports = function(versions) {
                 else
                     def = paramsStruct[paramName];
 
-                line = indent + " *  - " + paramName + " (" + (def.type || "mixed") + "): " +
-                    (def.required ? "Required. " : "Optional. ");
+                line = " * @param {" + (def.type || "...") + "} " + (def.required ? "msg." + paramName : "[msg." + paramName+"]");
                 if (def.description)
-                    line += def.description + " ";
+                    line +=  " " + def.description;
                 if (def.validation)
-                    line += "Validation rule: ` " + def.validation + " `.";
+                    line += " Validation rule: ` " + def.validation + " `.";
 
                 comment.push(line);
             }
 
-            return comment.join("\n") + "\n" + indent + " **/";
+            comment.push(" * @param {Function} callback Function to call when the request is finished " +
+                "with an error as first argument and result data as second argument.");
+
+            return comment.join("\n") + "\n **/\n";
         }
 
         function getParams(paramsStruct, indent) {
@@ -121,30 +113,21 @@ var main = module.exports = function(versions) {
                 if (block.url && block.params) {
                     // we ended up at an API definition part!
                     var parts = messageType.split("/");
-                    var section = Util.toCamelCase(parts[1].toLowerCase());
+                    var section = Util.toCamelCase(parts[1]);
                     if (!block.method) {
                         throw new Error("No HTTP method specified for " + messageType +
                             "in section " + section);
                     }
 
+                    // add the handler to the sections
+                    if (!sections[section]) {
+                        sections[section] = [];
+                        //apidocs += "/**\n * @module " + section + "\n **/\n";
+                    }
+
                     parts.splice(0, 2);
                     var funcName = Util.toCamelCase(parts.join("-"));
-                    var comment = createComment(block.params, section, funcName, "    ");
-
-                    // add the handler to the sections
-                    if (!sections[section])
-                        sections[section] = [];
-
-                    var afterRequest = "";
-                    if (headers && headers.length) {
-                        afterRequest = AfterRequestTpl.replace("<%headers%>", "\"" +
-                            headers.join("\", \"") + "\"");
-                    }
-                    sections[section].push(HandlerTpl
-                        .replace("<%funcName%>", funcName)
-                        .replace("<%comment%>", comment)
-                        .replace("<%afterRequest%>", afterRequest)
-                    );
+                    apidocs += createComment(block.params, section, funcName);
 
                     // add test to the testSections
                     if (!testSections[section])
@@ -168,24 +151,28 @@ var main = module.exports = function(versions) {
         Util.log("Writing files to version dir");
         var sectionNames = Object.keys(sections);
 
-        Util.log("Writing index.js file for version " + version);
-        Fs.writeFileSync(dir + "/index.js",
-            IndexTpl
-                .replace("<%name%>", defines.constants.name)
-                .replace("<%description%>", defines.constants.description)
-                .replace("<%scripts%>", "\"" + sectionNames.join("\", \"") + "\""),
-            "utf8");
+        var sectionComments = "";
 
+        sectionNames.forEach(
+            function (section) {
+                var comment = [
+                    "/**",
+                    " * @module " + section,
+                    " **/",
+                    "/**",
+                    " * @name module:github.Client#" + section,
+                    " * @type {module:" + section + "}",
+                    " **/"
+                ];
+                sectionComments += comment.join("\n") + "\n";
+            }
+        );
+
+        Fs.writeFileSync(dir + "/apidocs.jsdoc", sectionComments + apidocs);
+
+        if (false) {
         Object.keys(sections).forEach(function(section) {
-            var def = sections[section];
-            Util.log("Writing '" + section + ".js' file for version " + version);
-            Fs.writeFileSync(dir + "/" + section + ".js", SectionTpl
-                .replace(/<%sectionName%>/g, section)
-                .replace("<%sectionBody%>", def.join("\n")),
-                "utf8"
-            );
-
-            def = testSections[section];
+            var def = testSections[section];
             // test if previous tests already contained implementations by checking
             // if the difference in character count between the current test file
             // and the newly generated one is more than twenty characters.
@@ -194,7 +181,7 @@ var main = module.exports = function(versions) {
                 .replace(/<%sectionName%>/g, section)
                 .replace("<%testBody%>", def.join("\n\n"));
             var path = dir + "/" + section + "Test.js";
-            if (Path.existsSync(path) && Math.abs(Fs.readFileSync(path, "utf8").length - body.length) >= 20) {
+            if (Fs.existsSync(path) && Math.abs(Fs.readFileSync(path, "utf8").length - body.length) >= 20) {
                 Util.log("Moving old test file to '" + path + ".bak' to preserve tests " +
                     "that were already implemented. \nPlease be sure te check this file " +
                     "and move all implemented tests back into the newly generated test!", "error");
@@ -204,6 +191,7 @@ var main = module.exports = function(versions) {
             Util.log("Writing test file for " + section + ", version " + version);
             Fs.writeFileSync(path, body, "utf8");
         });
+        }
     });
 };
 

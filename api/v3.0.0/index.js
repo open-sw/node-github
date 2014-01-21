@@ -17,23 +17,52 @@ var Fs = require("fs");
 var Util = require("./../../util");
 var error = require("./../../error");
 
+/**
+ * @module api
+ * @constructor
+ **/
 var GithubHandler = module.exports = function(client) {
     this.client = client;
     this.routes = JSON.parse(Fs.readFileSync(__dirname + "/routes.json", "utf8"));
 };
 
-var proto = {
-    sendError: function(err, block, msg, callback) {
+GithubHandler.prototype = {
+    sendError: function(err, msg, block, callback) {
         Util.log(err, block, msg.user, "error");
         if (typeof err == "string")
             err = new error.InternalServerError(err);
         if (callback)
             callback(err);
+    },
+    handler: function(msg, block, callback) {
+        var self = this;
+        this.client.httpSend(msg, block, function(err, res) {
+            if (err)
+                return self.sendError(err, msg, null, callback);
+
+            var ret;
+            try {
+                ret = res.data && JSON.parse(res.data);
+            }
+            catch (ex) {
+                if (callback)
+                    callback(new error.InternalServerError(ex.message), res);
+                return;
+            }
+
+            if (!ret) {
+                ret = {};
+            }
+
+            ret.meta = {};
+            self.client.constants.responseHeaders.forEach(function(header) {
+                if (res.headers[header]) {
+                    ret.meta[header] = res.headers[header];
+                }
+            });
+
+            if (callback)
+                callback(null, ret);
+        });
     }
 };
-
-["gists", "gitdata", "issues", "authorization", "orgs", "statuses", "pullRequests", "repos", "user", "events", "search", "markdown"].forEach(function(api) {
-    Util.extend(proto, require("./" + api));
-});
-
-GithubHandler.prototype = proto;

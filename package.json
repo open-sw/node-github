@@ -23,6 +23,9 @@
     "scripts": {
         "test": "node ./test/all.js"
     },
+    "files": [
+        "*.js", "*.json", "*.yml", "LICENSE", "README.md", "api/", "templates/", "test/"
+    ],
     "licenses": [{
         "type": "The MIT License",
         "url": "http://www.opensource.org/licenses/mit-license.php"}
