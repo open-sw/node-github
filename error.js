@@ -1,6 +1,8 @@
 /** section: github
  * class HttpError
- * 
+ *
+ *  Copyright 2014 Robert Nelson
+ *
  *  Copyright 2012 Cloud9 IDE, Inc.
  *
  *  This product includes software developed by
