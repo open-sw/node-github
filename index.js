@@ -7,6 +7,8 @@ var Url = require("url");
 /** section: github
  * class Client
  *
+ *  Copyright 2014 Robert Nelson
+ *
  *  Copyright 2012 Cloud9 IDE, Inc.
  *
  *  This product includes software developed by
