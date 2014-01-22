@@ -2479,6 +2479,13 @@
                 "$user": null
             }
         },
+        "get-keys-from": {
+            "url": "/users/:user/keys",
+            "method": "GET",
+            "params": {
+                "$user": null
+            }
+        },
         "get": {
             "url": "/user",
             "method": "GET",
