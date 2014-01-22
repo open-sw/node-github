@@ -2,4 +2,4 @@
   name: node-github2
   description: NodeJS wrapper for the GitHub API
   tags: git github web
-  version: 2.2.0-dev
+  version: 2.2.0
