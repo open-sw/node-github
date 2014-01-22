@@ -18,7 +18,7 @@ or
 
 ## Documentation
 
-You can find the docs for the API of this client at [http://open-sw.github.com/node-github2/doc/v3.0.0](http://ajaxorg.github.com/node-github/)
+You can find the docs for the API of this client at [http://open-sw.github.com/node-github2/doc/v3.0.0](http://open-sw.github.com/node-github2/doc/v3.0.0/)
 
 Additionally, the [official Github documentation](http://developer.github.com/)
 is a very useful resource.
