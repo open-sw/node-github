@@ -377,19 +377,26 @@ var Client = module.exports = function Client(config) {
      *          password: "test1324"
      *      });
      *
-     *      // or oauth
+     *      // oauth
      *      github.authenticate({
      *          type: "oauth",
      *          token: "e5a4a27487c26e571892846366de023349321a73"
+     *      });
+     *
+     *      // or client
+     *      github.authenticate({
+     *          type: "client",
+     *          username: "client_id",
+     *          password: "client_secret"
      *      });
      *
      *  @name module:github.Client#authenticate
      *  @method
      *  @returns null
      *  @param {Object} options Object containing the authentication type and credentials
-     *  @param {String} options.type One of the following: `basic` or `oauth`
-     *  @param {String} options.username Github username
-     *  @param {String} options.password Password to your account
+     *  @param {String} options.type One of the following: `basic`, `oauth` or `client`
+     *  @param {String} options.username Github username or client id
+     *  @param {String} options.password Password to your account or client secret
      *  @param {String} options.token OAuth2 token
      **/
     this.authenticate = function(options) {
@@ -397,12 +404,18 @@ var Client = module.exports = function Client(config) {
             this.auth = false;
             return;
         }
-        if (!options.type || "basic|oauth".indexOf(options.type) === -1)
+        if (!options.type || "basic|oauth|client".indexOf(options.type) === -1)
             throw new Error("Invalid authentication type, must be 'basic' or 'oauth'");
-        if (options.type == "basic" && (!options.username || !options.password))
-            throw new Error("Basic authentication requires both a username and password to be set");
-        if (options.type == "oauth" && !options.token)
-            throw new Error("OAuth2 authentication requires a token to be set");
+        if (options.type == "basic") {
+            if (!options.username || !options.password)
+                throw new Error("Basic authentication requires both a username and password to be set");
+        } else if (options.type == "oauth") {
+            if (!options.token)
+                throw new Error("OAuth2 authentication requires a token to be set");
+        } else if (options.type == "client") {
+            if (!options.username || !options.password)
+                throw new Error("Basic authentication requires both a username and password to be set");
+        }
 
         this.auth = options;
     };
@@ -678,17 +691,18 @@ var Client = module.exports = function Client(config) {
         if (this.auth) {
             var basic;
             switch (this.auth.type) {
+                case "basic":
+                    basic = new Buffer(this.auth.username + ":" + this.auth.password, "ascii").toString("base64");
+                    headers.authorization = "Basic " + basic;
+                    break;
                 case "oauth":
                     path += (path.indexOf("?") === -1 ? "?" : "&") +
                         "access_token=" + encodeURIComponent(this.auth.token);
                     break;
-                case "token":
-                    basic = new Buffer(this.auth.username + "/token:" + this.auth.token, "ascii").toString("base64");
-                    headers.authorization = "Basic " + basic;
-                    break;
-                case "basic":
-                    basic = new Buffer(this.auth.username + ":" + this.auth.password, "ascii").toString("base64");
-                    headers.authorization = "Basic " + basic;
+                case "client":
+                    path += (path.indexOf("?") === -1 ? "?" : "&") +
+                        "client_id=" + encodeURIComponent(this.auth.username) +
+                        "&client_secret=" + encodeURIComponent(this.auth.password);
                     break;
                 default:
                     break;
