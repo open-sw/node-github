@@ -733,6 +733,8 @@ var Client = module.exports = function Client(config) {
         if (this.debug)
             console.log("REQUEST: ", options);
 
+        var callbackInvoked = false;
+
         var self = this;
         var req = require(protocol).request(options, function(res) {
             if (self.debug) {
@@ -745,12 +747,15 @@ var Client = module.exports = function Client(config) {
                 data += chunk;
             });
             res.on("end", function() {
-                if (res.statusCode >= 400 && res.statusCode < 600 || res.statusCode < 10) {
-                    callback(new error.HttpError(data, res.statusCode));
-                }
-                else {
-                    res.data = data;
-                    callback(null, res);
+                if (!callbackInvoked) {
+                    callbackInvoked = true;
+                    if (res.statusCode >= 400 && res.statusCode < 600 || res.statusCode < 10) {
+                        callback(new error.HttpError(data, res.statusCode));
+                    }
+                    else {
+                        res.data = data;
+                        callback(null, res);
+                    }
                 }
             });
         });
@@ -762,7 +767,10 @@ var Client = module.exports = function Client(config) {
         req.on("error", function(e) {
             if (self.debug)
                 console.log("problem with request: " + e.message);
-            callback(e.message);
+            if (!callbackInvoked) {
+                callbackInvoked = true;
+                callback(e.message);
+            }
         });
 
         // write data to request body
