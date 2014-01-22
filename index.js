@@ -192,6 +192,7 @@ var Url = require("url");
  * @param {Object} [config.agent] HTTP(S) Agent to use instead of global agent
  * @param {String} [config.timeout] Response timeout in ms
  * @param {Boolean} [config.rejectUnauthorized] Don't allow servers with self signed certs
+ * @param {Object} [config.headers] Additional headers to add to all requests
  **/
 var Client = module.exports = function Client(config) {
     this.config = config;
@@ -675,6 +676,11 @@ var Client = module.exports = function Client(config) {
             "user-agent": "NodeJS HTTP Client",
             "content-length": "0"
         };
+
+        for (var header in this.config.headers) {
+            headers[header] = this.config.headers[header];
+        }
+
         if (hasBody) {
             var contentLength = 0;
             var contentType = 0;
