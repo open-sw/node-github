@@ -6,19 +6,19 @@ A Node.JS module, which provides an object oriented wrapper for the GitHub v3 AP
 
   Install with the Node.JS package manager [npm](http://npmjs.org/):
 
-      $ npm install github
+      $ npm install github2
 
 or
 
   Install via git clone:
 
-      $ git clone git://github.com/ajaxorg/node-github.git
-      $ cd node-github
+      $ git clone git://github.com/open-sw/node-github2.git
+      $ cd node-github2
       $ npm install
 
 ## Documentation
 
-You can find the docs for the API of this client at [http://ajaxorg.github.com/node-github/](http://ajaxorg.github.com/node-github/)
+You can find the docs for the API of this client at [http://open-sw.github.com/node-github2/doc/v3.0.0](http://ajaxorg.github.com/node-github/)
 
 Additionally, the [official Github documentation](http://developer.github.com/)
 is a very useful resource.
