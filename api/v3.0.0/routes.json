@@ -9,11 +9,12 @@
             "dateFormat": "YYYY-MM-DDTHH:MM:SSZ",
             "requestFormat": "json",
             "responseHeaders": [
-            "X-RateLimit-Limit",
-            "X-RateLimit-Remaining",
-            "X-Oauth-Scopes",
-            "Link"
-        ]
+                "X-RateLimit-Limit",
+                "X-RateLimit-Remaining",
+                "X-Oauth-Scopes",
+                "Link",
+                "Location"
+            ]
         },
         "params": {
             "files": {
@@ -1996,6 +1997,13 @@
                     "validation": "^(tarball|zipball)$",
                     "invalidmsg": "Either tarball or zipball",
                     "description": "Either tarball or zipball"
+                },
+                "$ref": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "Valid Git reference, Default: repository's default branch (usually master)"
                 }
             }
         },

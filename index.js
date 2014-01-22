@@ -182,14 +182,25 @@ var Url = require("url");
  *  ```
  * @name module:github.Client
  * @constructor
+ * @param {Object} config Configuration
+ * @param {String} config.version Github API version (ex. "3.0.0")
+ * @param {Boolean} [config.debug] Enable debugging support
+ * @param {String} [config.url] Path prefix, prepended to API URL
+ * @param {String} [config.protocol] Protocol overrides default in routes.json
+ * @param {String} [config.host] Host overrides default in routes.json
+ * @param {String} [config.port] Port overrides default in routes.json
+ * @param {Object} [config.proxy] Proxy information
+ * @param {String} [config.proxy.host] Proxy host
+ * @param {String} [config.proxy.port] Proxy port
+ * @param {String} [config.timeout] Response timeout in ms
+ * @param {Boolean} [config.rejectUnauthorized] Don't allow servers with self signed certs
  **/
 var Client = module.exports = function Client(config) {
     this.config = config;
     this.debug = Util.isTrue(config.debug);
-
     this.version = config.version;
-    var cls = require("./api/v" + this.version);
-    this[this.version] = new cls(this);
+
+    this[this.version] = new (require("./api/v" + this.version))(this);
 
     this.setupRoutes();
 };
@@ -716,6 +727,10 @@ var Client = module.exports = function Client(config) {
             method: method,
             headers: headers
         };
+
+        if (this.config.rejectUnauthorized !== undefined) {
+            options.rejectUnauthorized = this.config.rejectUnauthorized;
+        }
 
         if (this.debug)
             console.log("REQUEST: ", options);
