@@ -189,9 +189,7 @@ var Url = require("url");
  * @param {String} [config.protocol] Protocol overrides default in routes.json
  * @param {String} [config.host] Host overrides default in routes.json
  * @param {String} [config.port] Port overrides default in routes.json
- * @param {Object} [config.proxy] Proxy information
- * @param {String} [config.proxy.host] Proxy host
- * @param {String} [config.proxy.port] Proxy port
+ * @param {Object} [config.agent] HTTP(S) Agent to use instead of global agent
  * @param {String} [config.timeout] Response timeout in ms
  * @param {Boolean} [config.rejectUnauthorized] Don't allow servers with self signed certs
  **/
@@ -671,10 +669,6 @@ var Client = module.exports = function Client(config) {
         var host = block.host || this.config.host || this.constants.host;
 
         var port = this.config.port || this.constants.port || (protocol == "https" ? 443 : 80);
-        if (this.config.proxy) {
-            host = this.config.proxy.host;
-            port = this.config.proxy.port || 3128;
-        }
 
         var headers = {
             "host": host,
@@ -725,12 +719,10 @@ var Client = module.exports = function Client(config) {
             port: port,
             path: path,
             method: method,
-            headers: headers
+            headers: headers,
+            rejectUnauthorized: this.config.rejectUnauthorized,
+            agent: this.config.agent || undefined
         };
-
-        if (this.config.rejectUnauthorized !== undefined) {
-            options.rejectUnauthorized = this.config.rejectUnauthorized;
-        }
 
         if (this.debug)
             console.log("REQUEST: ", options);
