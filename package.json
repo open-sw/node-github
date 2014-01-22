@@ -1,12 +1,13 @@
 {
   "name": "github2",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "NodeJS wrapper for the GitHub API",
   "keywords": "github",
   "author": "Robert Nelson <robertn@the-nelsons.org>",
   "contributors": [
     {
-      "name": "ajax.org B.V. <info@ajax.org>"
+      "name": "ajax.org B.V.",
+      "email": "info@ajax.org"
     },
     {
       "name": "Mike de Boer",

@@ -27,7 +27,7 @@ is a very useful resource.
 
 Print all followers of the user "mikedeboer" to the console.
 
-    var GitHubApi = require("github");
+    var GitHubApi = require("github2");
 
     var github = new GitHubApi({
         // required
@@ -41,7 +41,7 @@ Print all followers of the user "mikedeboer" to the console.
         console.log(JSON.stringify(res));
     });
 
-First the _GitHubApi_ class is imported from the _node-github_ module. This class provides
+First the _GitHubApi_ class is imported from the _node-github2_ module. This class provides
 access to all of GitHub's APIs (e.g. user, issues or repo APIs). The _getFollowingFromUser_
 method lists all followers of a given GitHub user. Is is part of the user API. It
 takes the user name as first argument and a callback as last argument. Once the
