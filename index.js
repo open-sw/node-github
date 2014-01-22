@@ -773,6 +773,15 @@ var Client = module.exports = function Client(config) {
             }
         });
 
+        req.on("timeout", function() {
+            if (self.debug)
+                console.log("problem with request: timed out");
+            if (!callbackInvoked) {
+                callbackInvoked = true;
+                callback(new error.HttpError("timeout", 504));
+            }
+        });
+
         // write data to request body
         if (format == "binary") {
             if (query.content.length) {
