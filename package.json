@@ -1,6 +1,6 @@
 {
   "name": "github2",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "NodeJS wrapper for the GitHub API",
   "keywords": "github",
   "author": "Robert Nelson <robertn@the-nelsons.org>",
