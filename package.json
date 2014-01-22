@@ -1,33 +1,52 @@
 {
-    "name" : "github2",
-    "version" : "2.0.0",
-    "description" : "NodeJS wrapper for the GitHub API",
-    "author": "Robert Nelson <robertn@the-nelsons.org>",
-    "contributors": [
-    	{ "name": "ajax.org B.V. <info@ajax.org>" },
-        { "name": "Mike de Boer", "email": "info@mikedeboer.nl>" },
-        { "name": "Fabian Jakobs", "email": "fabian@c9.io" }
-    ],
-    "homepage": "http://github.com/open-sw/node-github2",
-    "repository" : {
-        "type" : "git",
-        "url" : "http://github.com/open-sw/node-github2.git"
+  "name": "github2",
+  "version": "2.1.0",
+  "description": "NodeJS wrapper for the GitHub API",
+  "keywords": "github",
+  "author": "Robert Nelson <robertn@the-nelsons.org>",
+  "contributors": [
+    {
+      "name": "ajax.org B.V. <info@ajax.org>"
     },
-    "engine" : {
-        "node": ">=0.10.0"
+    {
+      "name": "Mike de Boer",
+      "email": "info@mikedeboer.nl>"
     },
-    "devDependencies": {
-        "oauth": "0.9.7"
-    },
-    "main" : ".",
-    "scripts": {
-        "test": "node ./test/all.js"
-    },
-    "files": [
-        "*.js", "*.json", "*.yml", "LICENSE", "README.md", "api/", "templates/", "test/"
-    ],
-    "licenses": [{
-        "type": "The MIT License",
-        "url": "http://www.opensource.org/licenses/mit-license.php"}
-    ]
+    {
+      "name": "Fabian Jakobs",
+      "email": "fabian@c9.io"
+    }
+  ],
+  "homepage": "http://github.com/open-sw/node-github2",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/open-sw/node-github2.git"
+  },
+  "engine": {
+    "node": ">=0.10.0"
+  },
+  "devDependencies": {
+    "oauth": "0.9.7",
+    "jsdoc": "~3.3.0-alpha3"
+  },
+  "main": ".",
+  "scripts": {
+    "test": "node ./test/all.js"
+  },
+  "files": [
+    "*.js",
+    "*.json",
+    "*.yml",
+    "LICENSE",
+    "README.md",
+    "api/",
+    "templates/",
+    "test/"
+  ],
+  "licenses": [
+    {
+      "type": "The MIT License",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ]
 }

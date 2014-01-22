@@ -9,11 +9,12 @@
             "dateFormat": "YYYY-MM-DDTHH:MM:SSZ",
             "requestFormat": "json",
             "responseHeaders": [
-            "X-RateLimit-Limit",
-            "X-RateLimit-Remaining",
-            "X-Oauth-Scopes",
-            "Link"
-        ]
+                "X-RateLimit-Limit",
+                "X-RateLimit-Remaining",
+                "X-Oauth-Scopes",
+                "Link",
+                "Location"
+            ]
         },
         "params": {
             "files": {
@@ -1996,6 +1997,13 @@
                     "validation": "^(tarball|zipball)$",
                     "invalidmsg": "Either tarball or zipball",
                     "description": "Either tarball or zipball"
+                },
+                "$ref": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "Valid Git reference, Default: repository's default branch (usually master)"
                 }
             }
         },
@@ -2044,13 +2052,13 @@
                 "$per_page": null
             }
         },
-        "fork": {
+        "create-fork": {
             "url": "/repos/:owner/:repo/forks",
             "method": "POST",
             "params": {
                 "$owner": null,
                 "$repo": null,
-                "org": {
+                "organization": {
                     "type": "String",
                     "required": false,
                     "validation": "",
@@ -2466,6 +2474,13 @@
     "user": {
         "get-from": {
             "url": "/users/:user",
+            "method": "GET",
+            "params": {
+                "$user": null
+            }
+        },
+        "get-keys-from": {
+            "url": "/users/:user/keys",
             "method": "GET",
             "params": {
                 "$user": null

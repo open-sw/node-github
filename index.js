@@ -182,14 +182,24 @@ var Url = require("url");
  *  ```
  * @name module:github.Client
  * @constructor
+ * @param {Object} config Configuration
+ * @param {String} config.version Github API version (ex. "3.0.0")
+ * @param {Boolean} [config.debug] Enable debugging support
+ * @param {String} [config.url] Path prefix, prepended to API URL
+ * @param {String} [config.protocol] Protocol overrides default in routes.json
+ * @param {String} [config.host] Host overrides default in routes.json
+ * @param {String} [config.port] Port overrides default in routes.json
+ * @param {Object} [config.agent] HTTP(S) Agent to use instead of global agent
+ * @param {String} [config.timeout] Response timeout in ms
+ * @param {Boolean} [config.rejectUnauthorized] Don't allow servers with self signed certs
+ * @param {Object} [config.headers] Additional headers to add to all requests
  **/
 var Client = module.exports = function Client(config) {
     this.config = config;
     this.debug = Util.isTrue(config.debug);
-
     this.version = config.version;
-    var cls = require("./api/v" + this.version);
-    this[this.version] = new cls(this);
+
+    this[this.version] = new (require("./api/v" + this.version))(this);
 
     this.setupRoutes();
 };
@@ -377,19 +387,26 @@ var Client = module.exports = function Client(config) {
      *          password: "test1324"
      *      });
      *
-     *      // or oauth
+     *      // oauth
      *      github.authenticate({
      *          type: "oauth",
      *          token: "e5a4a27487c26e571892846366de023349321a73"
+     *      });
+     *
+     *      // or client
+     *      github.authenticate({
+     *          type: "client",
+     *          username: "client_id",
+     *          password: "client_secret"
      *      });
      *
      *  @name module:github.Client#authenticate
      *  @method
      *  @returns null
      *  @param {Object} options Object containing the authentication type and credentials
-     *  @param {String} options.type One of the following: `basic` or `oauth`
-     *  @param {String} options.username Github username
-     *  @param {String} options.password Password to your account
+     *  @param {String} options.type One of the following: `basic`, `oauth` or `client`
+     *  @param {String} options.username Github username or client id
+     *  @param {String} options.password Password to your account or client secret
      *  @param {String} options.token OAuth2 token
      **/
     this.authenticate = function(options) {
@@ -397,12 +414,18 @@ var Client = module.exports = function Client(config) {
             this.auth = false;
             return;
         }
-        if (!options.type || "basic|oauth".indexOf(options.type) === -1)
+        if (!options.type || "basic|oauth|client".indexOf(options.type) === -1)
             throw new Error("Invalid authentication type, must be 'basic' or 'oauth'");
-        if (options.type == "basic" && (!options.username || !options.password))
-            throw new Error("Basic authentication requires both a username and password to be set");
-        if (options.type == "oauth" && !options.token)
-            throw new Error("OAuth2 authentication requires a token to be set");
+        if (options.type == "basic") {
+            if (!options.username || !options.password)
+                throw new Error("Basic authentication requires both a username and password to be set");
+        } else if (options.type == "oauth") {
+            if (!options.token)
+                throw new Error("OAuth2 authentication requires a token to be set");
+        } else if (options.type == "client") {
+            if (!options.username || !options.password)
+                throw new Error("Basic authentication requires both a username and password to be set");
+        }
 
         this.auth = options;
     };
@@ -647,16 +670,17 @@ var Client = module.exports = function Client(config) {
         var host = block.host || this.config.host || this.constants.host;
 
         var port = this.config.port || this.constants.port || (protocol == "https" ? 443 : 80);
-        if (this.config.proxy) {
-            host = this.config.proxy.host;
-            port = this.config.proxy.port || 3128;
-        }
 
         var headers = {
             "host": host,
             "user-agent": "NodeJS HTTP Client",
             "content-length": "0"
         };
+
+        for (var header in this.config.headers) {
+            headers[header] = this.config.headers[header];
+        }
+
         if (hasBody) {
             var contentLength = 0;
             var contentType = 0;
@@ -678,17 +702,18 @@ var Client = module.exports = function Client(config) {
         if (this.auth) {
             var basic;
             switch (this.auth.type) {
+                case "basic":
+                    basic = new Buffer(this.auth.username + ":" + this.auth.password, "ascii").toString("base64");
+                    headers.authorization = "Basic " + basic;
+                    break;
                 case "oauth":
                     path += (path.indexOf("?") === -1 ? "?" : "&") +
                         "access_token=" + encodeURIComponent(this.auth.token);
                     break;
-                case "token":
-                    basic = new Buffer(this.auth.username + "/token:" + this.auth.token, "ascii").toString("base64");
-                    headers.authorization = "Basic " + basic;
-                    break;
-                case "basic":
-                    basic = new Buffer(this.auth.username + ":" + this.auth.password, "ascii").toString("base64");
-                    headers.authorization = "Basic " + basic;
+                case "client":
+                    path += (path.indexOf("?") === -1 ? "?" : "&") +
+                        "client_id=" + encodeURIComponent(this.auth.username) +
+                        "&client_secret=" + encodeURIComponent(this.auth.password);
                     break;
                 default:
                     break;
@@ -700,11 +725,15 @@ var Client = module.exports = function Client(config) {
             port: port,
             path: path,
             method: method,
-            headers: headers
+            headers: headers,
+            rejectUnauthorized: this.config.rejectUnauthorized,
+            agent: this.config.agent || undefined
         };
 
         if (this.debug)
             console.log("REQUEST: ", options);
+
+        var callbackInvoked = false;
 
         var self = this;
         var req = require(protocol).request(options, function(res) {
@@ -718,12 +747,15 @@ var Client = module.exports = function Client(config) {
                 data += chunk;
             });
             res.on("end", function() {
-                if (res.statusCode >= 400 && res.statusCode < 600 || res.statusCode < 10) {
-                    callback(new error.HttpError(data, res.statusCode));
-                }
-                else {
-                    res.data = data;
-                    callback(null, res);
+                if (!callbackInvoked) {
+                    callbackInvoked = true;
+                    if (res.statusCode >= 400 && res.statusCode < 600 || res.statusCode < 10) {
+                        callback(new error.HttpError(data, res.statusCode));
+                    }
+                    else {
+                        res.data = data;
+                        callback(null, res);
+                    }
                 }
             });
         });
@@ -735,7 +767,19 @@ var Client = module.exports = function Client(config) {
         req.on("error", function(e) {
             if (self.debug)
                 console.log("problem with request: " + e.message);
-            callback(e.message);
+            if (!callbackInvoked) {
+                callbackInvoked = true;
+                callback(e.message);
+            }
+        });
+
+        req.on("timeout", function() {
+            if (self.debug)
+                console.log("problem with request: timed out");
+            if (!callbackInvoked) {
+                callbackInvoked = true;
+                callback(new error.HttpError("timeout", 504));
+            }
         });
 
         // write data to request body
