@@ -2052,13 +2052,13 @@
                 "$per_page": null
             }
         },
-        "fork": {
+        "create-fork": {
             "url": "/repos/:owner/:repo/forks",
             "method": "POST",
             "params": {
                 "$owner": null,
                 "$repo": null,
-                "org": {
+                "organization": {
                     "type": "String",
                     "required": false,
                     "validation": "",
