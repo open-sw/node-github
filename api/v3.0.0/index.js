@@ -34,7 +34,7 @@ GithubHandler.prototype = {
         if (callback)
             callback(err);
     },
-    handler: function(msg, block, callback) {
+    handler: function(msg, block, callback, headers) {
         var self = this;
         this.client.httpSend(msg, block, function(err, res) {
             if (err)
@@ -63,6 +63,6 @@ GithubHandler.prototype = {
 
             if (callback)
                 callback(null, ret);
-        });
+        }, headers);
     }
 };

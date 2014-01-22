@@ -72,6 +72,8 @@ var main = module.exports = function(versions) {
             comment.push(" * @param {Function} callback Function to call when the request is finished " +
                 "with an error as first argument and result data as second argument.");
 
+            comment.push(" * @param {Object} [headers] extra headers to be sent for this request.");
+
             return comment.join("\n") + "\n **/\n";
         }
 

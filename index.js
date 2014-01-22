@@ -349,7 +349,7 @@ var Client = module.exports = function Client(config) {
                         };
                     }
 
-                    self[section][funcName] = function(msg, callback) {
+                    self[section][funcName] = function(msg, callback, headers) {
                         try {
                             parseParams(msg, block.params);
                         }
@@ -362,7 +362,7 @@ var Client = module.exports = function Client(config) {
                             // on error, there's no need to continue.
                             return;
                         }
-                        api.handler(msg, block, callback);
+                        api.handler(msg, block, callback, headers);
                     };
                 }
                 else {
@@ -494,7 +494,7 @@ var Client = module.exports = function Client(config) {
         return getPageLinks(link).first;
     };
 
-    function getPage(link, which, callback) {
+    function getPage(link, which, callback, headers) {
         var url = getPageLinks(link)[which];
         if (!url)
             return callback(new error.NotFound("No " + which + " page found"));
@@ -524,14 +524,14 @@ var Client = module.exports = function Client(config) {
                 ret = {};
             if (!ret.meta)
                 ret.meta = {};
-            ["x-ratelimit-limit", "x-ratelimit-remaining", "link"].forEach(function(header) {
+            self.client.constants.responseHeaders.forEach(function(header) {
                 if (res.headers[header])
                     ret.meta[header] = res.headers[header];
             });
 
             if (callback)
                 callback(null, ret);
-        });
+        }, headers);
     }
 
     /**
@@ -543,8 +543,8 @@ var Client = module.exports = function Client(config) {
      *  @param {*} link response of a request or the contents of the Link header
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    this.getNextPage = function(link, callback) {
-        getPage.call(this, link, "next", callback);
+    this.getNextPage = function(link, callback, headers) {
+        getPage.call(this, link, "next", callback, headers);
     };
 
     /**
@@ -556,8 +556,8 @@ var Client = module.exports = function Client(config) {
      *  @param {*} link response of a request or the contents of the Link header
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    this.getPreviousPage = function(link, callback) {
-        getPage.call(this, link, "prev", callback);
+    this.getPreviousPage = function(link, callback, headers) {
+        getPage.call(this, link, "prev", callback, headers);
     };
 
     /**
@@ -569,8 +569,8 @@ var Client = module.exports = function Client(config) {
      *  @param {*} link response of a request or the contents of the Link header
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    this.getLastPage = function(link, callback) {
-        getPage.call(this, link, "last", callback);
+    this.getLastPage = function(link, callback, headers) {
+        getPage.call(this, link, "last", callback, headers);
     };
 
     /**
@@ -582,8 +582,8 @@ var Client = module.exports = function Client(config) {
      *  @param {*} link response of a request or the contents of the Link header
      *  @param {Function} callback function to call when the request is finished with an error as first argument and result data as second argument.
      **/
-    this.getFirstPage = function(link, callback) {
-        getPage.call(this, link, "first", callback);
+    this.getFirstPage = function(link, callback, headers) {
+        getPage.call(this, link, "first", callback, headers);
     };
 
     function getQueryAndUrl(msg, def, format) {
@@ -653,7 +653,7 @@ var Client = module.exports = function Client(config) {
      *          If the the request returns with an error, the error is passed to
      *          the callback as its first argument (NodeJS-style).
      **/
-    this.httpSend = function(msg, block, callback) {
+    this.httpSend = function(msg, block, callback, headers) {
         var method = block.method.toLowerCase();
         var hasBody = ("head|get|delete".indexOf(method) === -1);
         var format = block.format || (hasBody && this.constants.requestFormat
@@ -671,14 +671,20 @@ var Client = module.exports = function Client(config) {
 
         var port = this.config.port || this.constants.port || (protocol == "https" ? 443 : 80);
 
-        var headers = {
+        var requestHeaders = {
             "host": host,
             "user-agent": "NodeJS HTTP Client",
             "content-length": "0"
         };
 
-        for (var header in this.config.headers) {
-            headers[header] = this.config.headers[header];
+        var header;
+
+        for (header in this.config.headers) {
+            requestHeaders[header] = this.config.headers[header];
+        }
+
+        for (header in headers) {
+            requestHeaders[header] = this.config.headers[header];
         }
 
         if (hasBody) {
@@ -696,15 +702,15 @@ var Client = module.exports = function Client(config) {
                 contentLength = query.length;
                 contentType = "application/x-www-form-urlencoded"
             }
-            headers["content-length"] = contentLength;
-            headers["content-type"] = contentType;
+            requestHeaders["content-length"] = contentLength;
+            requestHeaders["content-type"] = contentType;
         }
         if (this.auth) {
             var basic;
             switch (this.auth.type) {
                 case "basic":
                     basic = new Buffer(this.auth.username + ":" + this.auth.password, "ascii").toString("base64");
-                    headers.authorization = "Basic " + basic;
+                    requestHeaders.authorization = "Basic " + basic;
                     break;
                 case "oauth":
                     path += (path.indexOf("?") === -1 ? "?" : "&") +
@@ -725,7 +731,7 @@ var Client = module.exports = function Client(config) {
             port: port,
             path: path,
             method: method,
-            headers: headers,
+            headers: requestHeaders,
             rejectUnauthorized: this.config.rejectUnauthorized,
             agent: this.config.agent || undefined
         };
