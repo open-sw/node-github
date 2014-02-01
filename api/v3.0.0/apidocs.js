@@ -1,8 +1,8 @@
 /** section: github
- * class Client.gists
+ * mixin gists
  **/
 /** section: github
- *  Client.gists#getAll(msg, callback) -> null
+ *  gists#getAll(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -14,7 +14,7 @@
  *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
  **/
 /** section: github
- *  Client.gists#getFromUser(msg, callback) -> null
+ *  gists#getFromUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -27,7 +27,7 @@
  *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
  **/
 /** section: github
- *  Client.gists#create(msg, callback) -> null
+ *  gists#create(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -39,7 +39,7 @@
  *  - files (Json): Required. Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'
  **/
 /** section: github
- *  Client.gists#edit(msg, callback) -> null
+ *  gists#edit(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -51,7 +51,7 @@
  *  - files (Json): Required. Files that make up this gist. The key of which should be a required string filename and the value another required hash with parameters: 'content'
  **/
 /** section: github
- *  Client.gists#public(msg, callback) -> null
+ *  gists#public(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -61,7 +61,7 @@
  *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
  **/
 /** section: github
- *  Client.gists#starred(msg, callback) -> null
+ *  gists#starred(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -71,7 +71,7 @@
  *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
  **/
 /** section: github
- *  Client.gists#get(msg, callback) -> null
+ *  gists#get(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -81,7 +81,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.gists#star(msg, callback) -> null
+ *  gists#star(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -91,7 +91,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.gists#deleteStar(msg, callback) -> null
+ *  gists#deleteStar(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -101,7 +101,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.gists#checkStar(msg, callback) -> null
+ *  gists#checkStar(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -111,7 +111,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.gists#fork(msg, callback) -> null
+ *  gists#fork(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -121,7 +121,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.gists#delete(msg, callback) -> null
+ *  gists#delete(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -131,10 +131,10 @@
  *  - id (String): Required.
  **/
 /** section: github
- * class Client.gitdata
+ * mixin gitdata
  **/
 /** section: github
- *  Client.gitdata#getBlob(msg, callback) -> null
+ *  gitdata#getBlob(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -148,7 +148,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.gitdata#createBlob(msg, callback) -> null
+ *  gitdata#createBlob(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -161,7 +161,7 @@
  *  - encoding (String): Required.
  **/
 /** section: github
- *  Client.gitdata#getCommit(msg, callback) -> null
+ *  gitdata#getCommit(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -173,7 +173,7 @@
  *  - sha (String): Required.
  **/
 /** section: github
- *  Client.gitdata#createCommit(msg, callback) -> null
+ *  gitdata#createCommit(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -189,7 +189,7 @@
  *  - committer (Json): Optional.
  **/
 /** section: github
- *  Client.gitdata#getReference(msg, callback) -> null
+ *  gitdata#getReference(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -201,7 +201,7 @@
  *  - ref (String): Required. String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
  **/
 /** section: github
- *  Client.gitdata#getAllReferences(msg, callback) -> null
+ *  gitdata#getAllReferences(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -214,7 +214,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.gitdata#createReference(msg, callback) -> null
+ *  gitdata#createReference(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -227,7 +227,7 @@
  *  - sha (String): Required.
  **/
 /** section: github
- *  Client.gitdata#updateReference(msg, callback) -> null
+ *  gitdata#updateReference(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -238,10 +238,10 @@
  *  - repo (String): Required.
  *  - ref (String): Required. String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
  *  - sha (String): Required.
- *  - force (Boolean): Required. Boolean indicating whether to force the update or to make sure the update is a fast-forward update. The default is false, so leaving this out or setting it to false will make sure you’re not overwriting work.
+ *  - force (Boolean): Optional. Boolean indicating whether to force the update or to make sure the update is a fast-forward update. The default is false, so leaving this out or setting it to false will make sure you’re not overwriting work.
  **/
 /** section: github
- *  Client.gitdata#deleteReference(msg, callback) -> null
+ *  gitdata#deleteReference(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -253,7 +253,7 @@
  *  - ref (String): Required. String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
  **/
 /** section: github
- *  Client.gitdata#getTag(msg, callback) -> null
+ *  gitdata#getTag(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -265,7 +265,7 @@
  *  - sha (String): Required.
  **/
 /** section: github
- *  Client.gitdata#createTag(msg, callback) -> null
+ *  gitdata#createTag(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -281,7 +281,7 @@
  *  - tagger (Json): Required. JSON object that contains the following keys: `name` - String of the name of the author of the tag, `email` - String of the email of the author of the tag, `date` - Timestamp of when this object was tagged
  **/
 /** section: github
- *  Client.gitdata#getTree(msg, callback) -> null
+ *  gitdata#getTree(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -294,7 +294,7 @@
  *  - recursive (Boolean): Optional.
  **/
 /** section: github
- *  Client.gitdata#createTree(msg, callback) -> null
+ *  gitdata#createTree(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -307,10 +307,10 @@
  *  - base_tree (String): Optional. String of the SHA1 of the tree you want to update with new data
  **/
 /** section: github
- * class Client.issues
+ * mixin issues
  **/
 /** section: github
- *  Client.issues#getAll(msg, callback) -> null
+ *  issues#getAll(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -327,7 +327,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#repoIssues(msg, callback) -> null
+ *  issues#repoIssues(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -348,7 +348,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#getRepoIssue(msg, callback) -> null
+ *  issues#getRepoIssue(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -360,7 +360,7 @@
  *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#create(msg, callback) -> null
+ *  issues#create(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -376,7 +376,7 @@
  *  - labels (Json): Required. Optional array of strings - Labels to associate with this issue.
  **/
 /** section: github
- *  Client.issues#edit(msg, callback) -> null
+ *  issues#edit(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -394,7 +394,7 @@
  *  - state (String): Optional. open or closed Validation rule: ` ^(open|closed)$ `.
  **/
 /** section: github
- *  Client.issues#repoComments(msg, callback) -> null
+ *  issues#repoComments(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -410,7 +410,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#getComments(msg, callback) -> null
+ *  issues#getComments(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -424,7 +424,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#getComment(msg, callback) -> null
+ *  issues#getComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -436,7 +436,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.issues#createComment(msg, callback) -> null
+ *  issues#createComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -449,7 +449,7 @@
  *  - body (String): Required.
  **/
 /** section: github
- *  Client.issues#editComment(msg, callback) -> null
+ *  issues#editComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -462,7 +462,7 @@
  *  - body (String): Required.
  **/
 /** section: github
- *  Client.issues#deleteComment(msg, callback) -> null
+ *  issues#deleteComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -474,7 +474,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.issues#getEvents(msg, callback) -> null
+ *  issues#getEvents(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -488,7 +488,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#getRepoEvents(msg, callback) -> null
+ *  issues#getRepoEvents(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -501,7 +501,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#getEvent(msg, callback) -> null
+ *  issues#getEvent(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -513,7 +513,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.issues#getLabels(msg, callback) -> null
+ *  issues#getLabels(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -524,19 +524,7 @@
  *  - repo (String): Required.
  **/
 /** section: github
- *  Client.issues#getLabel(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - user (String): Required.
- *  - repo (String): Required.
- *  - name (String): Required.
- **/
-/** section: github
- *  Client.issues#createLabel(msg, callback) -> null
+ *  issues#getLabel(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -546,10 +534,9 @@
  *  - user (String): Required.
  *  - repo (String): Required.
  *  - name (String): Required.
- *  - color (String): Required. Required string - 6 character hex code, without a leading #.
  **/
 /** section: github
- *  Client.issues#updateLabel(msg, callback) -> null
+ *  issues#createLabel(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -562,7 +549,20 @@
  *  - color (String): Required. Required string - 6 character hex code, without a leading #.
  **/
 /** section: github
- *  Client.issues#deleteLabel(msg, callback) -> null
+ *  issues#updateLabel(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - user (String): Required.
+ *  - repo (String): Required.
+ *  - name (String): Required.
+ *  - color (String): Required. Required string - 6 character hex code, without a leading #.
+ **/
+/** section: github
+ *  issues#deleteLabel(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -574,7 +574,7 @@
  *  - name (String): Required.
  **/
 /** section: github
- *  Client.issues#getAllMilestones(msg, callback) -> null
+ *  issues#getAllMilestones(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -589,7 +589,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#getMilestone(msg, callback) -> null
+ *  issues#getMilestone(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -601,7 +601,7 @@
  *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.issues#createMilestone(msg, callback) -> null
+ *  issues#createMilestone(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -616,7 +616,7 @@
  *  - due_on (Date): Optional. Optional string - ISO 8601 time.
  **/
 /** section: github
- *  Client.issues#updateMilestone(msg, callback) -> null
+ *  issues#updateMilestone(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -632,7 +632,7 @@
  *  - due_on (Date): Optional. Optional string - ISO 8601 time.
  **/
 /** section: github
- *  Client.issues#deleteMilestone(msg, callback) -> null
+ *  issues#deleteMilestone(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -644,10 +644,10 @@
  *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- * class Client.authorization
+ * mixin authorization
  **/
 /** section: github
- *  Client.authorization#getAll(msg, callback) -> null
+ *  authorization#getAll(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -658,7 +658,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.authorization#get(msg, callback) -> null
+ *  authorization#get(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -668,7 +668,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.authorization#create(msg, callback) -> null
+ *  authorization#create(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -680,7 +680,7 @@
  *  - note_url (String): Optional. Optional string - A URL to remind you what app the OAuth token is for.
  **/
 /** section: github
- *  Client.authorization#update(msg, callback) -> null
+ *  authorization#update(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -695,7 +695,7 @@
  *  - note_url (String): Optional. Optional string - A URL to remind you what app the OAuth token is for.
  **/
 /** section: github
- *  Client.authorization#delete(msg, callback) -> null
+ *  authorization#delete(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -705,10 +705,10 @@
  *  - id (String): Required.
  **/
 /** section: github
- * class Client.orgs
+ * mixin orgs
  **/
 /** section: github
- *  Client.orgs#getFromUser(msg, callback) -> null
+ *  orgs#getFromUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -720,7 +720,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.orgs#get(msg, callback) -> null
+ *  orgs#get(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -732,7 +732,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.orgs#update(msg, callback) -> null
+ *  orgs#update(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -747,7 +747,7 @@
  *  - name (String): Optional.
  **/
 /** section: github
- *  Client.orgs#getMembers(msg, callback) -> null
+ *  orgs#getMembers(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -759,7 +759,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.orgs#getMember(msg, callback) -> null
+ *  orgs#getMember(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -770,7 +770,7 @@
  *  - user (String): Required.
  **/
 /** section: github
- *  Client.orgs#removeMember(msg, callback) -> null
+ *  orgs#removeMember(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -781,7 +781,7 @@
  *  - user (String): Required.
  **/
 /** section: github
- *  Client.orgs#getPublicMembers(msg, callback) -> null
+ *  orgs#getPublicMembers(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -791,18 +791,7 @@
  *  - org (String): Required.
  **/
 /** section: github
- *  Client.orgs#getPublicMember(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - org (String): Required.
- *  - user (String): Required.
- **/
-/** section: github
- *  Client.orgs#publicizeMembership(msg, callback) -> null
+ *  orgs#getPublicMember(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -813,7 +802,7 @@
  *  - user (String): Required.
  **/
 /** section: github
- *  Client.orgs#concealMembership(msg, callback) -> null
+ *  orgs#publicizeMembership(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -824,7 +813,18 @@
  *  - user (String): Required.
  **/
 /** section: github
- *  Client.orgs#getTeams(msg, callback) -> null
+ *  orgs#concealMembership(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - org (String): Required.
+ *  - user (String): Required.
+ **/
+/** section: github
+ *  orgs#getTeams(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -834,7 +834,7 @@
  *  - org (String): Required.
  **/
 /** section: github
- *  Client.orgs#getTeam(msg, callback) -> null
+ *  orgs#getTeam(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -844,7 +844,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.orgs#createTeam(msg, callback) -> null
+ *  orgs#createTeam(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -857,7 +857,7 @@
  *  - permission (String): Optional. `pull` - team members can pull, but not push or administer this repositories (Default), `push` - team members can pull and push, but not administer this repositores, `admin` - team members can pull, push and administer these repositories. Validation rule: ` ^(pull|push|admin)$ `.
  **/
 /** section: github
- *  Client.orgs#updateTeam(msg, callback) -> null
+ *  orgs#updateTeam(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -869,7 +869,7 @@
  *  - permission (String): Optional. `pull` - team members can pull, but not push or administer this repositories (Default), `push` - team members can pull and push, but not administer this repositores, `admin` - team members can pull, push and administer these repositories. Validation rule: ` ^(pull|push|admin)$ `.
  **/
 /** section: github
- *  Client.orgs#deleteTeam(msg, callback) -> null
+ *  orgs#deleteTeam(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -879,52 +879,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.orgs#getTeamMembers(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - id (String): Required.
- *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
- *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
- **/
-/** section: github
- *  Client.orgs#getTeamMember(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - id (String): Required.
- *  - user (String): Required.
- **/
-/** section: github
- *  Client.orgs#addTeamMember(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - id (String): Required.
- *  - user (String): Required.
- **/
-/** section: github
- *  Client.orgs#deleteTeamMember(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - id (String): Required.
- *  - user (String): Required.
- **/
-/** section: github
- *  Client.orgs#getTeamRepos(msg, callback) -> null
+ *  orgs#getTeamMembers(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -936,7 +891,52 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.orgs#getTeamRepo(msg, callback) -> null
+ *  orgs#getTeamMember(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - id (String): Required.
+ *  - user (String): Required.
+ **/
+/** section: github
+ *  orgs#addTeamMember(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - id (String): Required.
+ *  - user (String): Required.
+ **/
+/** section: github
+ *  orgs#deleteTeamMember(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - id (String): Required.
+ *  - user (String): Required.
+ **/
+/** section: github
+ *  orgs#getTeamRepos(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - id (String): Required.
+ *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+ *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+ **/
+/** section: github
+ *  orgs#getTeamRepo(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -948,7 +948,7 @@
  *  - repo (String): Required.
  **/
 /** section: github
- *  Client.orgs#addTeamRepo(msg, callback) -> null
+ *  orgs#addTeamRepo(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -960,7 +960,7 @@
  *  - repo (String): Required.
  **/
 /** section: github
- *  Client.orgs#deleteTeamRepo(msg, callback) -> null
+ *  orgs#deleteTeamRepo(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -972,10 +972,10 @@
  *  - repo (String): Required.
  **/
 /** section: github
- * class Client.statuses
+ * mixin statuses
  **/
 /** section: github
- *  Client.statuses#get(msg, callback) -> null
+ *  statuses#get(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -987,7 +987,7 @@
  *  - sha (String): Required.
  **/
 /** section: github
- *  Client.statuses#create(msg, callback) -> null
+ *  statuses#create(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1002,10 +1002,10 @@
  *  - description (String): Optional. Short description of the status.
  **/
 /** section: github
- * class Client.pullRequests
+ * mixin pullRequests
  **/
 /** section: github
- *  Client.pullRequests#getAll(msg, callback) -> null
+ *  pullRequests#getAll(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1019,7 +1019,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.pullRequests#get(msg, callback) -> null
+ *  pullRequests#get(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1031,7 +1031,7 @@
  *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.pullRequests#create(msg, callback) -> null
+ *  pullRequests#create(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1046,7 +1046,7 @@
  *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented.
  **/
 /** section: github
- *  Client.pullRequests#createFromIssue(msg, callback) -> null
+ *  pullRequests#createFromIssue(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1060,7 +1060,7 @@
  *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented.
  **/
 /** section: github
- *  Client.pullRequests#update(msg, callback) -> null
+ *  pullRequests#update(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1075,7 +1075,7 @@
  *  - body (String): Optional.
  **/
 /** section: github
- *  Client.pullRequests#getCommits(msg, callback) -> null
+ *  pullRequests#getCommits(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1089,7 +1089,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.pullRequests#getFiles(msg, callback) -> null
+ *  pullRequests#getFiles(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1103,7 +1103,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.pullRequests#getMerged(msg, callback) -> null
+ *  pullRequests#getMerged(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1117,7 +1117,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.pullRequests#merge(msg, callback) -> null
+ *  pullRequests#merge(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1130,7 +1130,7 @@
  *  - commit_message (String): Optional. Optional string - The message that will be used for the merge commit
  **/
 /** section: github
- *  Client.pullRequests#getComments(msg, callback) -> null
+ *  pullRequests#getComments(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1144,7 +1144,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.pullRequests#getComment(msg, callback) -> null
+ *  pullRequests#getComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1156,7 +1156,7 @@
  *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.pullRequests#createComment(msg, callback) -> null
+ *  pullRequests#createComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1172,7 +1172,7 @@
  *  - position (Number): Required. Required number - Column index in the diff to comment on.
  **/
 /** section: github
- *  Client.pullRequests#createCommentReply(msg, callback) -> null
+ *  pullRequests#createCommentReply(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1186,7 +1186,7 @@
  *  - in_reply_to (Number): Required.
  **/
 /** section: github
- *  Client.pullRequests#updateComment(msg, callback) -> null
+ *  pullRequests#updateComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1199,7 +1199,7 @@
  *  - body (String): Required.
  **/
 /** section: github
- *  Client.pullRequests#deleteComment(msg, callback) -> null
+ *  pullRequests#deleteComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1211,10 +1211,10 @@
  *  - number (Number): Required. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- * class Client.repos
+ * mixin repos
  **/
 /** section: github
- *  Client.repos#getAll(msg, callback) -> null
+ *  repos#getAll(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1228,7 +1228,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getFromUser(msg, callback) -> null
+ *  repos#getFromUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1243,7 +1243,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getFromOrg(msg, callback) -> null
+ *  repos#getFromOrg(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1256,7 +1256,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#create(msg, callback) -> null
+ *  repos#create(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1274,7 +1274,7 @@
  *  - gitignore_template (String): Optional. Optional string - Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided.
  **/
 /** section: github
- *  Client.repos#createFromOrg(msg, callback) -> null
+ *  repos#createFromOrg(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1294,7 +1294,7 @@
  *  - team_id (Number): Optional. Optional number - The id of the team that will be granted access to this repository. This is only valid when creating a repo in an organization. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#get(msg, callback) -> null
+ *  repos#get(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1305,7 +1305,7 @@
  *  - repo (String): Required.
  **/
 /** section: github
- *  Client.repos#update(msg, callback) -> null
+ *  repos#update(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1323,7 +1323,7 @@
  *  - has_downloads (Boolean): Optional. Optional boolean - true to enable downloads for this repository, false to disable them. Default is true.
  **/
 /** section: github
- *  Client.repos#delete(msg, callback) -> null
+ *  repos#delete(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1334,7 +1334,7 @@
  *  - repo (String): Required.
  **/
 /** section: github
- *  Client.repos#merge(msg, callback) -> null
+ *  repos#merge(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1348,7 +1348,7 @@
  *  - commit_message (String): Optional. Optional string - Commit message to use for the merge commit. If omitted, a default message will be used.
  **/
 /** section: github
- *  Client.repos#getContributors(msg, callback) -> null
+ *  repos#getContributors(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1362,7 +1362,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getLanguages(msg, callback) -> null
+ *  repos#getLanguages(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1375,7 +1375,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getTeams(msg, callback) -> null
+ *  repos#getTeams(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1388,7 +1388,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getTags(msg, callback) -> null
+ *  repos#getTags(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1401,7 +1401,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getBranches(msg, callback) -> null
+ *  repos#getBranches(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1414,7 +1414,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getBranch(msg, callback) -> null
+ *  repos#getBranch(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1428,7 +1428,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getCollaborators(msg, callback) -> null
+ *  repos#getCollaborators(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1441,7 +1441,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getCollaborator(msg, callback) -> null
+ *  repos#getCollaborator(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1453,7 +1453,7 @@
  *  - collabuser (String): Required.
  **/
 /** section: github
- *  Client.repos#addCollaborator(msg, callback) -> null
+ *  repos#addCollaborator(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1465,7 +1465,7 @@
  *  - collabuser (String): Required.
  **/
 /** section: github
- *  Client.repos#removeCollaborator(msg, callback) -> null
+ *  repos#removeCollaborator(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1477,7 +1477,7 @@
  *  - collabuser (String): Required.
  **/
 /** section: github
- *  Client.repos#getCommits(msg, callback) -> null
+ *  repos#getCommits(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1493,7 +1493,7 @@
  *  - since (Date): Optional. Optional string of a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
  **/
 /** section: github
- *  Client.repos#getCommit(msg, callback) -> null
+ *  repos#getCommit(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1505,7 +1505,7 @@
  *  - sha (String): Required.
  **/
 /** section: github
- *  Client.repos#getAllCommitComments(msg, callback) -> null
+ *  repos#getAllCommitComments(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1518,7 +1518,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getCommitComments(msg, callback) -> null
+ *  repos#getCommitComments(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1532,7 +1532,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#createCommitComment(msg, callback) -> null
+ *  repos#createCommitComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1549,7 +1549,7 @@
  *  - line (Number): Optional. Optional number - Line number in the file to comment on. Defaults to 1.
  **/
 /** section: github
- *  Client.repos#getCommitComment(msg, callback) -> null
+ *  repos#getCommitComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1561,7 +1561,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#updateCommitComment(msg, callback) -> null
+ *  repos#updateCommitComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1574,7 +1574,7 @@
  *  - body (String): Required.
  **/
 /** section: github
- *  Client.repos#compareCommits(msg, callback) -> null
+ *  repos#compareCommits(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1587,7 +1587,7 @@
  *  - head (String): Required. Required string - The branch (or git ref) where your changes are implemented.
  **/
 /** section: github
- *  Client.repos#deleteCommitComment(msg, callback) -> null
+ *  repos#deleteCommitComment(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1599,7 +1599,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#getReadme(msg, callback) -> null
+ *  repos#getReadme(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1611,7 +1611,7 @@
  *  - ref (String): Optional. The String name of the Commit/Branch/Tag. Defaults to master.
  **/
 /** section: github
- *  Client.repos#getContent(msg, callback) -> null
+ *  repos#getContent(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1624,7 +1624,7 @@
  *  - ref (String): Optional. The String name of the Commit/Branch/Tag. Defaults to master.
  **/
 /** section: github
- *  Client.repos#getArchiveLink(msg, callback) -> null
+ *  repos#getArchiveLink(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1637,7 +1637,7 @@
  *  - archive_format (String): Required. Either tarball or zipball Validation rule: ` ^(tarball|zipball)$ `.
  **/
 /** section: github
- *  Client.repos#getDownloads(msg, callback) -> null
+ *  repos#getDownloads(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1650,7 +1650,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getDownload(msg, callback) -> null
+ *  repos#getDownload(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1662,7 +1662,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#deleteDownload(msg, callback) -> null
+ *  repos#deleteDownload(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1674,7 +1674,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#getForks(msg, callback) -> null
+ *  repos#getForks(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1688,7 +1688,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#fork(msg, callback) -> null
+ *  repos#fork(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1700,7 +1700,7 @@
  *  - org (String): Optional. Optional String - Organization login. The repository will be forked into this organization.
  **/
 /** section: github
- *  Client.repos#getKeys(msg, callback) -> null
+ *  repos#getKeys(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1713,7 +1713,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getKey(msg, callback) -> null
+ *  repos#getKey(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1725,7 +1725,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#createKey(msg, callback) -> null
+ *  repos#createKey(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1738,7 +1738,7 @@
  *  - key (String): Required.
  **/
 /** section: github
- *  Client.repos#updateKey(msg, callback) -> null
+ *  repos#updateKey(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1752,7 +1752,7 @@
  *  - key (String): Required.
  **/
 /** section: github
- *  Client.repos#deleteKey(msg, callback) -> null
+ *  repos#deleteKey(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1764,7 +1764,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#getStargazers(msg, callback) -> null
+ *  repos#getStargazers(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1777,7 +1777,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getStarred(msg, callback) -> null
+ *  repos#getStarred(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1788,7 +1788,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getStarredFromUser(msg, callback) -> null
+ *  repos#getStarredFromUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1800,7 +1800,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getStarring(msg, callback) -> null
+ *  repos#getStarring(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1813,7 +1813,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#star(msg, callback) -> null
+ *  repos#star(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1824,7 +1824,7 @@
  *  - repo (String): Required.
  **/
 /** section: github
- *  Client.repos#unStar(msg, callback) -> null
+ *  repos#unStar(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1835,43 +1835,7 @@
  *  - repo (String): Required.
  **/
 /** section: github
- *  Client.repos#getWatchers(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - user (String): Required.
- *  - repo (String): Required.
- *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
- *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
- **/
-/** section: github
- *  Client.repos#getWatched(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
- *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
- **/
-/** section: github
- *  Client.repos#getWatchedFromUser(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - user (String): Required.
- *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
- *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
- **/
-/** section: github
- *  Client.repos#getWatching(msg, callback) -> null
+ *  repos#getWatchers(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1884,7 +1848,18 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#watch(msg, callback) -> null
+ *  repos#getWatched(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+ *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+ **/
+/** section: github
+ *  repos#getWatchedFromUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1892,21 +1867,11 @@
  * 
  *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
  *  - user (String): Required.
- *  - repo (String): Required.
+ *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+ *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#unWatch(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - user (String): Required.
- *  - repo (String): Required.
- **/
-/** section: github
- *  Client.repos#getHooks(msg, callback) -> null
+ *  repos#getWatching(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1919,7 +1884,42 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getHook(msg, callback) -> null
+ *  repos#watch(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - user (String): Required.
+ *  - repo (String): Required.
+ **/
+/** section: github
+ *  repos#unWatch(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - user (String): Required.
+ *  - repo (String): Required.
+ **/
+/** section: github
+ *  repos#getHooks(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - user (String): Required.
+ *  - repo (String): Required.
+ *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+ *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+ **/
+/** section: github
+ *  repos#getHook(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1931,7 +1931,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#createHook(msg, callback) -> null
+ *  repos#createHook(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1946,7 +1946,7 @@
  *  - active (Boolean): Optional. Optional boolean - Determines whether the hook is actually triggered on pushes.
  **/
 /** section: github
- *  Client.repos#updateHook(msg, callback) -> null
+ *  repos#updateHook(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1964,7 +1964,7 @@
  *  - active (Boolean): Optional. Optional boolean - Determines whether the hook is actually triggered on pushes.
  **/
 /** section: github
- *  Client.repos#testHook(msg, callback) -> null
+ *  repos#testHook(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1976,7 +1976,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#deleteHook(msg, callback) -> null
+ *  repos#deleteHook(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1988,7 +1988,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#getAllReleases(msg, callback) -> null
+ *  repos#getAllReleases(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2001,7 +2001,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#getRelease(msg, callback) -> null
+ *  repos#getRelease(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2013,7 +2013,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#createRelease(msg, callback) -> null
+ *  repos#createRelease(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2030,7 +2030,7 @@
  *  - prerelease (Boolean): Optional.
  **/
 /** section: github
- *  Client.repos#editRelease(msg, callback) -> null
+ *  repos#editRelease(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2048,7 +2048,7 @@
  *  - prerelease (Boolean): Optional.
  **/
 /** section: github
- *  Client.repos#deleteRelease(msg, callback) -> null
+ *  repos#deleteRelease(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2060,7 +2060,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#listReleaseAssets(msg, callback) -> null
+ *  repos#listReleaseAssets(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2074,7 +2074,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.repos#uploadReleaseAsset(msg, callback) -> null
+ *  repos#uploadReleaseAsset(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2089,7 +2089,7 @@
  *  - content (Buffer): Required.
  **/
 /** section: github
- *  Client.repos#getReleaseAsset(msg, callback) -> null
+ *  repos#getReleaseAsset(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2101,7 +2101,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.repos#editReleaseAsset(msg, callback) -> null
+ *  repos#editReleaseAsset(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2115,7 +2115,7 @@
  *  - label (String): Optional.
  **/
 /** section: github
- *  Client.repos#deleteReleaseAsset(msg, callback) -> null
+ *  repos#deleteReleaseAsset(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2127,10 +2127,10 @@
  *  - id (String): Required.
  **/
 /** section: github
- * class Client.user
+ * mixin user
  **/
 /** section: github
- *  Client.user#getFrom(msg, callback) -> null
+ *  user#getFrom(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2140,7 +2140,7 @@
  *  - user (String): Required.
  **/
 /** section: github
- *  Client.user#getKeysFrom(msg, callback) -> null
+ *  user#getKeysFrom(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2150,7 +2150,7 @@
  *  - user (String): Required.
  **/
 /** section: github
- *  Client.user#get(msg, callback) -> null
+ *  user#get(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2160,7 +2160,7 @@
  *  No other params, simply pass an empty Object literal `{}`
  **/
 /** section: github
- *  Client.user#update(msg, callback) -> null
+ *  user#update(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2176,7 +2176,7 @@
  *  - bio (String): Optional.
  **/
 /** section: github
- *  Client.user#getOrgs(msg, callback) -> null
+ *  user#getOrgs(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2187,7 +2187,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.user#getEmails(msg, callback) -> null
+ *  user#getEmails(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2198,7 +2198,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.user#addEmails(msg, callback) -> null
+ *  user#addEmails(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2208,7 +2208,7 @@
  *  No other params, simply pass an empty Object literal `{}`
  **/
 /** section: github
- *  Client.user#deleteEmails(msg, callback) -> null
+ *  user#deleteEmails(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2218,7 +2218,7 @@
  *  No other params, simply pass an empty Object literal `{}`
  **/
 /** section: github
- *  Client.user#getFollowers(msg, callback) -> null
+ *  user#getFollowers(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2230,7 +2230,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.user#getFollowingFromUser(msg, callback) -> null
+ *  user#getFollowingFromUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2242,7 +2242,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.user#getFollowing(msg, callback) -> null
+ *  user#getFollowing(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2253,7 +2253,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.user#getFollowUser(msg, callback) -> null
+ *  user#getFollowUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2265,7 +2265,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.user#followUser(msg, callback) -> null
+ *  user#followUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2275,7 +2275,7 @@
  *  - user (String): Required.
  **/
 /** section: github
- *  Client.user#unFollowUser(msg, callback) -> null
+ *  user#unFollowUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2285,7 +2285,7 @@
  *  - user (String): Required.
  **/
 /** section: github
- *  Client.user#getKeys(msg, callback) -> null
+ *  user#getKeys(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2296,7 +2296,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.user#getKey(msg, callback) -> null
+ *  user#getKey(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2306,7 +2306,7 @@
  *  - id (String): Required.
  **/
 /** section: github
- *  Client.user#createKey(msg, callback) -> null
+ *  user#createKey(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2317,7 +2317,7 @@
  *  - key (String): Required.
  **/
 /** section: github
- *  Client.user#updateKey(msg, callback) -> null
+ *  user#updateKey(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2329,7 +2329,7 @@
  *  - key (String): Required.
  **/
 /** section: github
- *  Client.user#deleteKey(msg, callback) -> null
+ *  user#deleteKey(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2339,10 +2339,10 @@
  *  - id (String): Required.
  **/
 /** section: github
- * class Client.events
+ * mixin events
  **/
 /** section: github
- *  Client.events#get(msg, callback) -> null
+ *  events#get(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2353,20 +2353,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.events#getFromRepo(msg, callback) -> null
- *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
- *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
- * 
- *  ##### Params on the `msg` object:
- * 
- *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
- *  - user (String): Required.
- *  - repo (String): Required.
- *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
- *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
- **/
-/** section: github
- *  Client.events#getFromRepoIssues(msg, callback) -> null
+ *  events#getFromRepo(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2379,7 +2366,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.events#getFromRepoNetwork(msg, callback) -> null
+ *  events#getFromRepoIssues(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2392,7 +2379,20 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.events#getFromOrg(msg, callback) -> null
+ *  events#getFromRepoNetwork(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - user (String): Required.
+ *  - repo (String): Required.
+ *  - page (Number): Optional. Page number of the results to fetch. Validation rule: ` ^[0-9]+$ `.
+ *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
+ **/
+/** section: github
+ *  events#getFromOrg(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2404,7 +2404,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.events#getReceived(msg, callback) -> null
+ *  events#getReceived(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2416,7 +2416,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.events#getReceivedPublic(msg, callback) -> null
+ *  events#getReceivedPublic(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2428,7 +2428,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.events#getFromUser(msg, callback) -> null
+ *  events#getFromUser(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2440,7 +2440,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.events#getFromUserPublic(msg, callback) -> null
+ *  events#getFromUserPublic(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2452,7 +2452,7 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.events#getFromUserOrg(msg, callback) -> null
+ *  events#getFromUserOrg(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2465,10 +2465,10 @@
  *  - per_page (Number): Optional. A custom page size up to 100. Default is 30. Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- * class Client.search
+ * mixin search
  **/
 /** section: github
- *  Client.search#issues(msg, callback) -> null
+ *  search#issues(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2481,7 +2481,7 @@
  *  - keyword (String): Required. Search term
  **/
 /** section: github
- *  Client.search#repos(msg, callback) -> null
+ *  search#repos(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2493,7 +2493,7 @@
  *  - start_page (Number): Optional. Page number to fetch Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.search#users(msg, callback) -> null
+ *  search#users(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2504,7 +2504,7 @@
  *  - start_page (Number): Optional. Page number to fetch Validation rule: ` ^[0-9]+$ `.
  **/
 /** section: github
- *  Client.search#email(msg, callback) -> null
+ *  search#email(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -2514,10 +2514,10 @@
  *  - email (String): Required. Email address
  **/
 /** section: github
- * class Client.markdown
+ * mixin markdown
  **/
 /** section: github
- *  Client.markdown#render(msg, callback) -> null
+ *  markdown#render(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 

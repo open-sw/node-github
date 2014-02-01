@@ -54,7 +54,7 @@ var main = module.exports = function(versions, restore) {
             var params = Object.keys(paramsStruct);
             var comment = [
                 "/** section: github",
-                " *  Client." + section + "#" + funcName + "(msg, callback) -> null",
+                " *  " + section + "#" + funcName + "(msg, callback) -> null",
                 " *      - msg (Object): Object that contains the parameters and their values to be sent to the server.",
                 " *      - callback (Function): function to call when the request is finished " +
                     "with an error as first argument and result data as second argument.",
@@ -144,7 +144,7 @@ var main = module.exports = function(versions, restore) {
                     if (!sections[section]) {
                         sections[section] = [];
                         apidocs += "/** section: github\n";
-                        apidocs += " * class Client." + section + "\n";
+                        apidocs += " * mixin " + section + "\n";
                         apidocs += " **/\n";
                     }
 
