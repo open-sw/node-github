@@ -185,8 +185,8 @@
  *  - message (String): Required. String of the commit message
  *  - tree (String): Required. String of the SHA of the tree object this commit points to
  *  - parents (Array): Required. Array of the SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided, for a merge commit, an array of more than one should be provided.
- *  - author (Json): Optional.
- *  - committer (Json): Optional.
+ *  - committer (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
+ *  - author (Json): Optional. Object or JSON string containing two String properties, name and email, Default: commiter's info
  **/
 /** section: github
  *  gitdata#getReference(msg, callback) -> null
@@ -1637,7 +1637,7 @@
  *  - message (String): Required. The commit message.
  *  - content (String): Required. The new file content as a Base64 encoded String.
  *  - branch (String): Optional. The branch name. Default: the repository's default branch (usually master).
- *  - commiter (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
+ *  - committer (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
  *  - author (Json): Optional. Object or JSON string containing two String properties, name and email, Default: commiter's info
  **/
 /** section: github
@@ -1655,7 +1655,7 @@
  *  - content (String): Required. The new file content as a Base64 encoded String.
  *  - sha (String): Required. The blob SHA of the file being replaced.
  *  - branch (String): Optional. The branch name. Default: the repository's default branch (usually master).
- *  - commiter (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
+ *  - committer (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
  *  - author (Json): Optional. Object or JSON string containing two String properties, name and email, Default: commiter's info
  **/
 /** section: github
@@ -1670,9 +1670,9 @@
  *  - repo (String): Required.
  *  - path (String): Required. The content path.
  *  - message (String): Required. The commit message.
- *  - sha (String): Required. The blob SHA of the file being replaced.
+ *  - sha (String): Required. The blob SHA of the file being deleted.
  *  - branch (String): Optional. The branch name. Default: the repository's default branch (usually master).
- *  - commiter (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
+ *  - committer (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
  *  - author (Json): Optional. Object or JSON string containing two String properties, name and email, Default: commiter's info
  **/
 /** section: github
