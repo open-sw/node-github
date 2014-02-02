@@ -294,6 +294,20 @@
                 "validation": "",
                 "invalidmsg": "",
                 "description": "Optional string - Desired language or platform .gitignore template to apply. Ignored if auto_init parameter is not provided."
+            },
+            "committer": {
+                "type": "Json",
+                "required": false,
+                "validation": "",
+                "invalidmsg": "",
+                "description": "Object or JSON string containing two String properties, name and email, Default: Authenticated user's info"
+            },
+            "author": {
+                "type": "Json",
+                "required": false,
+                "validation": "",
+                "invalidmsg": "",
+                "description": "Object or JSON string containing two String properties, name and email, Default: commiter's info"
             }
         }
     },
@@ -484,20 +498,8 @@
                     "invalidmsg": "",
                     "description": "Array of the SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided, for a merge commit, an array of more than one should be provided."
                 },
-                "author": {
-                    "type": "Json",
-                    "required": false,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": ""
-                },
-                "committer": {
-                    "type": "Json",
-                    "required": false,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": ""
-                }
+                "$committer": null,
+                "$author": null
             }
         },
 
@@ -2103,17 +2105,14 @@
             "params": {
                 "$user": null,
                 "$repo": null,
-                "ref": {
-                    "type": "String",
+                "$ref": {
                     "required": false,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": "The String name of the Commit/Branch/Tag. Defaults to master."
+                    "description": "The String name of the Commit/Branch/Tag. If not specified the default is used (usually master)."
                 }
             }
         },
 
-        "get-content": {
+        "get-contents": {
             "url": "/repos/:user/:repo/contents/:path",
             "method": "GET",
             "params": {
@@ -2121,18 +2120,139 @@
                 "$repo": null,
                 "path": {
                     "type": "String",
-                    "required": false,
+                    "required": true,
                     "validation": "",
                     "invalidmsg": "",
                     "description": "The content path."
                 },
-                "ref": {
+                "$ref": {
+                    "required": false,
+                    "description": "The String name of the Commit/Branch/Tag. If not specified the default is used (usually master)."
+                }
+            }
+        },
+
+        "create-file": {
+            "url": "/repos/:user/:repo/contents/:path",
+            "method": "PUT",
+            "params": {
+                "$user": null,
+                "$repo": null,
+                "path": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The content path."
+                },
+                "message": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The commit message."
+                },
+                "content": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The new file content as a Base64 encoded String."
+                },
+                "branch": {
                     "type": "String",
                     "required": false,
                     "validation": "",
                     "invalidmsg": "",
-                    "description": "The String name of the Commit/Branch/Tag. Defaults to master."
-                }
+                    "description": "The branch name. Default: the repository's default branch (usually master)."
+                },
+                "$committer": null,
+                "$author": null
+            }
+        },
+
+        "update-file": {
+            "url": "/repos/:user/:repo/contents/:path",
+            "method": "PUT",
+            "params": {
+                "$user": null,
+                "$repo": null,
+                "path": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The content path."
+                },
+                "message": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The commit message."
+                },
+                "content": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The new file content as a Base64 encoded String."
+                },
+                "sha": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The blob SHA of the file being replaced."
+                },
+                "branch": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The branch name. Default: the repository's default branch (usually master)."
+                },
+                "$committer": null,
+                "$author": null
+            }
+        },
+
+        "delete-file": {
+            "url": "/repos/:user/:repo/contents/:path",
+            "method": "DELETE",
+            "params": {
+                "$user": null,
+                "$repo": null,
+                "path": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The content path."
+                },
+                "message": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The commit message."
+                },
+                "sha": {
+                    "type": "String",
+                    "required": true,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The blob SHA of the file being deleted."
+                },
+                "branch": {
+                    "type": "String",
+                    "required": false,
+                    "validation": "",
+                    "invalidmsg": "",
+                    "description": "The branch name. Default: the repository's default branch (usually master)."
+                },
+                "$committer": null,
+                "$author": null
             }
         },
 
@@ -2143,11 +2263,8 @@
                 "$user": null,
                 "$repo": null,
                 "$ref": {
-                    "type": "String",
                     "required": false,
-                    "validation": "",
-                    "invalidmsg": "",
-                    "description": "Valid Git reference, Default: repository's default branch (usually master)"
+                    "description": "The String name of the Commit/Branch/Tag. If not specified the default is used (usually master)."
                 },
                 "archive_format": {
                     "type": "String",

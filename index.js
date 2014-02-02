@@ -241,8 +241,14 @@ var Client = module.exports = function(config) {
                         throw new error.BadRequest("Invalid variable parameter name substitution; param '" +
                             paramName + "' not found in defines block", "fatal");
                     }
-                    else
+                    else {
                         def = defines.params[paramName];
+                        if (paramsStruct[paramName]) {
+                            Object.keys(paramsStruct[paramName]).forEach(function (key) {
+                                def[key] = paramsStruct[paramName][key];
+                            });
+                        }
+                    }
                 }
                 else
                     def = paramsStruct[paramName];
