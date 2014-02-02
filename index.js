@@ -180,6 +180,11 @@ var Client = module.exports = function(config) {
     this.version = config.version;
     this[this.version] = JSON.parse(Fs.readFileSync(__dirname + "/api/v" + this.version + "/routes.json", "utf8"));
 
+    // Check if a prefix is passed in the config and strip any leading or trailing slashes from it.
+    if (typeof config.pathPrefix == "string") {
+        this.config.pathPrefix = "/" + config.pathPrefix.replace(/(^[\/]+|[\/]+$)/g, "");
+    }
+
     this.setupRoutes();
 };
 
@@ -241,8 +246,14 @@ var Client = module.exports = function(config) {
                         throw new error.BadRequest("Invalid variable parameter name substitution; param '" +
                             paramName + "' not found in defines block", "fatal");
                     }
-                    else
+                    else {
                         def = defines.params[paramName];
+                        if (paramsStruct[paramName]) {
+                            Object.keys(paramsStruct[paramName]).forEach(function (key) {
+                                def[key] = paramsStruct[paramName][key];
+                            });
+                        }
+                    }
                 }
                 else
                     def = paramsStruct[paramName];
@@ -546,14 +557,18 @@ var Client = module.exports = function(config) {
         getPage.call(this, link, "first", callback);
     };
 
-    function getQueryAndUrl(msg, def, format) {
+    this.getQueryAndUrl = function (msg, def, format) {
+        var url = def.url;
+        if (this.config.pathPrefix) {
+            url = this.config.pathPrefix + def.url;
+        }
         var ret = {
-            url: def.url,
             query: format == "json" ? {} : []
         };
-        if (!def || !def.params)
+        if (!def || !def.params) {
+            ret.url =  url;
             return ret;
-        var url = def.url;
+        }
         Object.keys(def.params).forEach(function(paramName) {
             paramName = paramName.replace(/^[$]+/, "");
             if (!(paramName in msg))
@@ -617,7 +632,7 @@ var Client = module.exports = function(config) {
         var format = block.format || (hasBody && this.constants.requestFormat
             ? this.constants.requestFormat
             : "query");
-        var obj = getQueryAndUrl(msg, block, format);
+        var obj = this.getQueryAndUrl(msg, block, format);
         var query = obj.query;
         var url = this.config.url ? this.config.url + obj.url : obj.url;
 

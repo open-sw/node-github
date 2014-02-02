@@ -1,3 +1,21 @@
+# NOTE this project is a fork of http://github.com/mikedeboer/node-github
+
+It includes the following Pull Requests:
+
+ajaxorg/node-github
+- 3 add ability to pass client creds through to the github api
+
+mikedeboer/node-github
+- 61 New API method - createDownload
+- 100 repo contents api: create a file
+- 101 Complete repo contents API with missing methods
+- 106 Fix github enterprise — be able to provide a path prefix
+- 113 Enable retrieval of public keys from other users
+- 116 Add release APIs, eliminate generated code files, plus fixes.
+- 119 Fix github enterprise — be able to provide a path prefix (2)
+
+These PRs were merged either in full or part, some changes were made.
+
 # JavaScript GitHub API for Node.JS
 
 A Node.JS module, which provides an object oriented wrapper for the GitHub v3 API.
@@ -36,6 +54,7 @@ var github = new GitHubApi({
     debug: true,
     protocol: "https",
     host: "github.my-GHE-enabled-company.com",
+    pathPrefix: "/api/v3", // for some GHEs
     timeout: 5000
 });
 github.user.getFollowingFromUser({

@@ -185,8 +185,8 @@
  *  - message (String): Required. String of the commit message
  *  - tree (String): Required. String of the SHA of the tree object this commit points to
  *  - parents (Array): Required. Array of the SHAs of the commits that were the parents of this commit. If omitted or empty, the commit will be written as a root commit. For a single parent, an array of one SHA should be provided, for a merge commit, an array of more than one should be provided.
- *  - author (Json): Optional.
- *  - committer (Json): Optional.
+ *  - committer (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
+ *  - author (Json): Optional. Object or JSON string containing two String properties, name and email, Default: commiter's info
  **/
 /** section: github
  *  gitdata#getReference(msg, callback) -> null
@@ -1608,10 +1608,10 @@
  *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
  *  - user (String): Required.
  *  - repo (String): Required.
- *  - ref (String): Optional. The String name of the Commit/Branch/Tag. Defaults to master.
+ *  - ref (String): Required. String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
  **/
 /** section: github
- *  repos#getContent(msg, callback) -> null
+ *  repos#getContents(msg, callback) -> null
  *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
  *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
  * 
@@ -1620,8 +1620,60 @@
  *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
  *  - user (String): Required.
  *  - repo (String): Required.
- *  - path (String): Optional. The content path.
- *  - ref (String): Optional. The String name of the Commit/Branch/Tag. Defaults to master.
+ *  - path (String): Required. The content path.
+ *  - ref (String): Required. String of the name of the fully qualified reference (ie: heads/master). If it doesn’t have at least one slash, it will be rejected.
+ **/
+/** section: github
+ *  repos#createFile(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - user (String): Required.
+ *  - repo (String): Required.
+ *  - path (String): Required. The content path.
+ *  - message (String): Required. The commit message.
+ *  - content (String): Required. The new file content as a Base64 encoded String.
+ *  - branch (String): Optional. The branch name. Default: the repository's default branch (usually master).
+ *  - committer (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
+ *  - author (Json): Optional. Object or JSON string containing two String properties, name and email, Default: commiter's info
+ **/
+/** section: github
+ *  repos#updateFile(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - user (String): Required.
+ *  - repo (String): Required.
+ *  - path (String): Required. The content path.
+ *  - message (String): Required. The commit message.
+ *  - content (String): Required. The new file content as a Base64 encoded String.
+ *  - sha (String): Required. The blob SHA of the file being replaced.
+ *  - branch (String): Optional. The branch name. Default: the repository's default branch (usually master).
+ *  - committer (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
+ *  - author (Json): Optional. Object or JSON string containing two String properties, name and email, Default: commiter's info
+ **/
+/** section: github
+ *  repos#deleteFile(msg, callback) -> null
+ *      - msg (Object): Object that contains the parameters and their values to be sent to the server.
+ *      - callback (Function): function to call when the request is finished with an error as first argument and result data as second argument.
+ * 
+ *  ##### Params on the `msg` object:
+ * 
+ *  - headers (Object): Optional. Key/ value pair of request headers to pass along with the HTTP request. Valid headers are: 'If-Modified-Since', 'If-None-Match', 'Cookie', 'User-Agent', 'Accept', 'X-GitHub-OTP'.
+ *  - user (String): Required.
+ *  - repo (String): Required.
+ *  - path (String): Required. The content path.
+ *  - message (String): Required. The commit message.
+ *  - sha (String): Required. The blob SHA of the file being deleted.
+ *  - branch (String): Optional. The branch name. Default: the repository's default branch (usually master).
+ *  - committer (Json): Optional. Object or JSON string containing two String properties, name and email, Default: Authenticated user's info
+ *  - author (Json): Optional. Object or JSON string containing two String properties, name and email, Default: commiter's info
  **/
 /** section: github
  *  repos#getArchiveLink(msg, callback) -> null
